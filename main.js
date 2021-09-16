@@ -36,13 +36,8 @@ class ApcUpsAdapter extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
-<<<<<<< HEAD
         this.log.info('UPS IP: ' + this.config.upsip);
         this.log.info('UPS Port: ' + this.config.upsport);
-=======
-        this.log.info('config option1: ' + this.config.option1);
-        this.log.info('config option2: ' + this.config.option2);
->>>>>>> f18385559cd56c8f56d7d2abd0944421d6848ac4
 
         /*
         For every state in the system there has to be also an object of type state
@@ -104,6 +99,7 @@ class ApcUpsAdapter extends utils.Adapter {
             })
             .then(function (result) {
                 console.log(result);
+                parseStateResult(result);
                 return client.disconnect();
             })
             .then(function () {
@@ -115,9 +111,9 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     /**
-     * Is called when adapter shuts down - callback has to be called under any circumstances!
-     * @param {() => void} callback
-     */
+ * Is called when adapter shuts down - callback has to be called under any circumstances!
+ * @param {() => void} callback
+ */
     onUnload(callback) {
         try {
             // Here you must clear all timeouts or intervals that may still be active
@@ -193,4 +189,11 @@ if (require.main !== module) {
 } else {
     // otherwise start the instance directly
     new ApcUpsAdapter();
+}
+
+function parseStateResult(stateStr) {
+    const lines = stateStr.split(/\r?\n/);
+    lines.forEach(e => {
+        console.log(e);
+    });
 }
