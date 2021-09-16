@@ -36,8 +36,13 @@ class ApcUpsAdapter extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
+<<<<<<< HEAD
         this.log.info('UPS IP: ' + this.config.upsip);
         this.log.info('UPS Port: ' + this.config.upsport);
+=======
+        this.log.info('config option1: ' + this.config.option1);
+        this.log.info('config option2: ' + this.config.option2);
+>>>>>>> f18385559cd56c8f56d7d2abd0944421d6848ac4
 
         /*
         For every state in the system there has to be also an object of type state
