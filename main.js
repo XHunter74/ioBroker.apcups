@@ -89,16 +89,16 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     processTask() {
-        var ApcAccess = require('apcaccess');
+        const ApcAccess = require('apcaccess');
 
-        var client = new ApcAccess();
+        const client = new ApcAccess();
 
         client.connect(this.config.upsip, this.config.upsport)
             .then(function () {
                 return client.getStatus();
             })
             .then(function (result) {
-                console.log(result)
+                console.log(result);
                 return client.disconnect();
             })
             .then(function () {
@@ -106,7 +106,7 @@ class ApcUpsAdapter extends utils.Adapter {
             })
             .catch(function (err) {
                 console.log(err);
-            })
+            });
     }
 
     /**
