@@ -19,7 +19,8 @@
     "url": "https://github.com/Author/ioBroker.template"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.5.0"
+    "@iobroker/adapter-core": "^2.5.0",
+    "apcaccess": "^1.1.2"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^2.2.0",

@@ -36,8 +36,8 @@ class ApcUpsAdapter extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
-        this.log.info('config option1: ' + this.config.option1);
-        this.log.info('config option2: ' + this.config.option2);
+        this.log.info('UPS IP: ' + this.config.upsip);
+        this.log.info('UPS Port: ' + this.config.upsport);
 
         /*
         For every state in the system there has to be also an object of type state
@@ -83,6 +83,30 @@ class ApcUpsAdapter extends utils.Adapter {
 
         result = await this.checkGroupAsync('admin', 'admin');
         this.log.info('check group user admin group admin: ' + result);
+
+        this.processTask();
+
+    }
+
+    processTask() {
+        var ApcAccess = require('apcaccess');
+
+        var client = new ApcAccess();
+
+        client.connect(this.config.upsip, this.config.upsport)
+            .then(function () {
+                return client.getStatus();
+            })
+            .then(function (result) {
+                console.log(result)
+                return client.disconnect();
+            })
+            .then(function () {
+                console.log('Disconnected');
+            })
+            .catch(function (err) {
+                console.log(err);
+            })
     }
 
     /**

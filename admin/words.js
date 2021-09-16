@@ -37,5 +37,29 @@ systemDictionary = {
         'es': 'opcion 2',
         'pl': 'Opcja 2',
         'zh-cn': '选项2'
+    },
+    'upsip': {
+        'en': 'Address of apcupsd',
+        'de': 'Option 2',
+        'ru': 'option2',
+        'pt': 'opção 2',
+        'nl': 'Optie 2',
+        'fr': 'Option 2',
+        'it': 'opzione 2',
+        'es': 'opcion 2',
+        'pl': 'Opcja 2',
+        'zh-cn': '选项2'
+    },
+    'upsport': {
+        'en': 'Port of apcupsd',
+        'de': 'Option 2',
+        'ru': 'option2',
+        'pt': 'opção 2',
+        'nl': 'Optie 2',
+        'fr': 'Option 2',
+        'it': 'opzione 2',
+        'es': 'opcion 2',
+        'pl': 'Opcja 2',
+        'zh-cn': '选项2'
     }
 };

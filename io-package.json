@@ -88,7 +88,9 @@
     },
     "native": {
         "option1": true,
-        "option2": "42"
+        "option2": "42",
+        "upsip": "192.178.10.100",
+        "upsport": "3551"
     },
     "objects": [],
     "instanceObjects": []
