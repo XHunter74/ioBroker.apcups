@@ -61,25 +61,6 @@
         "type": "general",
         "compact": false,
         "materialize": true,
-        "materializeTab": true,
-        "adminTab": {
-            "singleton": true,
-            "name": {
-                "en": "Template (JavaScript)",
-                "de": "Vorlage (JavaScript)",
-                "ru": "Шаблон (JavaScript)",
-                "pt": "Modelo (JavaScript)",
-                "nl": "Sjabloon (JavaScript)",
-                "fr": "Modèle (JavaScript)",
-                "it": "Modello (JavaScript)",
-                "es": "Plantilla (JavaScript)",
-                "pl": "Szablon (JavaScript)",
-                "zh-cn": "模板 (JavaScript)"
-            },
-            "link": "",
-            "fa-icon": "info"
-        },
-        "supportCustoms": true,
         "dependencies": [
             {
                 "js-controller": ">=2.0.0"
@@ -90,7 +71,13 @@
         "option1": true,
         "option2": "42",
         "upsip": "192.178.10.100",
-        "upsport": "3551"
+        "upsport": "3551",
+        "states": [
+            {
+                "id": "batteryCharge",
+                "stateId": "BCHARGE"
+            }
+        ]
     },
     "objects": [],
     "instanceObjects": []

@@ -93,14 +93,13 @@ class ApcUpsAdapter extends utils.Adapter {
 
         const client = new ApcAccess();
         client.on('error', (error) => {
-            console.log(error);
+            this.log.error(error);
         });
         client.connect(this.config.upsip, this.config.upsport);
         let result = await client.getStatusJson();
         console.log(result);
         result = this.normalizeUpsResult(result);
-        console.log(result);
-        // parseStateResult(result);
+        this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
         await client.disconnect();
         console.log('Disconnected');
     }
@@ -113,7 +112,7 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     normalizeFloats(state) {
-        const floatFields = ['LINEV', 'LOADPCT', 'BCHARGE', 'TIMELEFT', 'LOTRANS', 'HITRANS', 'NOMBATTV'];
+        const floatFields = ['LINEV', 'LOADPCT', 'BCHARGE', 'TIMELEFT', 'LOTRANS', 'HITRANS', 'BATTV', 'NOMBATTV'];
         const re = /\d+(\.\d+)/;
         floatFields.forEach(e => {
             const match = re.exec(state[e]);
@@ -125,7 +124,7 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     normalizeInts(state) {
-        const floatFields = ['MBATTCHG'];
+        const floatFields = ['MBATTCHG', 'MINTIMEL', 'MAXTIME', 'NUMXFERS', 'TONBATT', 'CUMONBATT', 'NOMINV', 'NOMPOWER'];
         const re = /\d+/;
         floatFields.forEach(e => {
             const match = re.exec(state[e]);
