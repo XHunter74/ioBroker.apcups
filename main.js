@@ -88,32 +88,66 @@ class ApcUpsAdapter extends utils.Adapter {
 
     }
 
-    processTask() {
+    async processTask() {
         const ApcAccess = require('apcaccess');
 
         const client = new ApcAccess();
+        client.on('error', (error) => {
+            console.log(error);
+        });
+        client.connect(this.config.upsip, this.config.upsport);
+        let result = await client.getStatusJson();
+        console.log(result);
+        result = this.normalizeUpsResult(result);
+        console.log(result);
+        // parseStateResult(result);
+        await client.disconnect();
+        console.log('Disconnected');
+    }
 
-        client.connect(this.config.upsip, this.config.upsport)
-            .then(function () {
-                return client.getStatus();
-            })
-            .then(function (result) {
-                console.log(result);
-                parseStateResult(result);
-                return client.disconnect();
-            })
-            .then(function () {
-                console.log('Disconnected');
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
+    normalizeUpsResult(state) {
+        state = this.normalizeDates(state);
+        state = this.normalizeFloats(state);
+        state = this.normalizeInts(state);
+        return state;
+    }
+
+    normalizeFloats(state) {
+        const floatFields = ['LINEV', 'LOADPCT', 'BCHARGE', 'TIMELEFT', 'LOTRANS', 'HITRANS', 'NOMBATTV'];
+        const re = /\d+(\.\d+)/;
+        floatFields.forEach(e => {
+            const match = re.exec(state[e]);
+            if (match != null) {
+                state[e] = parseFloat(match[0]);
+            }
+        });
+        return state;
+    }
+
+    normalizeInts(state) {
+        const floatFields = ['MBATTCHG'];
+        const re = /\d+/;
+        floatFields.forEach(e => {
+            const match = re.exec(state[e]);
+            if (match != null) {
+                state[e] = parseFloat(match[0]);
+            }
+        });
+        return state;
+    }
+
+    normalizeDates(state) {
+        const dateFields = ['DATE', 'STARTTIME', 'XONBATT', 'XOFFBATT', 'LASTSTEST'];
+        dateFields.forEach(e => {
+            state[e] = new Date(state[e].trim());
+        });
+        return state;
     }
 
     /**
- * Is called when adapter shuts down - callback has to be called under any circumstances!
- * @param {() => void} callback
- */
+    * Is called when adapter shuts down - callback has to be called under any circumstances!
+    * @param {() => void} callback
+    */
     onUnload(callback) {
         try {
             // Here you must clear all timeouts or intervals that may still be active
