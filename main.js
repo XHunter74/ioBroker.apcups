@@ -121,15 +121,19 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async createObject(stateInfo) {
+        const common = {
+            name: stateInfo.name,
+            type: stateInfo.type,
+            role: stateInfo.role,
+            read: true,
+            write: true
+        };
+        if (stateInfo.unit && stateInfo.unit != null) {
+            common.unit = stateInfo.unit;
+        }
         await this.setObjectNotExistsAsync(stateInfo.id, {
             type: 'state',
-            common: {
-                name: stateInfo.name,
-                type: stateInfo.type,
-                role: stateInfo.role,
-                read: true,
-                write: true,
-            },
+            common: common,
             native: {},
         });
     }

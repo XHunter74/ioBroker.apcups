@@ -77,9 +77,18 @@
             {
                 "id": "batteryCharge",
                 "upsId": "BCHARGE",
-                "name": "Current battery capacity charge",
+                "name": "Current battery capacity charge, %",
                 "type": "number",
-                "role": "indicator"
+                "role": "indicator",
+                "unit": "%"
+            },
+            {
+                "id": "lineVoltage",
+                "upsId": "LINEV",
+                "name": "Current input line voltage, V",
+                "type": "number",
+                "role": "indicator",
+                "unit": "V"
             }
         ]
     },
