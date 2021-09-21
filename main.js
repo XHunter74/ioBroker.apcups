@@ -101,8 +101,17 @@ class ApcUpsAdapter extends utils.Adapter {
         result = this.normalizeUpsResult(result);
         this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
         await this.createStatesObjects(this.config.upsStates);
+        await this.setUpsStates(this.config.upsStates, result);
         await client.disconnect();
         console.log('Disconnected');
+    }
+
+    async setUpsStates(upsStates, state) {
+        for (let i = 0; i < upsStates.length; i++) {
+            if (state[upsStates[i].upsId]) {
+                await this.setStateAsync(upsStates[i].id, { val: state[upsStates[i].upsId], ack: true });
+            }
+        }
     }
 
     async createStatesObjects(upsStates) {
@@ -112,10 +121,9 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async createObject(stateInfo) {
-        await this.setObjectNotExistsAsync('testVariable', {
+        await this.setObjectNotExistsAsync(stateInfo.id, {
             type: 'state',
             common: {
-                id: stateInfo.id,
                 name: stateInfo.name,
                 type: stateInfo.type,
                 role: stateInfo.role,

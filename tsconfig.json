@@ -32,7 +32,11 @@
 		"inlineSourceMap": false,
 		"watch": false
 	},
-	"include": [],
+	"include": [
+		"lib/**/*.ts",
+		"admin/**/*.ts",
+		"admin/**/*.tsx"
+	],
 	"exclude": [
 		"build/**",
 		"node_modules/**"
