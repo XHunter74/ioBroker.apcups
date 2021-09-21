@@ -100,8 +100,30 @@ class ApcUpsAdapter extends utils.Adapter {
         console.log(result);
         result = this.normalizeUpsResult(result);
         this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
+        await this.createStatesObjects(this.config.upsStates);
         await client.disconnect();
         console.log('Disconnected');
+    }
+
+    async createStatesObjects(upsStates) {
+        for (let i = 0; i < upsStates.length; i++) {
+            await this.createObject(upsStates[i]);
+        }
+    }
+
+    async createObject(stateInfo) {
+        await this.setObjectNotExistsAsync('testVariable', {
+            type: 'state',
+            common: {
+                id: stateInfo.id,
+                name: stateInfo.name,
+                type: stateInfo.type,
+                role: stateInfo.role,
+                read: true,
+                write: true,
+            },
+            native: {},
+        });
     }
 
     normalizeUpsResult(state) {
@@ -222,11 +244,4 @@ if (require.main !== module) {
 } else {
     // otherwise start the instance directly
     new ApcUpsAdapter();
-}
-
-function parseStateResult(stateStr) {
-    const lines = stateStr.split(/\r?\n/);
-    lines.forEach(e => {
-        console.log(e);
-    });
 }

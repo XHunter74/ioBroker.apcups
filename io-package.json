@@ -72,10 +72,14 @@
         "option2": "42",
         "upsip": "192.178.10.100",
         "upsport": "3551",
-        "states": [
+        "test": "test var",
+        "upsStates": [
             {
                 "id": "batteryCharge",
-                "stateId": "BCHARGE"
+                "upsId": "BCHARGE",
+                "name": "Current battery capacity charge",
+                "type": "number",
+                "role": "indicator"
             }
         ]
     },
