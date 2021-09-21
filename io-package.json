@@ -75,20 +75,236 @@
         "test": "test var",
         "upsStates": [
             {
-                "id": "batteryCharge",
-                "upsId": "BCHARGE",
-                "name": "Current battery capacity charge, %",
+                "id": "hostname",
+                "upsId": "HOSTNAME",
+                "name": "Hostname of computer running apcupsd",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "version",
+                "upsId": "VERSION",
+                "name": "apcupsd version number, date and operating system",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "ups-name",
+                "upsId": "UPSNAME",
+                "name": "UPS name from configuration file (dumb) or EEPROM (smart)",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "cable",
+                "upsId": "CABLE",
+                "name": "Cable type specified in the configuration file",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "driver",
+                "upsId": "DRIVER",
+                "name": "Driver type",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "ups-mode",
+                "upsId": "UPSMODE",
+                "name": "Mode in which UPS is operating",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "model",
+                "upsId": "MODEL",
+                "name": "UPS model derived from UPS information",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "status",
+                "upsId": "STATUS",
+                "name": "UPS status (online, charging, on battery etc)",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "lineVoltage",
+                "upsId": "LINEV",
+                "name": "Current input line voltage",
+                "type": "number",
+                "role": "indicator",
+                "unit": "V"
+            },
+            {
+                "id": "load",
+                "upsId": "LOADPCT",
+                "name": "Percentage of UPS load capacity used as estimated by UPS",
                 "type": "number",
                 "role": "indicator",
                 "unit": "%"
             },
             {
-                "id": "lineVoltage",
-                "upsId": "LINEV",
-                "name": "Current input line voltage, V",
+                "id": "batteryCharge",
+                "upsId": "BCHARGE",
+                "name": "Current battery capacity charge",
+                "type": "number",
+                "role": "indicator",
+                "unit": "%"
+            },
+            {
+                "id": "timeLeft",
+                "upsId": "TIMELEFT",
+                "name": "Remaining runtime left on battery as estimated by the UPS",
+                "type": "number",
+                "role": "indicator",
+                "unit": "min"
+            },
+            {
+                "id": "minBatteryCharge",
+                "upsId": "MBATTCHG",
+                "name": "Min battery charge % (BCHARGE) required for system shutdown",
+                "type": "number",
+                "role": "indicator",
+                "unit": "%"
+            },
+            {
+                "id": "minBatteryRuntime",
+                "upsId": "MINTIMEL",
+                "name": "Min battery runtime (MINUTES) required for system shutdown",
+                "type": "number",
+                "role": "indicator",
+                "unit": "min"
+            },
+            {
+                "id": "maxBatteryRuntime",
+                "upsId": "MAXTIME",
+                "name": "Max battery runtime (TIMEOUT) after which system is shutdown",
+                "type": "number",
+                "role": "indicator",
+                "unit": "min"
+            },
+            {
+                "id": "sensitivity",
+                "upsId": "SENSE",
+                "name": "Current UPS sensitivity setting for voltage fluctuations",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "lowSwitchVoltage",
+                "upsId": "LOTRANS",
+                "name": "Input line voltage below which UPS will switch to battery",
                 "type": "number",
                 "role": "indicator",
                 "unit": "V"
+            },
+            {
+                "id": "highSwitchVoltage",
+                "upsId": "HITRANS",
+                "name": "Input line voltage above which UPS will switch to battery",
+                "type": "number",
+                "role": "indicator",
+                "unit": "V"
+            },
+            {
+                "id": "alarmDelay",
+                "upsId": "ALARMDEL",
+                "name": "Delay period before UPS starts sounding alarm",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "batteryVoltage",
+                "upsId": "BATTV",
+                "name": "Current battery voltage",
+                "type": "number",
+                "role": "indicator",
+                "unit": "V"
+            },
+            {
+                "id": "transferBatteryReason",
+                "upsId": "LASTXFER",
+                "name": "Reason for last transfer to battery since apcupsd startup",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "transferBatteryCount",
+                "upsId": "NUMXFERS",
+                "name": "Number of transfers to battery since apcupsd startupe",
+                "type": "number",
+                "role": "indicator"
+            },
+            {
+                "id": "timeOnBattery",
+                "upsId": "TONBATT",
+                "name": "Seconds currently on battery",
+                "type": "number",
+                "role": "indicator",
+                "unit": "sec"
+            },
+            {
+                "id": "totalTimeOnBattery",
+                "upsId": "CUMONBATT",
+                "name": "Cumulative seconds on battery since apcupsd startup",
+                "type": "number",
+                "role": "indicator",
+                "unit": "sec"
+            },
+            {
+                "id": "selftestResult",
+                "upsId": "SELFTEST",
+                "name": "Self test result",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "upsStatusHex",
+                "upsId": "STATFLAG",
+                "name": "UPS status flag in hex",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "serialNo",
+                "upsId": "SERIALNO",
+                "name": "UPS serial number",
+                "type": "string",
+                "role": "indicator"
+            },
+            {
+                "id": "nominalLineVoltage",
+                "upsId": "NOMINV",
+                "name": "Nominal line voltage",
+                "type": "number",
+                "role": "indicator",
+                "unit": "V"
+            },
+            {
+                "id": "nominalBatteryVoltage",
+                "upsId": "NOMBATTV",
+                "name": "Nominal battery voltage",
+                "type": "number",
+                "role": "indicator",
+                "unit": "V"
+            },
+            {
+                "id": "nominalUPSPower",
+                "upsId": "NOMPOWER",
+                "name": "Nominal power output in watts",
+                "type": "number",
+                "role": "indicator",
+                "unit": "W"
+            },
+            {
+                "id": "firmware",
+                "upsId": "FIRMWARE",
+                "name": "UPS firmware version",
+                "type": "string",
+                "role": "indicator"
             }
         ]
     },
