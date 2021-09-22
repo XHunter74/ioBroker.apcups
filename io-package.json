@@ -8,6 +8,7 @@
                 "ru": "Начальная версия"
             }
         },
+        "title": "APC UPS adapter",
         "titleLang": {
             "en": "APC UPS adapter",
             "ru": "APC UPS адаптер"
@@ -31,13 +32,15 @@
         "main": "main.js",
         "icon": "ups.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/Author/ioBroker.template/master/admin/template.png",
+        "extIcon": "https://raw.githubusercontent.com/XHunter74/ioBroker.apcups/master/admin/ups.png",
         "readme": "https://github.com/XHunter74/ioBroker.apcups/blob/master/README.md",
         "loglevel": "debug",
         "mode": "daemon",
         "type": "energy",
-        "compact": false,
+        "compact": true,
         "materialize": true,
+        "connectionType": "local",
+        "dataSource": "poll",
         "dependencies": [
             {
                 "js-controller": ">=2.0.0"
@@ -289,14 +292,14 @@
             "_id": "info.connection",
             "type": "state",
             "common": {
-              "role": "indicator.connected",
-              "name": "If APCUSB pooling is active",
-              "type": "boolean",
-              "read": true,
-              "write": false,
-              "def": false
+                "role": "indicator.connected",
+                "name": "If APCUSB pooling is active",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
             },
             "native": {}
-          }
+        }
     ]
 }
