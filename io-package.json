@@ -32,7 +32,7 @@
         "icon": "ups.png",
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/Author/ioBroker.template/master/admin/template.png",
-        "readme": "https://github.com/Author/ioBroker.template/blob/master/README.md",
+        "readme": "https://github.com/XHunter74/ioBroker.apcups/blob/master/README.md",
         "loglevel": "debug",
         "mode": "daemon",
         "type": "energy",
