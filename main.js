@@ -52,17 +52,21 @@ class ApcUpsAdapter extends utils.Adapter {
         this.#apcAccess.on('error', (error) => {
             this.log.error(error);
             if (this.#errorCount <= MaxRecconectAttempts) {
-                this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                if (!this.#apcAccess.isConnected) {
+                    this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                }
                 this.#errorCount++;
             } else {
                 this.terminate('Maximum number of errors reached ');
             }
         });
-        this.#apcAccess.on('connect',()=>{
+        this.#apcAccess.on('connect', () => {
             this.setState("info.connection", true, true);
+            this.log.info("Connected to apcupsd successfully");
         });
-        this.#apcAccess.on('disconnect',()=>{
+        this.#apcAccess.on('disconnect', () => {
             this.setState("info.connection", false, true);
+            this.log.info("Disconnected from apcupsd");
         });
         this.#apcAccess.connect(this.config.upsip, this.config.upsport);
         this.#intervalId = this.setInterval(() => this.processTask(this.#apcAccess), this.config.pollingInterval);
