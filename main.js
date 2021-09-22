@@ -58,6 +58,12 @@ class ApcUpsAdapter extends utils.Adapter {
                 this.terminate('Maximum number of errors reached ');
             }
         });
+        this.#apcAccess.on('connect',()=>{
+            this.setState("info.connection", true, true);
+        });
+        this.#apcAccess.on('disconnect',()=>{
+            this.setState("info.connection", false, true);
+        });
         this.#apcAccess.connect(this.config.upsip, this.config.upsport);
         this.#intervalId = this.setInterval(() => this.processTask(this.#apcAccess), this.config.pollingInterval);
     }
