@@ -1,4 +1,4 @@
-![Logo](admin/template.png)
+![Logo](admin/ups.png)
 # ioBroker.template
 
 [![NPM version](https://img.shields.io/npm/v/iobroker.template.svg)](https://www.npmjs.com/package/iobroker.template)
