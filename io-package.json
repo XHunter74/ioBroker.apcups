@@ -17,7 +17,7 @@
             "ru": "Адаптер для работы с APC UPS с использованием apcupsd"
         },
         "authors": [
-            "Author <author@mail.com>"
+            "Serhiy Krasovskyy <xhunter74@gmail.com>"
         ],
         "keywords": [
             "ioBroker",
