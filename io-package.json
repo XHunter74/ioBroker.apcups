@@ -5,60 +5,37 @@
         "news": {
             "0.0.1": {
                 "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
+                "ru": "Начальная версия"
             }
         },
         "titleLang": {
             "en": "APC UPS adapter",
-            "de": "Vorlage (JavaScript)",
-            "ru": "Шаблон (JavaScript)",
-            "pt": "Modelo (JavaScript)",
-            "nl": "Sjabloon (JavaScript)",
-            "fr": "Modèle (JavaScript)",
-            "it": "Modello (JavaScript)",
-            "es": "Plantilla (JavaScript)",
-            "pl": "Szablon (JavaScript)",
-            "zh-cn": "模板 (JavaScript)"
+            "ru": "APC UPS адаптер"
         },
         "desc": {
             "en": "Adapter to communicate with APC UPS via apcupsd",
-            "de": "Vorlage für die Adapterentwicklung",
-            "ru": "Шаблон для разработки адаптера",
-            "pt": "Modelo para desenvolvimento de adaptador",
-            "nl": "Sjabloon voor adapterontwikkeling",
-            "fr": "Modèle pour le développement d'adaptateurs",
-            "it": "Modello per lo sviluppo dell'adattatore",
-            "es": "Plantilla para el desarrollo de adaptadores",
-            "pl": "Szablon do opracowania adaptera",
-            "zh-cn": "适配器开发模板"
+            "ru": "Адаптер для работы с APC UPS с использованием apcupsd"
         },
         "authors": [
             "Author <author@mail.com>"
         ],
         "keywords": [
             "ioBroker",
-            "template",
             "Smart Home",
-            "home automation"
+            "home automation",
+            "Reserve power",
+            "UPS"
         ],
         "license": "MIT",
         "platform": "Javascript/Node.js",
         "main": "main.js",
-        "icon": "template.png",
+        "icon": "ups.png",
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/Author/ioBroker.template/master/admin/template.png",
         "readme": "https://github.com/Author/ioBroker.template/blob/master/README.md",
         "loglevel": "debug",
         "mode": "daemon",
-        "type": "general",
+        "type": "energy",
         "compact": false,
         "materialize": true,
         "dependencies": [
@@ -68,11 +45,9 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42",
-        "upsip": "192.178.10.100",
+        "upsip": "127.0.0.1",
         "upsport": "3551",
-        "test": "test var",
+        "pollingInterval": 10000,
         "upsStates": [
             {
                 "id": "hostname",
