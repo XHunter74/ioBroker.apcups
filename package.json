@@ -10,9 +10,10 @@
   "license": "MIT",
   "keywords": [
     "ioBroker",
-    "template",
+    "Reserve power",
     "Smart Home",
-    "home automation"
+    "UPS",
+    "apcupsd"
   ],
   "repository": {
     "type": "git",
