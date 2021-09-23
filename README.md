@@ -13,7 +13,9 @@
 
 ## Apc UPS adapter for ioBroker
 
-Adapter for ioBroker to get information from APS UPSs via apcupsd
+Adapter for ioBroker to get information from APS UPSs via apcupsd.
+
+apsupsd home page: http://www.apcupsd.org/
 
 ## Changelog
 
