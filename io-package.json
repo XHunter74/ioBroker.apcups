@@ -95,6 +95,13 @@
                 "role": "state"
             },
             {
+                "id": "startTime",
+                "upsId": "STARTTIME",
+                "name": "Date and time apcupsd was started",
+                "type": "string",
+                "role": "date"
+            },
+            {
                 "id": "model",
                 "upsId": "MODEL",
                 "name": "UPS model derived from UPS information",
@@ -217,6 +224,13 @@
                 "role": "state"
             },
             {
+                "id": "lastTransferToBattery",
+                "upsId": "XONBATT",
+                "name": "Date, time of last transfer to battery since apcupsd startup",
+                "type": "string",
+                "role": "date"
+            },
+            {
                 "id": "timeOnBattery",
                 "upsId": "TONBATT",
                 "name": "Seconds currently on battery",
@@ -231,6 +245,20 @@
                 "type": "number",
                 "role": "state",
                 "unit": "sec"
+            },
+            {
+                "id": "lastTransferToLine",
+                "upsId": "XOFFBATT",
+                "name": "Date, time of last transfer off battery since apcupsd startup",
+                "type": "string",
+                "role": "date"
+            },
+            {
+                "id": "lastTestDate",
+                "upsId": "LASTSTEST",
+                "name": "Date, time of last test",
+                "type": "string",
+                "role": "date"
             },
             {
                 "id": "selftestResult",
