@@ -84,8 +84,12 @@ class ApcUpsAdapter extends utils.Adapter {
 
     async setUpsStates(upsStates, state) {
         for (let i = 0; i < upsStates.length; i++) {
+            const stateId = upsStates[i].id;
             let value = state[upsStates[i].upsId];
-            await this.setStateAsync(upsStates[i].id, { val: value, ack: true });
+            const stateValue = (await this.getStateAsync(stateId)).val;
+            if (value != stateValue) {
+                await this.setStateAsync(stateId, { val: value, ack: true });
+            }
         }
     }
 
@@ -101,7 +105,7 @@ class ApcUpsAdapter extends utils.Adapter {
             type: stateInfo.type,
             role: stateInfo.role,
             read: true,
-            write: true
+            write: false
         };
         if (stateInfo.unit && stateInfo.unit != null) {
             common.unit = stateInfo.unit;
