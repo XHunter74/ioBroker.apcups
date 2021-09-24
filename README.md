@@ -19,7 +19,7 @@ apsupsd home page: http://www.apcupsd.org/
 
 ## Changelog
 
-### 0.0.1 (2021-09-13)
+### 0.0.2 (2021-09-13)
  - Initial commit. Alpha Version. 
 
 ### **WORK IN PROGRESS**

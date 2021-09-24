@@ -61,12 +61,12 @@ class ApcUpsAdapter extends utils.Adapter {
             }
         });
         this.#apcAccess.on('connect', () => {
-            this.setState("info.connection", true, true);
-            this.log.info("Connected to apcupsd successfully");
+            this.setState('info.connection', true, true);
+            this.log.info('Connected to apcupsd successfully');
         });
         this.#apcAccess.on('disconnect', () => {
-            this.setState("info.connection", false, true);
-            this.log.info("Disconnected from apcupsd");
+            this.setState('info.connection', false, true);
+            this.log.info('Disconnected from apcupsd');
         });
         this.#apcAccess.connect(this.config.upsip, this.config.upsport);
         this.#intervalId = this.setInterval(() => this.processTask(this.#apcAccess), this.config.pollingInterval);
@@ -85,8 +85,8 @@ class ApcUpsAdapter extends utils.Adapter {
     async setUpsStates(upsStates, state) {
         for (let i = 0; i < upsStates.length; i++) {
             const stateId = upsStates[i].id;
-            let value = state[upsStates[i].upsId];
-            const instanceState = (await this.getStateAsync(stateId))
+            const value = state[upsStates[i].upsId];
+            const instanceState = (await this.getStateAsync(stateId));
             if (instanceState != null) {
                 const stateValue = instanceState.val;
                 if (value != stateValue) {
@@ -162,13 +162,13 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     toIsoString(date) {
-        var tzo = -date.getTimezoneOffset(),
+        const tzo = -date.getTimezoneOffset(),
             dif = tzo >= 0 ? '+' : '-',
             pad = function(num) {
-                var norm = Math.floor(Math.abs(num));
+                const norm = Math.floor(Math.abs(num));
                 return (norm < 10 ? '0' : '') + norm;
             };
-      
+
         return date.getFullYear() +
             '-' + pad(date.getMonth() + 1) +
             '-' + pad(date.getDate()) +
@@ -177,7 +177,7 @@ class ApcUpsAdapter extends utils.Adapter {
             ':' + pad(date.getSeconds()) +
             dif + pad(tzo / 60) +
             ':' + pad(tzo % 60);
-      }
+    }
 
     /**
     * Is called when adapter shuts down - callback has to be called under any circumstances!

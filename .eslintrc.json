@@ -34,6 +34,7 @@
             "always"
         ]
     },
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaVersion": 2018
     }

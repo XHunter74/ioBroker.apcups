@@ -1,6 +1,8 @@
+// eslint-disable-next-line no-unused-vars
 /*global systemDictionary:true */
 'use strict';
 
+// @ts-ignore
 systemDictionary = {
     'upsip': {
         'en': 'Host address of apcupsd:',
