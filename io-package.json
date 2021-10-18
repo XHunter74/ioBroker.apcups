@@ -1,11 +1,15 @@
 {
     "common": {
         "name": "apcups",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
                 "ru": "Начальная версия"
+            },
+            "0.0.3": {
+                "en": "Fixed parse values bugs",
+                "ru": "Исправлены ошибки разбора значений"
             }
         },
         "title": "APC UPS connector",
@@ -41,18 +45,15 @@
         "materialize": true,
         "connectionType": "local",
         "dataSource": "poll",
-        "dependencies": [
-            {
-                "js-controller": ">=2.0.0"
-            }
-        ]
+        "dependencies": [{
+            "js-controller": ">=2.0.0"
+        }]
     },
     "native": {
         "upsip": "127.0.0.1",
         "upsport": "3551",
         "pollingInterval": 10000,
-        "upsStates": [
-            {
+        "upsStates": [{
                 "id": "hostname",
                 "upsId": "HOSTNAME",
                 "name": "Hostname of computer running apcupsd",
@@ -315,19 +316,17 @@
         ]
     },
     "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "If APCUSB pooling is active",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
-    ]
+    "instanceObjects": [{
+        "_id": "info.connection",
+        "type": "state",
+        "common": {
+            "role": "indicator.connected",
+            "name": "If APCUSB pooling is active",
+            "type": "boolean",
+            "read": true,
+            "write": false,
+            "def": false
+        },
+        "native": {}
+    }]
 }
