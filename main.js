@@ -133,9 +133,12 @@ class ApcUpsAdapter extends utils.Adapter {
         const floatFields = ['LINEV', 'LOADPCT', 'BCHARGE', 'TIMELEFT', 'LOTRANS', 'HITRANS', 'BATTV', 'NOMBATTV'];
         const re = /\d+(\.\d+)/;
         floatFields.forEach(e => {
-            const match = re.exec(state[e]);
-            if (match != null) {
-                state[e] = parseFloat(match[0]);
+            const floatState = state[e];
+            if (typeof floatState !== 'undefined' && floatState != '') {
+                const match = re.exec(floatState);
+                if (match != null) {
+                    state[e] = parseFloat(match[0]);
+                }
             }
         });
         return state;
@@ -145,9 +148,12 @@ class ApcUpsAdapter extends utils.Adapter {
         const floatFields = ['MBATTCHG', 'MINTIMEL', 'MAXTIME', 'NUMXFERS', 'TONBATT', 'CUMONBATT', 'NOMINV', 'NOMPOWER'];
         const re = /\d+/;
         floatFields.forEach(e => {
-            const match = re.exec(state[e]);
-            if (match != null) {
-                state[e] = parseFloat(match[0]);
+            const intState = state[e];
+            if (typeof intState !== 'undefined' && intState != '') {
+                const match = re.exec(intState);
+                if (match != null) {
+                    state[e] = parseFloat(match[0]);
+                }
             }
         });
         return state;
@@ -156,7 +162,10 @@ class ApcUpsAdapter extends utils.Adapter {
     normalizeDates(state) {
         const dateFields = ['DATE', 'STARTTIME', 'XONBATT', 'XOFFBATT', 'LASTSTEST'];
         dateFields.forEach(e => {
-            state[e] = this.toIsoString(new Date(state[e].trim()));
+            const dateState = state[e];
+            if (typeof dateState !== 'undefined' && dateState != '') {
+                state[e] = this.toIsoString(new Date(dateState.trim()));
+            }
         });
         return state;
     }
@@ -164,7 +173,7 @@ class ApcUpsAdapter extends utils.Adapter {
     toIsoString(date) {
         const tzo = -date.getTimezoneOffset(),
             dif = tzo >= 0 ? '+' : '-',
-            pad = function(num) {
+            pad = function (num) {
                 const norm = Math.floor(Math.abs(num));
                 return (norm < 10 ? '0' : '') + norm;
             };
