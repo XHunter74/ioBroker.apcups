@@ -12,10 +12,13 @@ const utils = require('@iobroker/adapter-core');
 // const fs = require("fs");
 
 const MaxRecconectAttempts = 5;
+const PingInterval = 10000;
+const SocketTimeout = 15000;
 
 class ApcUpsAdapter extends utils.Adapter {
 
     #intervalId;
+    #pingIntervalId;
     #apcAccess;
     #errorCount = 0;
 
@@ -46,7 +49,7 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async startPooling() {
-        const ApcAccess = require('apcaccess');
+        const ApcAccess = require('./apcaccess');
 
         this.#apcAccess = new ApcAccess();
         this.#apcAccess.on('error', (error) => {
@@ -68,8 +71,31 @@ class ApcUpsAdapter extends utils.Adapter {
             this.setState('info.connection', false, true);
             this.log.info('Disconnected from apcupsd');
         });
-        this.#apcAccess.connect(this.config.upsip, this.config.upsport);
-        this.#intervalId = this.setInterval(() => this.processTask(this.#apcAccess), this.config.pollingInterval);
+
+        if (this.#apcAccess.isConnected === false) {
+            this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+        }
+        if (this.config.pollingInterval > SocketTimeout) {
+            this.#pingIntervalId = this.setInterval(() => {
+                //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
+                if (this.#apcAccess.isConnected === false) {
+                    this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                }
+                this.pingApcUpsd(this.#apcAccess);
+            }, PingInterval);
+        }
+
+        this.#intervalId = this.setInterval(() => {
+            //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
+            if (this.#apcAccess.isConnected === false) {
+                this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+            }
+            this.processTask(this.#apcAccess);
+        }, this.config.pollingInterval);
+    }
+
+    async pingApcUpsd(client) {
+        await client.ping();
     }
 
     async processTask(client) {
@@ -200,6 +226,9 @@ class ApcUpsAdapter extends utils.Adapter {
             // ...
             // clearInterval(interval1);
             this.clearInterval(this.#intervalId);
+            if (typeof this.#pingIntervalId !== 'undefined') {
+                this.clearInterval(this.#pingIntervalId);
+            }
             if (this.#apcAccess.isConnected) {
                 await this.#apcAccess.disconnect();
                 this.log.info('ApcAccess client is disconnected');
