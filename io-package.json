@@ -10,6 +10,10 @@
             "0.0.3": {
                 "en": "Fixed parse values bugs",
                 "ru": "Исправлены ошибки разбора значений"
+            },
+            "0.0.4": {
+                "en": "Fixed issue with polling interval greater than 15 sec.",
+                "ru": "Решена проблема если интервал сканирования больше 15 сек"
             }
         },
         "title": "APC UPS connector",
