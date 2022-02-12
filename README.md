@@ -28,7 +28,7 @@ apsupsd home page: http://www.apcupsd.org/
 ## License
 MIT License
 
-Copyright (c) 2021 Author <xhunter74@gmail.com>
+Copyright (c) 2022 Serhiy Krasovskyy xhunter74@gmail.com"
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
