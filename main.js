@@ -12,6 +12,7 @@ const utils = require('@iobroker/adapter-core');
 // const fs = require("fs");
 
 const MaxRecconectAttempts = 5;
+const ReconnectDelay = 5000;
 const PingInterval = 10000;
 const SocketTimeout = 15000;
 
@@ -52,15 +53,20 @@ class ApcUpsAdapter extends utils.Adapter {
         const ApcAccess = require('./apcaccess');
 
         this.#apcAccess = new ApcAccess();
-        this.#apcAccess.on('error', () => {
+        this.#apcAccess.on('error', async () => {
             if (this.#errorCount <= MaxRecconectAttempts) {
                 if (!this.#apcAccess.isConnected) {
-                    this.#apcAccess.connect(this.config.upsip, this.config.upsport)
-                        .then(() => { }, () => { });
+                    await new Promise(resolve => setTimeout(resolve, ReconnectDelay));
+                    try {
+                        await this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                    } catch (error) {
+                        this.log.error(error);
+                    }
+
                 }
                 this.#errorCount++;
             } else {
-                this.terminate('Maximum number of errors reached ');
+                this.terminate(`Maximum number of errors reached: ${MaxRecconectAttempts}`, 1);
             }
         });
         this.#apcAccess.on('connect', () => {
@@ -84,10 +90,6 @@ class ApcUpsAdapter extends utils.Adapter {
         if (this.config.pollingInterval > SocketTimeout) {
             this.#pingIntervalId = this.setInterval(() => {
                 //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
-                if (this.#apcAccess.isConnected === false) {
-                    this.#apcAccess.connect(this.config.upsip, this.config.upsport)
-                        .then(() => { }, () => { });
-                }
                 this.pingApcUpsd(this.#apcAccess);
             }, PingInterval);
         }
@@ -105,12 +107,14 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async processTask(client) {
-        let result = await client.getStatusJson();
-        console.log(result);
-        result = this.normalizeUpsResult(result);
-        this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
-        await this.createStatesObjects(this.config.upsStates);
-        await this.setUpsStates(this.config.upsStates, result);
+        if (client.isConnected === true) {
+            let result = await client.getStatusJson();
+            console.log(result);
+            result = this.normalizeUpsResult(result);
+            this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
+            await this.createStatesObjects(this.config.upsStates);
+            await this.setUpsStates(this.config.upsStates, result);
+        }
         //console.log('Disconnected');
     }
 
