@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "0.0.3",
+        "version": "0.0.5",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
@@ -14,6 +14,10 @@
             "0.0.4": {
                 "en": "Fixed issue with polling interval greater than 15 sec.",
                 "ru": "Решена проблема если интервал сканирования больше 15 сек"
+            },
+            "0.0.5": {
+                "en": "Fixed issues with uncaught exception.",
+                "ru": "Решена проблемы с необработанными исключениями."
             }
         },
         "title": "APC UPS connector",
