@@ -49,25 +49,29 @@ class ApcUpsAdapter extends utils.Adapter {
         await this.startPooling();
     }
 
+    async reconnect() {
+        if (this.#errorCount <= MaxRecconectAttempts) {
+            if (!this.#apcAccess.isConnected) {
+                await new Promise(resolve => setTimeout(resolve, ReconnectDelay));
+                try {
+                    await this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                } catch (error) {
+                    this.log.error(error);
+                }
+
+            }
+            this.#errorCount++;
+        } else {
+            this.terminate(`Maximum number of errors reached: ${MaxRecconectAttempts}`, 1);
+        }
+    }
+
     async startPooling() {
         const ApcAccess = require('./apcaccess');
 
         this.#apcAccess = new ApcAccess();
         this.#apcAccess.on('error', async () => {
-            if (this.#errorCount <= MaxRecconectAttempts) {
-                if (!this.#apcAccess.isConnected) {
-                    await new Promise(resolve => setTimeout(resolve, ReconnectDelay));
-                    try {
-                        await this.#apcAccess.connect(this.config.upsip, this.config.upsport);
-                    } catch (error) {
-                        this.log.error(error);
-                    }
-
-                }
-                this.#errorCount++;
-            } else {
-                this.terminate(`Maximum number of errors reached: ${MaxRecconectAttempts}`, 1);
-            }
+            this.reconnect();
         });
         this.#apcAccess.on('connect', () => {
             this.#errorCount = 0;
@@ -81,10 +85,9 @@ class ApcUpsAdapter extends utils.Adapter {
 
         if (this.#apcAccess.isConnected === false) {
             try {
-                this.#apcAccess.connect(this.config.upsip, this.config.upsport)
-                    .then(() => { }, () => { });
-            } catch (e) {
-                this.log(e);
+                this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+            } catch (error) {
+                this.log.error(error);
             }
         }
         if (this.config.pollingInterval > SocketTimeout) {
@@ -101,8 +104,14 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async pingApcUpsd(client) {
-        if (this.#apcAccess.isConnected === true) {
+        try {
+            this.log.debug(`Ping apcupsd ${this.config.upsip}:${this.config.upsport}`);
+            if (this.#apcAccess.isConnected === false) {
+                this.reconnect();
+            }
             await client.ping();
+        } catch (error) {
+            this.log.error(error);
         }
     }
 
@@ -240,6 +249,7 @@ class ApcUpsAdapter extends utils.Adapter {
             this.log.info('ApcAccess client is disconnected');
             callback();
         } catch (e) {
+            this.log.error(e);
             callback();
         }
     }
