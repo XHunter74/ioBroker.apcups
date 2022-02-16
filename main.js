@@ -52,11 +52,11 @@ class ApcUpsAdapter extends utils.Adapter {
         const ApcAccess = require('./apcaccess');
 
         this.#apcAccess = new ApcAccess();
-        this.#apcAccess.on('error', (error) => {
-            this.log.error(error);
+        this.#apcAccess.on('error', () => {
             if (this.#errorCount <= MaxRecconectAttempts) {
                 if (!this.#apcAccess.isConnected) {
-                    this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                    this.#apcAccess.connect(this.config.upsip, this.config.upsport)
+                        .then(() => { }, () => { });
                 }
                 this.#errorCount++;
             } else {
@@ -64,6 +64,7 @@ class ApcUpsAdapter extends utils.Adapter {
             }
         });
         this.#apcAccess.on('connect', () => {
+            this.#errorCount = 0;
             this.setState('info.connection', true, true);
             this.log.info('Connected to apcupsd successfully');
         });
@@ -73,13 +74,19 @@ class ApcUpsAdapter extends utils.Adapter {
         });
 
         if (this.#apcAccess.isConnected === false) {
-            this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+            try {
+                this.#apcAccess.connect(this.config.upsip, this.config.upsport)
+                    .then(() => { }, () => { });
+            } catch (e) {
+                this.log(e);
+            }
         }
         if (this.config.pollingInterval > SocketTimeout) {
             this.#pingIntervalId = this.setInterval(() => {
                 //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
                 if (this.#apcAccess.isConnected === false) {
-                    this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                    this.#apcAccess.connect(this.config.upsip, this.config.upsport)
+                        .then(() => { }, () => { });
                 }
                 this.pingApcUpsd(this.#apcAccess);
             }, PingInterval);
@@ -87,15 +94,14 @@ class ApcUpsAdapter extends utils.Adapter {
 
         this.#intervalId = this.setInterval(() => {
             //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
-            if (this.#apcAccess.isConnected === false) {
-                this.#apcAccess.connect(this.config.upsip, this.config.upsport);
-            }
             this.processTask(this.#apcAccess);
         }, this.config.pollingInterval);
     }
 
     async pingApcUpsd(client) {
-        await client.ping();
+        if (this.#apcAccess.isConnected === true) {
+            await client.ping();
+        }
     }
 
     async processTask(client) {
@@ -220,19 +226,14 @@ class ApcUpsAdapter extends utils.Adapter {
     */
     async onUnload(callback) {
         try {
-            // Here you must clear all timeouts or intervals that may still be active
-            // clearTimeout(timeout1);
-            // clearTimeout(timeout2);
-            // ...
-            // clearInterval(interval1);
             this.clearInterval(this.#intervalId);
             if (typeof this.#pingIntervalId !== 'undefined') {
                 this.clearInterval(this.#pingIntervalId);
             }
-            if (this.#apcAccess.isConnected) {
+            if (this.#apcAccess.isConnected === true) {
                 await this.#apcAccess.disconnect();
-                this.log.info('ApcAccess client is disconnected');
             }
+            this.log.info('ApcAccess client is disconnected');
             callback();
         } catch (e) {
             callback();
