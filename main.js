@@ -42,27 +42,23 @@ class ApcUpsAdapter extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        this.log.info('UPS IP: ' + this.config.upsip);
-        this.log.info('UPS Port: ' + this.config.upsport);
+        this.log.info(`APCUPCSD: ${this.config.upsip}:${this.config.upsport}`);
         this.log.info('Polling interval: ' + this.config.pollingInterval);
 
         await this.startPooling();
     }
 
     async reconnect() {
-        if (this.#errorCount <= MaxRecconectAttempts) {
-            if (!this.#apcAccess.isConnected) {
-                await new Promise(resolve => setTimeout(resolve, ReconnectDelay));
-                try {
-                    await this.#apcAccess.connect(this.config.upsip, this.config.upsport);
-                } catch (error) {
-                    this.log.error(error);
-                }
-
+        if (this.#errorCount < MaxRecconectAttempts) {
+            await new Promise(resolve => setTimeout(resolve, ReconnectDelay));
+            try {
+                await this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+            } catch (error) {
+                this.#errorCount++;
+                this.log.error(error);
             }
-            this.#errorCount++;
         } else {
-            this.terminate(`Maximum number of errors reached: ${MaxRecconectAttempts}`, 1);
+            this.terminate(`Maximum number of errors reached: ${MaxRecconectAttempts}`, 16);
         }
     }
 
@@ -71,7 +67,7 @@ class ApcUpsAdapter extends utils.Adapter {
 
         this.#apcAccess = new ApcAccess();
         this.#apcAccess.on('error', async () => {
-            this.reconnect();
+            await this.reconnect();
         });
         this.#apcAccess.on('connect', () => {
             this.#errorCount = 0;
@@ -85,7 +81,7 @@ class ApcUpsAdapter extends utils.Adapter {
 
         if (this.#apcAccess.isConnected === false) {
             try {
-                this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                await this.#apcAccess.connect(this.config.upsip, this.config.upsport);
             } catch (error) {
                 this.log.error(error);
             }
@@ -105,11 +101,11 @@ class ApcUpsAdapter extends utils.Adapter {
 
     async pingApcUpsd(client) {
         try {
-            this.log.debug(`Ping apcupsd ${this.config.upsip}:${this.config.upsport}`);
             if (this.#apcAccess.isConnected === false) {
-                this.reconnect();
+                await this.reconnect();
             }
             await client.ping();
+            this.log.debug(`Ping apcupsd ${this.config.upsip}:${this.config.upsport}`);
         } catch (error) {
             this.log.error(error);
         }
@@ -124,7 +120,6 @@ class ApcUpsAdapter extends utils.Adapter {
             await this.createStatesObjects(this.config.upsStates);
             await this.setUpsStates(this.config.upsStates, result);
         }
-        //console.log('Disconnected');
     }
 
     async setUpsStates(upsStates, state) {
