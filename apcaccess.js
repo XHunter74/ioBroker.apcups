@@ -43,6 +43,10 @@ const ApcAccess = function () {
         this._isConnected = true;
         this.emit('connect');
     });
+    this._socket.on('error', () => {
+        this._isConnected = false;
+        this.emit('error');
+    });
 };
 
 util.inherits(ApcAccess, events);

@@ -19,6 +19,12 @@ apsupsd home page: http://www.apcupsd.org/
 
 ## Changelog
 
+### 0.0.5 (2022-02-16)
+ - Fixed issues with uncaught exception.
+### 0.0.4 (2022-01-12)
+ - Fixed issue with polling interval greater than 15 sec.
+### 0.0.3 (2021-10-18)
+ - Fixed parse values bugs.
 ### 0.0.2 (2021-09-13)
  - Initial commit. Alpha Version. 
 
