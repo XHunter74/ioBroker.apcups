@@ -9,7 +9,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.apcups.png?downloads=true)](https://nodei.co/npm/iobroker.apcups/)
 
-**Tests:** ![Test and Release](https://github.com/Author/ioBroker.apcups/workflows/Test%20and%20Release/badge.svg)
+**Tests:** [![Test and Release](https://github.com/XHunter74/ioBroker.apcups/actions/workflows/main.yml/badge.svg)](https://github.com/XHunter74/ioBroker.apcups/actions/workflows/main.yml)
 
 ## Apc UPS adapter for ioBroker
 
