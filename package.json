@@ -20,9 +20,7 @@
         "url": "https://github.com/XHunter74/ioBroker.apcups"
     },
     "dependencies": {
-        "@iobroker/adapter-core": "^2.5.0",
-        "@sentry/node": "^6.17.9",
-        "@sentry/tracing": "^6.17.9"
+        "@iobroker/adapter-core": "^2.5.0"
     },
     "devDependencies": {
         "@alcalzone/release-script": "^2.2.0",
