@@ -112,21 +112,20 @@ jobs:
           BODY="${BODY//$'\n'/'%0A'}"
           BODY="${BODY//$'\r'/'%0D'}"
           echo "::set-output name=BODY::$BODY"
-#     If you like, activate automated version publish to NPM
-#     Only if commit contains a version, see : https://github.com/AlCalzone/release-script
 
       - name: Publish package to npm
         run: |
           npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
           npm whoami
           npm publish
-     - name: Notify Sentry.io about the release
-       run: |
-         npm i -g @sentry/cli
-         export SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
-         export SENTRY_URL=https://sentry.io
-         export SENTRY_ORG=private-person-ua
-         export SENTRY_PROJECT=iobroker-apcups
-         export SENTRY_VERSION=iobroker.apcups@${{ steps.extract_release.outputs.VERSION }}
-         sentry-cli releases new $SENTRY_VERSION
-         sentry-cli releases finalize $SENTRY_VERSION
+
+      - name: Notify Sentry.io about the release
+        run: |
+          npm i -g @sentry/cli
+          export SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
+          export SENTRY_URL=https://sentry.io
+          export SENTRY_ORG=private-person-ua
+          export SENTRY_PROJECT=iobroker-apcups
+          export SENTRY_VERSION=iobroker.apcups@${{ steps.extract_release.outputs.VERSION }}
+          sentry-cli releases new $SENTRY_VERSION
+          sentry-cli releases finalize $SENTRY_VERSION
