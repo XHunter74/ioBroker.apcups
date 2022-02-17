@@ -15,8 +15,12 @@ Adapter for ioBroker to get information from APS UPSs via apcupsd.
 
 apsupsd home page: http://www.apcupsd.org/
 
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 ## Changelog
 
+### 0.0.6 (2022-02-17)
+ - Cleanup code.
+ - Sentry integration
 ### 0.0.5 (2022-02-16)
  - Fixed issues with uncaught exception.
 ### 0.0.4 (2022-01-12)
