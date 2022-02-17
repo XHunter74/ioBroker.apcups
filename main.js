@@ -110,12 +110,42 @@ class ApcUpsAdapter extends utils.Adapter {
 
     async processTask(client) {
         if (client.isConnected === true) {
-            let result = await client.getStatusJson();
-            console.log(result);
-            result = this.normalizeUpsResult(result);
-            this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
-            await this.createStatesObjects(this.config.upsStates);
-            await this.setUpsStates(this.config.upsStates, result);
+            try {
+                let result = await client.getStatusJson();
+                console.log(result);
+                result = this.normalizeUpsResult(result);
+                this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
+                await this.createStatesObjects(this.config.upsStates);
+                await this.setUpsStates(this.config.upsStates, result);
+            } catch (error) {
+                this.sendError(error, `Failed to proces apcupsd result`);
+            }
+        }
+    }
+
+    sendError(error, message) {
+        if (this.supportsFeature && this.supportsFeature('PLUGINS')) {
+            const sentryInstance = this.getPluginInstance('sentry');
+            if (sentryInstance) {
+                const Sentry = sentryInstance.getSentryObject();
+                if (Sentry) {
+                    if (message) {
+                        Sentry.configureScope(scope => {
+                            scope.addBreadcrumb({
+                                type: 'error', // predefined types
+                                category: 'error message',
+                                level: Sentry.Severity.Error,
+                                message: message
+                            });
+                        });
+                    }
+                    if (typeof error == 'string') {
+                        Sentry.captureException(new Error(error));
+                    } else {
+                        Sentry.captureException(error);
+                    }
+                }
+            }
         }
     }
 
@@ -237,11 +267,12 @@ class ApcUpsAdapter extends utils.Adapter {
             }
             if (this.apcAccess.isConnected === true) {
                 await this.apcAccess.disconnect();
+                this.log.info('ApcAccess client is disconnected');
             }
-            this.log.info('ApcAccess client is disconnected');
             callback();
-        } catch (e) {
-            this.log.error(e);
+        } catch (error) {
+            this.log.error(error);
+            this.sendError(error, `Failed to unload iobroker.apcups`);
             callback();
         }
     }
