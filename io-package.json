@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
@@ -18,6 +18,10 @@
             "0.0.5": {
                 "en": "Fixed issues with uncaught exception.",
                 "ru": "Решена проблемы с необработанными исключениями."
+            },
+            "0.0.6": {
+                "en": "Cleanup code. Sentry integration",
+                "ru": "Интеграция Sentry"
             }
         },
         "title": "APC UPS connector",
@@ -58,18 +62,15 @@
                 "dsn": "https://6e76ce9a7c7b47f3ab000042eeb15abb@o1146681.ingest.sentry.io/6215699"
             }
         },
-        "dependencies": [
-            {
-                "js-controller": ">=2.0.0"
-            }
-        ]
+        "dependencies": [{
+            "js-controller": ">=2.0.0"
+        }]
     },
     "native": {
         "upsip": "127.0.0.1",
         "upsport": "3551",
         "pollingInterval": 10000,
-        "upsStates": [
-            {
+        "upsStates": [{
                 "id": "hostname",
                 "upsId": "HOSTNAME",
                 "name": "Hostname of computer running apcupsd",
@@ -332,19 +333,17 @@
         ]
     },
     "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "If APCUSB pooling is active",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
-    ]
+    "instanceObjects": [{
+        "_id": "info.connection",
+        "type": "state",
+        "common": {
+            "role": "indicator.connected",
+            "name": "If APCUSB pooling is active",
+            "type": "boolean",
+            "read": true,
+            "write": false,
+            "def": false
+        },
+        "native": {}
+    }]
 }
