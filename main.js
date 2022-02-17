@@ -11,17 +11,17 @@ const utils = require('@iobroker/adapter-core');
 // Load your modules here, e.g.:
 // const fs = require("fs");
 
-const MaxRecconectAttempts = 5;
+const MaxReconnectAttempts = 5;
 const ReconnectDelay = 5000;
 const PingInterval = 10000;
 const SocketTimeout = 15000;
 
 class ApcUpsAdapter extends utils.Adapter {
 
-    #intervalId;
-    #pingIntervalId;
-    #apcAccess;
-    #errorCount = 0;
+    intervalId;
+    pingIntervalId;
+    apcAccess;
+    errorCount = 0;
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -49,59 +49,59 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async reconnect() {
-        if (this.#errorCount < MaxRecconectAttempts) {
+        if (this.errorCount < MaxReconnectAttempts) {
             await new Promise(resolve => setTimeout(resolve, ReconnectDelay));
             try {
-                await this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                await this.apcAccess.connect(this.config.upsip, this.config.upsport);
             } catch (error) {
-                this.#errorCount++;
+                this.errorCount++;
                 this.log.error(error);
             }
         } else {
-            this.terminate(`Maximum number of errors reached: ${MaxRecconectAttempts}`, 16);
+            this.terminate(`Maximum number of errors reached: ${MaxReconnectAttempts}`, 16);
         }
     }
 
     async startPooling() {
         const ApcAccess = require('./apcaccess');
 
-        this.#apcAccess = new ApcAccess();
-        this.#apcAccess.on('error', async () => {
+        this.apcAccess = new ApcAccess();
+        this.apcAccess.on('error', async() => {
             await this.reconnect();
         });
-        this.#apcAccess.on('connect', () => {
-            this.#errorCount = 0;
+        this.apcAccess.on('connect', () => {
+            this.errorCount = 0;
             this.setState('info.connection', true, true);
             this.log.info('Connected to apcupsd successfully');
         });
-        this.#apcAccess.on('disconnect', () => {
+        this.apcAccess.on('disconnect', () => {
             this.setState('info.connection', false, true);
             this.log.info('Disconnected from apcupsd');
         });
 
-        if (this.#apcAccess.isConnected === false) {
+        if (this.apcAccess.isConnected === false) {
             try {
-                await this.#apcAccess.connect(this.config.upsip, this.config.upsport);
+                await this.apcAccess.connect(this.config.upsip, this.config.upsport);
             } catch (error) {
                 this.log.error(error);
             }
         }
         if (this.config.pollingInterval > SocketTimeout) {
-            this.#pingIntervalId = this.setInterval(() => {
+            this.pingIntervalId = this.setInterval(() => {
                 //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
-                this.pingApcUpsd(this.#apcAccess);
+                this.pingApcUpsd(this.apcAccess);
             }, PingInterval);
         }
 
-        this.#intervalId = this.setInterval(() => {
+        this.intervalId = this.setInterval(() => {
             //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
-            this.processTask(this.#apcAccess);
+            this.processTask(this.apcAccess);
         }, this.config.pollingInterval);
     }
 
     async pingApcUpsd(client) {
         try {
-            if (this.#apcAccess.isConnected === false) {
+            if (this.apcAccess.isConnected === false) {
                 await this.reconnect();
             }
             await client.ping();
@@ -213,7 +213,7 @@ class ApcUpsAdapter extends utils.Adapter {
     toIsoString(date) {
         const tzo = -date.getTimezoneOffset(),
             dif = tzo >= 0 ? '+' : '-',
-            pad = function (num) {
+            pad = function(num) {
                 const norm = Math.floor(Math.abs(num));
                 return (norm < 10 ? '0' : '') + norm;
             };
@@ -229,17 +229,17 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     /**
-    * Is called when adapter shuts down - callback has to be called under any circumstances!
-    * @param {() => void} callback
-    */
+     * Is called when adapter shuts down - callback has to be called under any circumstances!
+     * @param {() => void} callback
+     */
     async onUnload(callback) {
         try {
-            this.clearInterval(this.#intervalId);
-            if (typeof this.#pingIntervalId !== 'undefined') {
-                this.clearInterval(this.#pingIntervalId);
+            this.clearInterval(this.intervalId);
+            if (typeof this.pingIntervalId !== 'undefined') {
+                this.clearInterval(this.pingIntervalId);
             }
-            if (this.#apcAccess.isConnected === true) {
-                await this.#apcAccess.disconnect();
+            if (this.apcAccess.isConnected === true) {
+                await this.apcAccess.disconnect();
             }
             this.log.info('ApcAccess client is disconnected');
             callback();
@@ -311,4 +311,3 @@ if (require.main !== module) {
     // otherwise start the instance directly
     new ApcUpsAdapter();
 }
-
