@@ -106,6 +106,7 @@ jobs:
         run: |
           VERSION="${{ github.ref }}"
           VERSION=${VERSION##*/v}
+          # VERSION=0.0.6
           echo "::set-output name=VERSION::$VERSION"
           BODY=$(git show -s --format=%b)
           BODY="${BODY//'%'/'%25'}"
@@ -121,11 +122,12 @@ jobs:
 
       - name: Notify Sentry.io about the release
         run: |
+          npm config set unsafe-perm true
           npm i -g @sentry/cli
           export SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
-          export SENTRY_URL=https://sentry.io
           export SENTRY_ORG=private-person-ua
           export SENTRY_PROJECT=iobroker-apcups
           export SENTRY_VERSION=iobroker.apcups@${{ steps.extract_release.outputs.VERSION }}
+          # export SENTRY_LOG_LEVEL=debug
           sentry-cli releases new $SENTRY_VERSION
           sentry-cli releases finalize $SENTRY_VERSION
