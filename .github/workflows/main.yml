@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "*"
+      - "master"
     tags:
       # normal versions
       - "v[0-9]+.[0-9]+.[0-9]+"
@@ -119,4 +119,4 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
           npm whoami
-        #npm publish
+          npm publish
