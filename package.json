@@ -1,12 +1,12 @@
 {
     "name": "iobroker.apcups",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "Adapter to communicate with APC UPS via apcupsd",
     "author": {
         "name": "Serhiy Krasovskyy",
         "email": "xhunter74@gmail.com"
     },
-    "homepage": "https://github.com/XHunter74/ioBroker.apcups",
+    "homepage": "https://github.com/xhunter74/ioBroker.apcups.git",
     "license": "MIT",
     "keywords": [
         "ioBroker",
@@ -17,7 +17,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/XHunter74/ioBroker.apcups"
+        "url": "https://github.com/xhunter74/ioBroker.apcups.git"
     },
     "dependencies": {
         "@iobroker/adapter-core": "^2.5.0"
@@ -60,7 +60,7 @@
         "parser": "@babel/eslint-parser"
     },
     "bugs": {
-        "url": "https://github.com/XHunter74/ioBroker.apcups/issues"
+        "url": "https://github.com/xhunter74/ioBroker.apcups/issues"
     },
     "readmeFilename": "README.md"
 }

@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
@@ -22,6 +22,10 @@
             "0.0.6": {
                 "en": "Cleanup code. Sentry integration",
                 "ru": "Интеграция Sentry"
+            },
+            "0.0.7": {
+                "en": "Changed default log level to 'info'.",
+                "ru": "Изменен уровень логирования по умолчанию на 'info'"
             }
         },
         "title": "APC UPS connector",
@@ -48,9 +52,9 @@
         "main": "main.js",
         "icon": "ups.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/XHunter74/ioBroker.apcups/master/admin/ups.png",
-        "readme": "https://github.com/XHunter74/ioBroker.apcups/blob/master/README.md",
-        "loglevel": "debug",
+        "extIcon": "https://raw.githubusercontent.com/xhunter74/ioBroker.apcups/master/admin/ups.png",
+        "readme": "https://github.com/xhunter74/ioBroker.apcups/blob/master/README.md",
+        "loglevel": "info",
         "mode": "daemon",
         "type": "energy",
         "compact": true,
