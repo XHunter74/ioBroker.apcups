@@ -31,11 +31,27 @@
         "title": "APC UPS connector",
         "titleLang": {
             "en": "APC UPS connector",
-            "ru": "APC UPS адаптер"
+            "de": "APC-USV-Anschluss",
+            "ru": "APC UPS адаптер",
+            "pt": "Conector UPS APC",
+            "nl": "APC UPS-connector",
+            "fr": "Connecteur APC ASI",
+            "it": "Connettore UPS APC",
+            "es": "Conector SAI APC",
+            "pl": "Złącze UPS APC",
+            "zh-cn": "APC UPS 连接器"
         },
         "desc": {
             "en": "Adapter to communicate with APC UPS via apcupsd",
-            "ru": "Адаптер для работы с APC UPS с использованием apcupsd"
+            "de": "Adapter zur Kommunikation mit APC UPS über apcupsd",
+            "ru": "Адаптер для работы с APC UPS с использованием apcupsd",
+            "pt": "Adaptador para comunicação com APC UPS via appcupsd",
+            "nl": "Adapter om te communiceren met APC UPS via apcupsd",
+            "fr": "Adaptateur pour communiquer avec APC UPS via apcupsd",
+            "it": "Adattatore per comunicare con l'UPS APC tramite apcupsd",
+            "es": "Adaptador para comunicarse con APC UPS vía apcupsd",
+            "pl": "Adapter do komunikacji z UPS APC przez apcupsd",
+            "zh-cn": "适配器通过 apcupsd 与 APC UPS 通信"
         },
         "authors": [
             "Serhiy Krasovskyy <xhunter74@gmail.com>"
