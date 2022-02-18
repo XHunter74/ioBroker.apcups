@@ -7,5 +7,38 @@
             ],
             "url": "https://json.schemastore.org/io-package"
         }
+    ],
+    "cSpell.words": [
+        "alcalzone",
+        "apcaccess",
+        "Apcupcd",
+        "apcups",
+        "apcupsd",
+        "BATTV",
+        "BCHARGE",
+        "CUMONBATT",
+        "HITRANS",
+        "iobroker",
+        "Krasovskyy",
+        "LASTSTEST",
+        "LINEV",
+        "LOADPCT",
+        "LOTRANS",
+        "MAXTIME",
+        "MBATTCHG",
+        "MINTIMEL",
+        "mocharc",
+        "NOMBATTV",
+        "NOMINV",
+        "NOMPOWER",
+        "NUMXFERS",
+        "Serhiy",
+        "STARTTIME",
+        "TIMELEFT",
+        "TONBATT",
+        "upsip",
+        "upsport",
+        "XOFFBATT",
+        "XONBATT"
     ]
 }

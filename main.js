@@ -121,7 +121,7 @@ class ApcUpsAdapter extends utils.Adapter {
                 await this.createStatesObjects(this.config.upsStates);
                 await this.setUpsStates(this.config.upsStates, result);
             } catch (error) {
-                this.sendError(error, `Failed to proces apcupsd result`);
+                this.sendError(error, `Failed to process apcupsd result`);
             }
         }
     }
