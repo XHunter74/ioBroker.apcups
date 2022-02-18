@@ -13,7 +13,7 @@
 
 Adapter for ioBroker to get information from APS UPSs via apcupsd.
 
-apsupsd home page: http://www.apcupsd.org/
+apcupsd home page: http://www.apcupsd.org/
 
 apcupsd is a daemon for controlling APC UPSes. Using this adaptor you can monitor UPS status and make some decisions based on the provided information.
 
