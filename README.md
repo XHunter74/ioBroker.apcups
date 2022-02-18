@@ -20,6 +20,7 @@ apcupsd is a daemon for controlling APC UPSes. Using this adaptor you can monito
 **Install apcupsd on Ubuntu:**
 
 sudo apt-get -y install apcupsd
+
 More useful information about apcupsd config for Ubuntu you can find on https://help.ubuntu.com/community/apcupsd
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
