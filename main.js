@@ -20,6 +20,7 @@ class ApcUpsAdapter extends utils.Adapter {
 
     intervalId;
     pingIntervalId;
+    delayId;
     apcAccess;
     errorCount = 0;
 
@@ -45,9 +46,13 @@ class ApcUpsAdapter extends utils.Adapter {
         await this.startPooling();
     }
 
+    async delay(ms) {
+        await new Promise(resolve => this.delayId = setTimeout(resolve, ms));
+    }
+
     async reconnect() {
         if (this.errorCount < MaxReconnectAttempts) {
-            await new Promise(resolve => setTimeout(resolve, ReconnectDelay));
+            await this.delay(ReconnectDelay);
             try {
                 await this.apcAccess.connect(this.config.upsip, this.config.upsport);
             } catch (error) {
@@ -63,7 +68,7 @@ class ApcUpsAdapter extends utils.Adapter {
         const ApcAccess = require('./apcaccess');
 
         this.apcAccess = new ApcAccess();
-        this.apcAccess.on('error', async () => {
+        this.apcAccess.on('error', async() => {
             await this.reconnect();
         });
         this.apcAccess.on('connect', () => {
@@ -80,8 +85,7 @@ class ApcUpsAdapter extends utils.Adapter {
             try {
                 await this.apcAccess.connect(this.config.upsip, this.config.upsport);
                 // eslint-disable-next-line no-empty
-            } catch {
-            }
+            } catch {}
         }
         if (this.config.pollingInterval > SocketTimeout) {
             this.pingIntervalId = this.setInterval(() => {
@@ -104,8 +108,7 @@ class ApcUpsAdapter extends utils.Adapter {
             await client.ping();
             this.log.debug(`Ping apcupsd ${this.config.upsip}:${this.config.upsport}`);
             // eslint-disable-next-line no-empty
-        } catch {
-        }
+        } catch {}
     }
 
     async processTask(client) {
@@ -240,7 +243,7 @@ class ApcUpsAdapter extends utils.Adapter {
     toIsoString(date) {
         const tzo = -date.getTimezoneOffset(),
             dif = tzo >= 0 ? '+' : '-',
-            pad = function (num) {
+            pad = function(num) {
                 const norm = Math.floor(Math.abs(num));
                 return (norm < 10 ? '0' : '') + norm;
             };
@@ -264,6 +267,9 @@ class ApcUpsAdapter extends utils.Adapter {
             this.clearInterval(this.intervalId);
             if (typeof this.pingIntervalId !== 'undefined') {
                 this.clearInterval(this.pingIntervalId);
+            }
+            if (typeof this.delayId !== 'undefined') {
+                this.clearTimeout(this.delayId);
             }
             if (this.apcAccess.isConnected === true) {
                 await this.apcAccess.disconnect();
