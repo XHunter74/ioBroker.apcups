@@ -271,7 +271,7 @@ class ApcUpsAdapter extends utils.Adapter {
             if (typeof this.delayId !== 'undefined') {
                 this.clearTimeout(this.delayId);
             }
-            if (this.apcAccess.isConnected === true) {
+            if (this.apcAccess != null && this.apcAccess.isConnected === true) {
                 await this.apcAccess.disconnect();
                 this.log.info('ApcAccess client is disconnected');
             }

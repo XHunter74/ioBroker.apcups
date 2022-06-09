@@ -34,6 +34,10 @@
             "0.0.9": {
                 "en": "Changed adapter type.",
                 "ru": "Изменен тип адаптера."
+            },
+            "1.0.0": {
+                "en": "Fixed sentry issues.",
+                "ru": "Исправлены ошибки из sentry."
             }
         },
         "title": "APC UPS connector",
