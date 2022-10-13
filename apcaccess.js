@@ -159,7 +159,7 @@ ApcAccess.prototype.getEvents = function() {
 
 ApcAccess.prototype._flush = function() {
     const req = this._requests[0];
-    if (req && !this._waitForResponse) {
+    if (req && !this._waitForResponse && this._isConnected) {
         this._waitForResponse = true;
         const buffer = Buffer.allocUnsafe(req.cmd.length + 2);
         buffer.writeUInt16BE(req.cmd.length, 0);
