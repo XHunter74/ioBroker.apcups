@@ -38,6 +38,10 @@
             "1.0.0": {
                 "en": "Fixed sentry issues.",
                 "ru": "Исправлены ошибки из sentry."
+            },
+            "1.0.1": {
+                "en": "Fixed issue: Failed to unload iobroker.apcups with exception Error: write after end",
+                "ru": "Исправлены ошибки из sentry."
             }
         },
         "title": "APC UPS connector",
