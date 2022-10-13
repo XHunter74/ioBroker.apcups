@@ -2,14 +2,15 @@ const net = require('net');
 const events = require('events');
 const util = require('util');
 
-const ApcAccess = function () {
+const ApcAccess = function() {
     this._waitForResponse = false;
     this._socket = new net.Socket();
     this._socket.setKeepAlive(true, 1000);
     // this._socket.setTimeout(30000);
     this._isConnected = false;
     Object.defineProperty(this, 'isConnected', {
-        writeable: false, get: () => {
+        writeable: false,
+        get: () => {
             return this._isConnected;
         }
     });
@@ -28,7 +29,7 @@ const ApcAccess = function () {
                 req = this._requests.shift();
                 this._waitForResponse = false;
                 this._receiveBuffer = Buffer.allocUnsafe(0);
-                process.nextTick(function () {
+                process.nextTick(function() {
                     req.fulfill(req.res);
                 });
                 this._flush();
@@ -51,7 +52,7 @@ const ApcAccess = function () {
 
 util.inherits(ApcAccess, events);
 
-ApcAccess.prototype.connect = function (host, port) {
+ApcAccess.prototype.connect = function(host, port) {
     port = port || 3551;
     host = host || 'localhost';
     return new Promise((fulfill, reject) => {
@@ -83,7 +84,7 @@ ApcAccess.prototype.connect = function (host, port) {
     });
 };
 
-ApcAccess.prototype.disconnect = function () {
+ApcAccess.prototype.disconnect = function() {
     return new Promise((fulfill, reject) => {
 
         const fulfillDisconnect = () => {
@@ -107,7 +108,7 @@ ApcAccess.prototype.disconnect = function () {
     });
 };
 
-ApcAccess.prototype.sendCommand = function (command) {
+ApcAccess.prototype.sendCommand = function(command) {
     return new Promise((fulfill, reject) => {
         this._requests.push({
             fulfill: fulfill,
@@ -119,11 +120,11 @@ ApcAccess.prototype.sendCommand = function (command) {
     });
 };
 
-ApcAccess.prototype.getStatus = function () {
+ApcAccess.prototype.getStatus = function() {
     return this.sendCommand('status');
 };
 
-ApcAccess.prototype.getStatusJson = function () {
+ApcAccess.prototype.getStatusJson = function() {
     return new Promise((fulfill, reject) => {
         this.getStatus().then((result) => {
             const re = /(\w+\s?\w+)\s*:\s(.+)?\n/g;
@@ -140,11 +141,11 @@ ApcAccess.prototype.getStatusJson = function () {
     });
 };
 
-ApcAccess.prototype.ping = function () {
+ApcAccess.prototype.ping = function() {
     return this.sendCommand('ping');
 };
 
-ApcAccess.prototype.getEvents = function () {
+ApcAccess.prototype.getEvents = function() {
     return new Promise((fulfill, reject) => {
         this._requests.push({
             fulfill: fulfill,
@@ -156,7 +157,7 @@ ApcAccess.prototype.getEvents = function () {
     });
 };
 
-ApcAccess.prototype._flush = function () {
+ApcAccess.prototype._flush = function() {
     const req = this._requests[0];
     if (req && !this._waitForResponse) {
         this._waitForResponse = true;
