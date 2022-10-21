@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
@@ -40,6 +40,10 @@
                 "ru": "Исправлены ошибки из sentry."
             },
             "1.0.1": {
+                "en": "Fixed issue: Failed to unload iobroker.apcups with exception Error: write after end",
+                "ru": "Исправлены ошибки из sentry."
+            },
+            "1.0.2": {
                 "en": "Fixed issue: Failed to unload iobroker.apcups with exception Error: write after end",
                 "ru": "Исправлены ошибки из sentry."
             }
