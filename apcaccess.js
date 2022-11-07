@@ -44,9 +44,9 @@ const ApcAccess = function() {
         this._isConnected = true;
         this.emit('connect');
     });
-    this._socket.on('error', () => {
+    this._socket.on('error', (error) => {
         this._isConnected = false;
-        this.emit('error');
+        this.emit('error', error);
     });
 };
 
@@ -165,7 +165,12 @@ ApcAccess.prototype._flush = function() {
         buffer.writeUInt16BE(req.cmd.length, 0);
         buffer.write(req.cmd, 2);
         if (!this._socket.closed) {
-            this._socket.write(buffer);
+            try {
+                this._socket.write(buffer);
+            } catch {
+                this._isConnected = false;
+                this.emit('error', `Can't flush request data`);
+            }
         }
     }
 };

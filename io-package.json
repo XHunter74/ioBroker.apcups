@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
@@ -45,6 +45,10 @@
             },
             "1.0.2": {
                 "en": "Fixed issue: Failed to unload iobroker.apcups with exception Error: write after end",
+                "ru": "Исправлены ошибки из sentry."
+            },
+            "1.0.3": {
+                "en": "Fixed issue: unhandled exception for flush with closed socket",
                 "ru": "Исправлены ошибки из sentry."
             }
         },

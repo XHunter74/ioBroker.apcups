@@ -68,7 +68,8 @@ class ApcUpsAdapter extends utils.Adapter {
         const ApcAccess = require('./apcaccess');
 
         this.apcAccess = new ApcAccess();
-        this.apcAccess.on('error', async() => {
+        this.apcAccess.on('error', async(error) => {
+            this.log.error(error);
             await this.reconnect();
         });
         this.apcAccess.on('connect', () => {
