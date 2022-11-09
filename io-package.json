@@ -50,6 +50,10 @@
             "1.0.3": {
                 "en": "Fixed issue: unhandled exception for flush with closed socket",
                 "ru": "Исправлены ошибки из sentry."
+            },
+            "1.0.4": {
+                "en": "Added UPS host and port to Info folder",
+                "ru": "Добавлены UPS хост и порт в папку Info"
             }
         },
         "title": "APC UPS connector",
@@ -392,6 +396,32 @@
                 "role": "indicator.connected",
                 "name": "If APCUSB pooling is active",
                 "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.UPSHost",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "UPS host",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.UPSPort",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "UPS port",
+                "type": "number",
                 "read": true,
                 "write": false,
                 "def": false

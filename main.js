@@ -32,6 +32,8 @@ class ApcUpsAdapter extends utils.Adapter {
             ...options,
             name: 'apcups',
         });
+        this.setState('info.UPSHost', this.config.upsip, true);
+        this.setState('info.UPSPort', this.config.upsport, true);
         this.on('ready', this.onReady.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
