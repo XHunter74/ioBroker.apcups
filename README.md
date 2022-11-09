@@ -27,7 +27,7 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 ## Changelog
 
 ### 1.0.4 (2022-11-09)
- - Added UPS host and port to Info folder
+ - Added UPS host and port to Info folder 
 ### 1.0.3 (2022-11-07)
  - Fixed issue: unhandled exception for flush with closed socket
 ### 1.0.2 (2022-10-21)
