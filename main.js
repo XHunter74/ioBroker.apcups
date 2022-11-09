@@ -32,8 +32,7 @@ class ApcUpsAdapter extends utils.Adapter {
             ...options,
             name: 'apcups',
         });
-        this.setState('info.UPSHost', this.config.upsip, true);
-        this.setState('info.UPSPort', this.config.upsport, true);
+
         this.on('ready', this.onReady.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
@@ -44,7 +43,8 @@ class ApcUpsAdapter extends utils.Adapter {
     async onReady() {
         this.log.info(`Apcupcd location: ${this.config.upsip}:${this.config.upsport}`);
         this.log.info('Polling interval: ' + this.config.pollingInterval);
-
+        this.setState('info.UPSHost', this.config.upsip, true);
+        this.setState('info.UPSPort', this.config.upsport, true);
         await this.startPooling();
     }
 
@@ -70,7 +70,7 @@ class ApcUpsAdapter extends utils.Adapter {
         const ApcAccess = require('./apcaccess');
 
         this.apcAccess = new ApcAccess();
-        this.apcAccess.on('error', async(error) => {
+        this.apcAccess.on('error', async (error) => {
             this.log.error(error);
             await this.reconnect();
         });
@@ -88,7 +88,7 @@ class ApcUpsAdapter extends utils.Adapter {
             try {
                 await this.apcAccess.connect(this.config.upsip, this.config.upsport);
                 // eslint-disable-next-line no-empty
-            } catch {}
+            } catch { }
         }
         if (this.config.pollingInterval > SocketTimeout) {
             this.pingIntervalId = this.setInterval(() => {
@@ -111,7 +111,7 @@ class ApcUpsAdapter extends utils.Adapter {
             await client.ping();
             this.log.debug(`Ping apcupsd ${this.config.upsip}:${this.config.upsport}`);
             // eslint-disable-next-line no-empty
-        } catch {}
+        } catch { }
     }
 
     async processTask(client) {
@@ -246,7 +246,7 @@ class ApcUpsAdapter extends utils.Adapter {
     toIsoString(date) {
         const tzo = -date.getTimezoneOffset(),
             dif = tzo >= 0 ? '+' : '-',
-            pad = function(num) {
+            pad = function (num) {
                 const norm = Math.floor(Math.abs(num));
                 return (norm < 10 ? '0' : '') + norm;
             };
