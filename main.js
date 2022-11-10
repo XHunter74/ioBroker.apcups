@@ -80,7 +80,7 @@ class ApcUpsAdapter extends utils.Adapter {
             try {
                 await this.apcAccess.connect(this.config.upsip, this.config.upsport);
                 // eslint-disable-next-line no-empty
-            } catch { }
+            } catch {}
         }
         if (this.config.pollingInterval > SocketTimeout) {
             this.pingIntervalId = this.setInterval(() => {
@@ -103,7 +103,7 @@ class ApcUpsAdapter extends utils.Adapter {
             await client.ping();
             this.log.debug(`Ping apcupsd ${this.config.upsip}:${this.config.upsport}`);
             // eslint-disable-next-line no-empty
-        } catch { }
+        } catch {}
     }
 
     async processTask(client) {
@@ -165,26 +165,23 @@ class ApcUpsAdapter extends utils.Adapter {
 
     async createStatesObjects(upsStates) {
         for (let i = 0; i < upsStates.length; i++) {
-            await this.createObject(upsStates[i]);
+            const stateInfo = upsStates[i];
+            const common = {
+                name: stateInfo.name,
+                type: stateInfo.type,
+                role: stateInfo.role,
+                read: true,
+                write: false
+            };
+            if (stateInfo.unit && stateInfo.unit != null) {
+                common.unit = stateInfo.unit;
+            }
+            await this.setObjectNotExistsAsync(stateInfo.id, {
+                type: 'state',
+                common: common,
+                native: {},
+            });
         }
-    }
-
-    async createObject(stateInfo) {
-        const common = {
-            name: stateInfo.name,
-            type: stateInfo.type,
-            role: stateInfo.role,
-            read: true,
-            write: false
-        };
-        if (stateInfo.unit && stateInfo.unit != null) {
-            common.unit = stateInfo.unit;
-        }
-        await this.setObjectNotExistsAsync(stateInfo.id, {
-            type: 'state',
-            common: common,
-            native: {},
-        });
     }
 
     normalizeUpsResult(state) {
@@ -238,7 +235,7 @@ class ApcUpsAdapter extends utils.Adapter {
     toIsoString(date) {
         const tzo = -date.getTimezoneOffset(),
             dif = tzo >= 0 ? '+' : '-',
-            pad = function (num) {
+            pad = function(num) {
                 const norm = Math.floor(Math.abs(num));
                 return (norm < 10 ? '0' : '') + norm;
             };
