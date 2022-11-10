@@ -3,8 +3,8 @@
 
 const utils = require('@iobroker/adapter-core');
 
-const MaxReconnectAttempts = 5;
-const ReconnectDelay = 5000;
+const DefaultReconnectionDelay = 5000;
+const MaxReconnectionDelay = 60000;
 const PingInterval = 10000;
 const SocketTimeout = 15000;
 
@@ -14,7 +14,7 @@ class ApcUpsAdapter extends utils.Adapter {
     pingIntervalId;
     delayId;
     apcAccess;
-    errorCount = 0;
+    reconnectDelay = 5000;
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -45,16 +45,14 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async reconnect() {
-        if (this.errorCount < MaxReconnectAttempts) {
-            await this.delay(ReconnectDelay);
-            try {
-                await this.apcAccess.connect(this.config.upsip, this.config.upsport);
-            } catch (error) {
-                this.errorCount++;
-                this.log.error(error);
+        await this.delay(this.reconnectDelay);
+        try {
+            await this.apcAccess.connect(this.config.upsip, this.config.upsport);
+        } catch (error) {
+            if (this.reconnectDelay < MaxReconnectionDelay) {
+                this.reconnectDelay += 5000;
             }
-        } else {
-            this.terminate(`Maximum number of errors reached: ${MaxReconnectAttempts}`, 16);
+            this.log.error(error);
         }
     }
 
@@ -62,11 +60,12 @@ class ApcUpsAdapter extends utils.Adapter {
         const ApcAccess = require('./apcaccess');
 
         this.apcAccess = new ApcAccess();
-        this.apcAccess.on('error', async (error) => {
+        this.apcAccess.on('error', async(error) => {
             this.log.error(error);
             await this.reconnect();
         });
         this.apcAccess.on('connect', () => {
+            this.reconnectDelay = DefaultReconnectionDelay;
             this.errorCount = 0;
             this.setState('info.connection', true, true);
             this.log.info('Connected to apcupsd successfully');
