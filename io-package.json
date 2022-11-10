@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.4",
+        "version": "1.0.5",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
@@ -54,6 +54,10 @@
             "1.0.4": {
                 "en": "Added UPS host and port to Info folder",
                 "ru": "Добавлены UPS хост и порт в папку Info"
+            },
+            "1.0.5": {
+                "en": "Optimized reconnection flow",
+                "ru": "Оптимизирован алгоритм переподключения"
             }
         },
         "title": "APC UPS connector",
