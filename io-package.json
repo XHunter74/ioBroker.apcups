@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.5",
+        "version": "1.0.6",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
