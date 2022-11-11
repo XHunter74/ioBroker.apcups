@@ -58,6 +58,10 @@
             "1.0.5": {
                 "en": "Optimized reconnection flow",
                 "ru": "Оптимизирован алгоритм переподключения"
+            },
+            "1.0.6": {
+                "en": "Removed unnecessary Sentry call",
+                "ru": "Убран ненужный вызов Sentry"
             }
         },
         "title": "APC UPS connector",

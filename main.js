@@ -269,7 +269,6 @@ class ApcUpsAdapter extends utils.Adapter {
             callback();
         } catch (error) {
             this.log.error(error);
-            this.sendError(error, `Failed to unload iobroker.apcups`);
             callback();
         }
     }
