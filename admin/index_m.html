@@ -22,20 +22,18 @@
         function load(settings, onChange) {
             // example: select elements with id=key and class=value and insert value
             if (!settings) return;
-            $('.value').each(function () {
+            $('.value').each(function() {
                 var $key = $(this);
                 var id = $key.attr('id');
                 if ($key.attr('type') === 'checkbox') {
                     // do not call onChange direct, because onChange could expect some arguments
                     $key.prop('checked', settings[id])
-                        .on('change', () => onChange())
-                        ;
+                        .on('change', () => onChange());
                 } else {
                     // do not call onChange direct, because onChange could expect some arguments
                     $key.val(settings[id])
                         .on('change', () => onChange())
-                        .on('keyup', () => onChange())
-                        ;
+                        .on('keyup', () => onChange());
                 }
             });
             onChange(false);
@@ -45,19 +43,30 @@
 
         // This will be called by the admin adapter when the user presses the save button
         function save(callback) {
-            // example: select elements with class=value and build settings object
+            const validators = $('.validator');
+            validators.addClass('disabled-validator');
+            validators.removeClass('active-validator');
             var obj = {};
-            $('.value').each(function () {
+            let errors = 0;
+            $('.value').each(function() {
                 var $this = $(this);
                 if ($this.attr('type') === 'checkbox') {
                     obj[$this.attr('id')] = $this.prop('checked');
                 } else if ($this.attr('type') === 'number') {
+                    if ($this.val() == '') {
+                        errors++;
+                        const validator = $('.validator[for="' + $this.attr('id') + '"]');
+                        validator.removeClass('disabled-validator');
+                        validator.addClass('active-validator');
+                    }
                     obj[$this.attr('id')] = parseFloat($this.val());
                 } else {
                     obj[$this.attr('id')] = $this.val();
                 }
             });
-            callback(obj);
+            if (errors == 0) {
+                callback(obj);
+            }
         }
     </script>
 
@@ -84,16 +93,30 @@
             <div class="col s6 input-field">
                 <input type="number" class="value" id="upsport" />
                 <label for="upsport" class="translate">upsport</label>
+                <p for="upsport" class="translate validator disabled-validator">incorrect-value</p>
             </div>
         </div>
         <div class="row">
             <div class="col s6 input-field">
                 <input type="number" class="value" id="pollingInterval" />
                 <label for="pollingInterval" class="translate">pollingInterval</label>
+                <p for="pollingInterval" class="translate validator disabled-validator">incorrect-value</p>
             </div>
         </div>
     </div>
 
 </body>
+
+<style>
+    .active-validator {
+        margin-top: 0px;
+        color: red;
+        display: block;
+    }
+    
+    .disabled-validator {
+        display: none;
+    }
+</style>
 
 </html>

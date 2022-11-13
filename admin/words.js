@@ -18,5 +18,10 @@ systemDictionary = {
         'en': 'Polling interval:',
         'de': 'Abrufintervall:',
         'ru': 'Интервал опроса:'
+    },
+    'incorrect-value': {
+        'en': 'Incorrect value',
+        'de': 'Falscher wert',
+        'ru': 'Некоректное значение'
     }
 };
