@@ -418,8 +418,7 @@
                 "name": "UPS host",
                 "type": "string",
                 "read": true,
-                "write": false,
-                "def": false
+                "write": false
             },
             "native": {}
         },
@@ -431,8 +430,7 @@
                 "name": "UPS port",
                 "type": "number",
                 "read": true,
-                "write": false,
-                "def": false
+                "write": false
             },
             "native": {}
         }
