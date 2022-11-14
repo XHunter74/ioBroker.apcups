@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.6",
+        "version": "1.0.7",
         "news": {
             "0.0.2": {
                 "en": "Initial release",
@@ -62,6 +62,10 @@
             "1.0.6": {
                 "en": "Removed unnecessary Sentry call",
                 "ru": "Убран ненужный вызов Sentry"
+            },
+            "1.0.7": {
+                "en": "Added validation on config screen",
+                "ru": "Добавлена проверка на странице конфигурации"
             }
         },
         "title": "APC UPS connector",
