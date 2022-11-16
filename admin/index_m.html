@@ -22,7 +22,7 @@
         function load(settings, onChange) {
             // example: select elements with id=key and class=value and insert value
             if (!settings) return;
-            $('.value').each(function() {
+            $('.value').each(function () {
                 var $key = $(this);
                 var id = $key.attr('id');
                 if ($key.attr('type') === 'checkbox') {
@@ -48,7 +48,7 @@
             validators.removeClass('active-validator');
             var obj = {};
             let errors = 0;
-            $('.value').each(function() {
+            $('.value').each(function () {
                 var $this = $(this);
                 if ($this.attr('type') === 'checkbox') {
                     obj[$this.attr('id')] = $this.prop('checked');
@@ -66,6 +66,16 @@
             });
             if (errors == 0) {
                 callback(obj);
+            }
+        }
+
+        function validateNumber(event) {
+            const validator = $(event).siblings('.validator');
+            validator.addClass('disabled-validator');
+            validator.removeClass('active-validator');
+            if ($(event).val() === '') {
+                validator.removeClass('disabled-validator');
+                validator.addClass('active-validator');
             }
         }
     </script>
@@ -91,14 +101,14 @@
                 <label for="upsip" class="translate">upsip</label>
             </div>
             <div class="col s6 input-field">
-                <input type="number" class="value" id="upsport" />
+                <input type="number" class="value" id="upsport" onblur="validateNumber(this)" />
                 <label for="upsport" class="translate">upsport</label>
                 <p for="upsport" class="translate validator disabled-validator">incorrect-value</p>
             </div>
         </div>
         <div class="row">
             <div class="col s6 input-field">
-                <input type="number" class="value" id="pollingInterval" />
+                <input type="number" class="value" id="pollingInterval" onblur="validateNumber(this)"/>
                 <label for="pollingInterval" class="translate">pollingInterval</label>
                 <p for="pollingInterval" class="translate validator disabled-validator">incorrect-value</p>
             </div>
@@ -106,4 +116,5 @@
     </div>
 
 </body>
+
 </html>
