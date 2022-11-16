@@ -23,5 +23,10 @@ systemDictionary = {
         'en': 'Incorrect value',
         'de': 'Falscher wert',
         'ru': 'Некоректное значение'
+    },
+    'incorrect-ip':{
+        'en': 'Address must be a valid IP address',
+        'de': 'Die Adresse muss eine gültige IP-Adresse sein',
+        'ru': 'Некорректный IP'
     }
 };

@@ -60,7 +60,16 @@
                         validator.addClass('active-validator');
                     }
                     obj[$this.attr('id')] = parseFloat($this.val());
-                } else {
+                } else if ($this.attr('type') === 'text' && $this.attr('id') === 'upsip') {
+                    if (!validateAddress(this)){
+                        errors++;
+                        const validator = $('.validator[for="' + $this.attr('id') + '"]');
+                        validator.removeClass('disabled-validator');
+                        validator.addClass('active-validator');
+                    }
+                    obj[$this.attr('id')] = $this.val();
+                }
+                else {
                     obj[$this.attr('id')] = $this.val();
                 }
             });
@@ -77,6 +86,28 @@
                 validator.removeClass('disabled-validator');
                 validator.addClass('active-validator');
             }
+        }
+
+        function validateAddress(event) {
+            const validator = $(event).siblings('.validator');
+            validator.addClass('disabled-validator');
+            validator.removeClass('active-validator');
+            let result = true;
+            if ($(event).val().length === 0 || $(event).val().length > 511) {
+                result = false;
+            }
+            if (result) {
+                const regExpIp = new RegExp(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/);
+                const regResultIp = regExpIp.exec($(event).val());
+                if (regResultIp === null) {
+                    result = false;
+                }
+            }
+            if (!result) {
+                validator.removeClass('disabled-validator');
+                validator.addClass('active-validator');
+            }
+            return result;
         }
     </script>
 
@@ -97,8 +128,9 @@
         <!-- For example columns with settings: -->
         <div class="row">
             <div class="col s6 input-field">
-                <input type="text" class="value" id="upsip" />
+                <input type="text" class="value" id="upsip" onblur="validateAddress(this)" />
                 <label for="upsip" class="translate">upsip</label>
+                <p for="upsip" class="translate validator disabled-validator">incorrect-ip</p>
             </div>
             <div class="col s6 input-field">
                 <input type="number" class="value" id="upsport" onblur="validateNumber(this)" />
@@ -108,7 +140,7 @@
         </div>
         <div class="row">
             <div class="col s6 input-field">
-                <input type="number" class="value" id="pollingInterval" onblur="validateNumber(this)"/>
+                <input type="number" class="value" id="pollingInterval" onblur="validateNumber(this)" />
                 <label for="pollingInterval" class="translate">pollingInterval</label>
                 <p for="pollingInterval" class="translate validator disabled-validator">incorrect-value</p>
             </div>
