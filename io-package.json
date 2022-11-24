@@ -3,42 +3,6 @@
         "name": "apcups",
         "version": "1.0.8",
         "news": {
-            "0.0.2": {
-                "en": "Initial release",
-                "ru": "Начальная версия"
-            },
-            "0.0.3": {
-                "en": "Fixed parse values bugs",
-                "ru": "Исправлены ошибки разбора значений"
-            },
-            "0.0.4": {
-                "en": "Fixed issue with polling interval greater than 15 sec.",
-                "ru": "Решена проблема если интервал сканирования больше 15 сек"
-            },
-            "0.0.5": {
-                "en": "Fixed issues with uncaught exception.",
-                "ru": "Решена проблемы с необработанными исключениями."
-            },
-            "0.0.6": {
-                "en": "Cleanup code. Sentry integration",
-                "ru": "Интеграция Sentry"
-            },
-            "0.0.7": {
-                "en": "Changed default log level to 'info'.",
-                "ru": "Изменен уровень логирования по умолчанию на 'info'"
-            },
-            "0.0.8": {
-                "en": "Fixed review issues.",
-                "ru": "Исправлены замечания."
-            },
-            "0.0.9": {
-                "en": "Changed adapter type.",
-                "ru": "Изменен тип адаптера."
-            },
-            "1.0.0": {
-                "en": "Fixed sentry issues.",
-                "ru": "Исправлены ошибки из sentry."
-            },
             "1.0.1": {
                 "en": "Fixed issue: Failed to unload iobroker.apcups with exception Error: write after end",
                 "ru": "Исправлены ошибки из sentry."
