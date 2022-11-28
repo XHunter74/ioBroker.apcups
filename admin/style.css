@@ -29,12 +29,4 @@ label > i[title] {
     white-space: nowrap;
 }
 
-.active-validator {
-    margin-top: 0px;
-    color: red;
-    display: block;
-}
-
-.disabled-validator {
-    display: none;
-}
+/* Add your styles here */
