@@ -10,6 +10,7 @@ const SocketTimeout = 15000;
 
 class ApcUpsAdapter extends utils.Adapter {
 
+    isUnloading = false;
     intervalId;
     pingIntervalId;
     delayId;
@@ -45,6 +46,7 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async reconnect() {
+        if (this.isUnloading) return;
         await this.delay(this.reconnectDelay);
         try {
             await this.apcAccess.connect(this.config.upsip, this.config.upsport);
@@ -60,26 +62,28 @@ class ApcUpsAdapter extends utils.Adapter {
         const ApcAccess = require('./apcaccess');
 
         this.apcAccess = new ApcAccess();
-        this.apcAccess.on('error', async(error) => {
+        this.apcAccess.on('error', async (error) => {
             this.log.error(error);
+            this.setState('info.connection', false, true);
+            this.log.info(`Disconnected from apcupsd '${this.config.upsip}:${this.config.upsport}'`);
             await this.reconnect();
         });
         this.apcAccess.on('connect', () => {
             this.reconnectDelay = DefaultReconnectionDelay;
-            this.errorCount = 0;
             this.setState('info.connection', true, true);
-            this.log.info('Connected to apcupsd successfully');
+            this.log.info(`Connected to apcupsd '${this.config.upsip}:${this.config.upsport}' successfully`);
         });
-        this.apcAccess.on('disconnect', () => {
+        this.apcAccess.on('disconnect', async () => {
             this.setState('info.connection', false, true);
-            this.log.info('Disconnected from apcupsd');
+            this.log.info(`Disconnected from apcupsd '${this.config.upsip}:${this.config.upsport}'`);
+            await this.reconnect();
         });
 
         if (this.apcAccess.isConnected === false) {
             try {
                 await this.apcAccess.connect(this.config.upsip, this.config.upsport);
                 // eslint-disable-next-line no-empty
-            } catch {}
+            } catch { }
         }
         if (this.config.pollingInterval > SocketTimeout) {
             this.pingIntervalId = this.setInterval(() => {
@@ -102,7 +106,7 @@ class ApcUpsAdapter extends utils.Adapter {
             await client.ping();
             this.log.debug(`Ping apcupsd ${this.config.upsip}:${this.config.upsport}`);
             // eslint-disable-next-line no-empty
-        } catch {}
+        } catch { }
     }
 
     async processTask(client) {
@@ -234,7 +238,7 @@ class ApcUpsAdapter extends utils.Adapter {
     toIsoString(date) {
         const tzo = -date.getTimezoneOffset(),
             dif = tzo >= 0 ? '+' : '-',
-            pad = function(num) {
+            pad = function (num) {
                 const norm = Math.floor(Math.abs(num));
                 return (norm < 10 ? '0' : '') + norm;
             };
@@ -254,6 +258,7 @@ class ApcUpsAdapter extends utils.Adapter {
      * @param {() => void} callback
      */
     async onUnload(callback) {
+        this.isUnloading = true;
         try {
             this.clearInterval(this.intervalId);
             if (typeof this.pingIntervalId !== 'undefined') {
