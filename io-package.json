@@ -1,12 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.8",
+        "version": "1.0.9",
         "news": {
-            "1.0.1": {
-                "en": "Fixed issue: Failed to unload iobroker.apcups with exception Error: write after end",
-                "ru": "Исправлены ошибки из sentry."
-            },
             "1.0.2": {
                 "en": "Fixed issue: Failed to unload iobroker.apcups with exception Error: write after end",
                 "ru": "Исправлены ошибки из sentry."
@@ -34,6 +30,10 @@
             "1.0.8": {
                 "en": "Added validation on config screen",
                 "ru": "Добавлена проверка на странице конфигурации"
+            },
+            "1.0.9": {
+                "en": "Optimized reconnection flow",
+                "ru": "Оптимизировано переподключение к демону"
             }
         },
         "title": "APC UPS connector",
