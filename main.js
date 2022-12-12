@@ -3,19 +3,10 @@
 
 const utils = require('@iobroker/adapter-core');
 
-const DefaultReconnectionDelay = 5000;
-const MaxReconnectionDelay = 60000;
-const PingInterval = 10000;
-const SocketTimeout = 15000;
-
 class ApcUpsAdapter extends utils.Adapter {
 
-    isUnloading = false;
     intervalId;
-    pingIntervalId;
-    delayId;
     apcAccess;
-    reconnectDelay = 5000;
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -41,23 +32,6 @@ class ApcUpsAdapter extends utils.Adapter {
         await this.startPooling();
     }
 
-    async delay(ms) {
-        await new Promise(resolve => this.delayId = setTimeout(resolve, ms));
-    }
-
-    async reconnect() {
-        if (this.isUnloading) return;
-        await this.delay(this.reconnectDelay);
-        try {
-            await this.apcAccess.connect(this.config.upsip, this.config.upsport);
-        } catch (error) {
-            if (this.reconnectDelay < MaxReconnectionDelay) {
-                this.reconnectDelay += 5000;
-            }
-            this.log.error(error);
-        }
-    }
-
     async startPooling() {
         const ApcAccess = require('./apcaccess');
 
@@ -65,63 +39,40 @@ class ApcUpsAdapter extends utils.Adapter {
         this.apcAccess.on('error', async (error) => {
             this.log.error(error);
             this.setState('info.connection', false, true);
-            this.log.info(`Disconnected from apcupsd '${this.config.upsip}:${this.config.upsport}'`);
-            await this.reconnect();
         });
         this.apcAccess.on('connect', () => {
-            this.reconnectDelay = DefaultReconnectionDelay;
             this.setState('info.connection', true, true);
-            this.log.info(`Connected to apcupsd '${this.config.upsip}:${this.config.upsport}' successfully`);
+            this.log.debug(`Connected to apcupsd '${this.config.upsip}:${this.config.upsport}' successfully`);
         });
         this.apcAccess.on('disconnect', async () => {
-            this.setState('info.connection', false, true);
-            this.log.info(`Disconnected from apcupsd '${this.config.upsip}:${this.config.upsport}'`);
-            await this.reconnect();
+            this.log.debug(`Disconnected from apcupsd '${this.config.upsip}:${this.config.upsport}'`);
         });
 
-        if (this.apcAccess.isConnected === false) {
-            try {
-                await this.apcAccess.connect(this.config.upsip, this.config.upsport);
-                // eslint-disable-next-line no-empty
-            } catch { }
-        }
-        if (this.config.pollingInterval > SocketTimeout) {
-            this.pingIntervalId = this.setInterval(() => {
-                //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
-                this.pingApcUpsd(this.apcAccess);
-            }, PingInterval);
-        }
-
-        this.intervalId = this.setInterval(() => {
+        await this.processTask(this.apcAccess);
+        this.intervalId = this.setInterval(async () => {
             //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
-            this.processTask(this.apcAccess);
+            await this.processTask(this.apcAccess);
         }, this.config.pollingInterval);
     }
 
-    async pingApcUpsd(client) {
+    async processTask(client) {
         try {
-            if (this.apcAccess.isConnected === false) {
-                await this.reconnect();
+            await this.apcAccess.connect(this.config.upsip, this.config.upsport);
+            if (client.isConnected === true) {
+                try {
+                    let result = await client.getStatusJson();
+                    console.log(result);
+                    result = this.normalizeUpsResult(result);
+                    this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
+                    await this.createStatesObjects(this.config.upsStates);
+                    await this.setUpsStates(this.config.upsStates, result);
+                    await this.apcAccess.disconnect();
+                } catch (error) {
+                    this.sendError(error, `Failed to process apcupsd result`);
+                }
             }
-            await client.ping();
-            this.log.debug(`Ping apcupsd ${this.config.upsip}:${this.config.upsport}`);
             // eslint-disable-next-line no-empty
         } catch { }
-    }
-
-    async processTask(client) {
-        if (client.isConnected === true) {
-            try {
-                let result = await client.getStatusJson();
-                console.log(result);
-                result = this.normalizeUpsResult(result);
-                this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
-                await this.createStatesObjects(this.config.upsStates);
-                await this.setUpsStates(this.config.upsStates, result);
-            } catch (error) {
-                this.sendError(error, `Failed to process apcupsd result`);
-            }
-        }
     }
 
     sendError(error, message) {
@@ -258,15 +209,9 @@ class ApcUpsAdapter extends utils.Adapter {
      * @param {() => void} callback
      */
     async onUnload(callback) {
-        this.isUnloading = true;
         try {
             this.clearInterval(this.intervalId);
-            if (typeof this.pingIntervalId !== 'undefined') {
-                this.clearInterval(this.pingIntervalId);
-            }
-            if (typeof this.delayId !== 'undefined') {
-                this.clearTimeout(this.delayId);
-            }
+
             if (this.apcAccess != null && this.apcAccess.isConnected === true) {
                 await this.apcAccess.disconnect();
                 this.log.info('ApcAccess client is disconnected');
