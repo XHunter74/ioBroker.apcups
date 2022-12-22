@@ -1,12 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.9",
+        "version": "1.0.10",
         "news": {
-            "1.0.2": {
-                "en": "Fixed issue: Failed to unload iobroker.apcups with exception Error: write after end",
-                "ru": "Исправлены ошибки из sentry."
-            },
             "1.0.3": {
                 "en": "Fixed issue: unhandled exception for flush with closed socket",
                 "ru": "Исправлены ошибки из sentry."
@@ -34,6 +30,11 @@
             "1.0.9": {
                 "en": "Optimized reconnection flow",
                 "ru": "Оптимизировано переподключение к демону"
+            },
+            "1.0.10": {
+                "en": "Added Ukrainian language",
+                "ru": "Добавлен украинский язык",
+                "ua": "Добавлена українська мова"
             }
         },
         "title": "APC UPS connector",
@@ -41,6 +42,7 @@
             "en": "APC UPS connector",
             "de": "APC-USV-Anschluss",
             "ru": "APC UPS адаптер",
+            "ua": "APC UPS адаптер",
             "pt": "Conector UPS APC",
             "nl": "APC UPS-connector",
             "fr": "Connecteur APC ASI",
@@ -53,6 +55,7 @@
             "en": "Adapter to communicate with APC UPS via apcupsd",
             "de": "Adapter zur Kommunikation mit APC UPS über apcupsd",
             "ru": "Адаптер для работы с APC UPS с использованием apcupsd",
+            "ua": "Адаптер для роботи с APC UPS з використанням apcupsd",
             "pt": "Adaptador para comunicação com APC UPS via appcupsd",
             "nl": "Adapter om te communiceren met APC UPS via apcupsd",
             "fr": "Adaptateur pour communiquer avec APC UPS via apcupsd",

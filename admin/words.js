@@ -8,25 +8,30 @@ systemDictionary = {
         'en': 'Host address of apcupsd:',
         'de': 'Hostadresse von appcupsd:',
         'ru': 'Адрес хоста apcupsd:',
+        'ua': 'Адреса хоста apcupsd'
     },
     'upsport': {
         'en': 'Port of apcupsd:',
         'de': 'Port von appupsd:',
-        'ru': 'Порт apcupsd:'
+        'ru': 'Порт apcupsd:',
+        'ua': 'Порт apcupsd:'
     },
     'pollingInterval': {
         'en': 'Polling interval:',
         'de': 'Abrufintervall:',
-        'ru': 'Интервал опроса:'
+        'ru': 'Интервал опроса:',
+        'ua': 'Інтервал опросу:'
     },
     'incorrect-value': {
         'en': 'Incorrect value',
         'de': 'Falscher wert',
-        'ru': 'Некоректное значение'
+        'ru': 'Некорректное значение',
+        'ua': 'Некоректне значення'
     },
     'incorrect-ip':{
         'en': 'Address must be a valid IP address',
         'de': 'Die Adresse muss eine gültige IP-Adresse sein',
-        'ru': 'Некорректный IP'
+        'ru': 'Некорректный IP',
+        'ua': 'Некоректний IP'
     }
 };
