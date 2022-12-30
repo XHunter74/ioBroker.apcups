@@ -36,12 +36,6 @@ More useful information about apcupsd config for Ubuntu you can find on https://
  - Added validation on config screen
 ### 1.0.6 (2022-11-11)
  - Removed unnecessary Sentry call
-### 1.0.5 (2022-11-10)
- - Optimized reconnection flow
-### 1.0.4 (2022-11-09)
- - Added UPS host and port to Info folder 
-### 1.0.3 (2022-11-07)
- - Fixed issue: unhandled exception for flush with closed socket
 
 ## License
 MIT License
