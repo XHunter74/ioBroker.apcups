@@ -3,18 +3,6 @@
         "name": "apcups",
         "version": "1.0.10",
         "news": {
-            "1.0.3": {
-                "en": "Fixed issue: unhandled exception for flush with closed socket",
-                "ru": "Исправлены ошибки из sentry."
-            },
-            "1.0.4": {
-                "en": "Added UPS host and port to Info folder",
-                "ru": "Добавлены UPS хост и порт в папку Info"
-            },
-            "1.0.5": {
-                "en": "Optimized reconnection flow",
-                "ru": "Оптимизирован алгоритм переподключения"
-            },
             "1.0.6": {
                 "en": "Removed unnecessary Sentry call",
                 "ru": "Убран ненужный вызов Sentry"
