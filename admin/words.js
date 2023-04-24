@@ -17,10 +17,10 @@ systemDictionary = {
         'ua': 'Порт apcupsd:'
     },
     'pollingInterval': {
-        'en': 'Polling interval:',
-        'de': 'Abrufintervall:',
-        'ru': 'Интервал опроса:',
-        'ua': 'Інтервал опросу:'
+        'en': 'Polling interval, ms:',
+        'de': 'Abrufintervall, ms:',
+        'ru': 'Интервал опроса, ms:',
+        'ua': 'Інтервал опросу, ms:'
     },
     'incorrect-value': {
         'en': 'Incorrect value',

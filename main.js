@@ -176,7 +176,7 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     normalizeDates(state) {
-        const dateFields = ['DATE', 'STARTTIME', 'XONBATT', 'XOFFBATT', 'LASTSTEST'];
+        const dateFields = ['DATE', 'STARTTIME', 'XONBATT', 'XOFFBATT', 'LASTSTEST', 'ENDAPC'];
         dateFields.forEach(e => {
             const dateState = state[e];
             if (typeof dateState !== 'undefined' && dateState != '') {

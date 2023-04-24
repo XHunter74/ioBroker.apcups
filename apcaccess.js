@@ -127,6 +127,7 @@ ApcAccess.prototype.getStatus = function() {
 ApcAccess.prototype.getStatusJson = function() {
     return new Promise((fulfill, reject) => {
         this.getStatus().then((result) => {
+            result=result.replace('END APC', 'ENDAPC');
             const re = /(\w+\s?\w+)\s*:\s(.+)?\n/g;
             const matches = {};
             let match = re.exec(result);
