@@ -27,10 +27,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -118,7 +118,7 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
           npm whoami
-          npm publish
+          #npm publish
 
       - name: Notify Sentry.io about the release
         run: |
@@ -129,5 +129,5 @@ jobs:
           export SENTRY_PROJECT=iobroker-apcups
           export SENTRY_VERSION=iobroker.apcups@${{ steps.extract_release.outputs.VERSION }}
           # export SENTRY_LOG_LEVEL=debug
-          sentry-cli releases new $SENTRY_VERSION
-          sentry-cli releases finalize $SENTRY_VERSION
+          #sentry-cli releases new $SENTRY_VERSION
+          #sentry-cli releases finalize $SENTRY_VERSION
