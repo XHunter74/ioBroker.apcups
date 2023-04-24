@@ -27,7 +27,7 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 ## Changelog
 
 ### 1.0.11 (2022-12-22)
- - Added 'END APC' and 'BATDATE' fields
+ - Added 'END APC' and 'BATDATE' fields 
 ### 1.0.10 (2022-12-22)
  - Added Ukrainian language
 ### 1.0.9 (2022-12-12)
