@@ -64,8 +64,8 @@ class ApcUpsAdapter extends utils.Adapter {
                     console.log(result);
                     result = this.normalizeUpsResult(result);
                     this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
-                    await this.createStatesObjects(this.config.upsStates);
-                    await this.setUpsStates(this.config.upsStates, result);
+                    await this.createStatesObjects();
+                    await this.setUpsStates(result);
                     await this.apcAccess.disconnect();
                 } catch (error) {
                     this.sendError(error, `Failed to process apcupsd result`);
@@ -101,25 +101,24 @@ class ApcUpsAdapter extends utils.Adapter {
         }
     }
 
-    async setUpsStates(upsStates, state) {
-        for (let i = 0; i < upsStates.length; i++) {
-            const stateId = upsStates[i].id;
-            const value = state[upsStates[i].upsId];
+    async setUpsStates(state) {
+        const adapterStates = require('./states.json');
+        for (let i = 0; i < adapterStates.upsStates.length; i++) {
+            const stateId = adapterStates.upsStates[i].id;
+            const value = state[adapterStates.upsStates[i].upsId];
             const instanceState = (await this.getStateAsync(stateId));
             if (instanceState != null) {
-                const stateValue = instanceState.val;
-                if (value != stateValue) {
-                    await this.setStateAsync(stateId, { val: value, ack: true });
-                }
+                await this.setStateAsync(stateId, { val: value, ack: true });
             } else {
                 await this.setStateAsync(stateId, { val: value, ack: true });
             }
         }
     }
 
-    async createStatesObjects(upsStates) {
-        for (let i = 0; i < upsStates.length; i++) {
-            const stateInfo = upsStates[i];
+    async createStatesObjects() {
+        const adapterStates = require('./states.json');
+        for (let i = 0; i < adapterStates.upsStates.length; i++) {
+            const stateInfo = adapterStates.upsStates[i];
             const common = {
                 name: stateInfo.name,
                 type: stateInfo.type,
