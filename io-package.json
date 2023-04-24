@@ -1,12 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.10",
+        "version": "1.0.11",
         "news": {
-            "1.0.6": {
-                "en": "Removed unnecessary Sentry call",
-                "ru": "Убран ненужный вызов Sentry"
-            },
             "1.0.7": {
                 "en": "Added validation on config screen",
                 "ru": "Добавлена проверка на странице конфигурации"
@@ -23,6 +19,11 @@
                 "en": "Added Ukrainian language",
                 "ru": "Добавлен украинский язык",
                 "ua": "Добавлена українська мова"
+            },
+            "1.0.11": {
+                "en": "Added 'END APC' and 'BATDATE' fields",
+                "ru": "Добавлены 'END APC' и 'BATDATE' поля",
+                "ua": "Добавлені 'END APC' и 'BATDATE' поля"
             }
         },
         "title": "APC UPS connector",
