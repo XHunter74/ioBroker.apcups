@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.13",
+        "version": "1.0.14",
         "news": {
             "1.0.7": {
                 "en": "Added validation on config screen",
@@ -24,6 +24,11 @@
                 "en": "Added 'END APC' and 'BATDATE' fields",
                 "ru": "Добавлены 'END APC' и 'BATDATE' поля",
                 "ua": "Добавлені 'END APC' и 'BATDATE' поля"
+            },
+            "1.0.14": {
+                "en": "Changed approach how to states are creating",
+                "ru": "Изменен подход как генерируются состояния",
+                "ua": "Змінений підхід як генеруються стани"
             }
         },
         "title": "APC UPS connector",
@@ -367,7 +372,12 @@
                 "type": "string",
                 "role": "date"
             }
-        ]
+        ],
+        "defaultState": {
+            "name": "Created from APCUPS adapter",
+            "type": "string",
+            "role": "state"
+        }
     },
     "objects": [],
     "instanceObjects": [

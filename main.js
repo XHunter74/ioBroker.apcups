@@ -102,39 +102,56 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async setUpsStates(state) {
-        const adapterStates = require('./states.json');
-        for (let i = 0; i < adapterStates.upsStates.length; i++) {
-            const stateId = adapterStates.upsStates[i].id;
-            const value = state[adapterStates.upsStates[i].upsId];
-            const instanceState = (await this.getStateAsync(stateId));
-            if (instanceState != null) {
-                await this.setStateAsync(stateId, { val: value, ack: true });
+        const adapterStates = require('./io-package.json');
+        const fields = Object.keys(state);
+        for (const field of fields) {
+            const value = state[field];
+            const stateId = adapterStates.native.upsStates.find(e => e.upsId == field);
+            if (stateId) {
+                const instanceState = await this.getStateAsync(stateId);
+                if (instanceState != null) {
+                    await this.setStateAsync(stateId, { val: value, ack: true });
+                } else {
+                    const newState = adapterStates.native.defaultState;
+                    newState.upsId = field;
+                    newState.id = field.toLowerCase();
+                    await this.createAdapterState(newState);
+                    await this.setStateAsync(field.toLowerCase(), { val: value, ack: true });
+                }
             } else {
-                await this.setStateAsync(stateId, { val: value, ack: true });
+                const newState = adapterStates.native.defaultState;
+                newState.upsId = field;
+                newState.id = field.toLowerCase();
+                await this.createAdapterState(newState);
+                await this.setStateAsync(field.toLowerCase(), { val: value, ack: true });
             }
         }
     }
 
     async createStatesObjects() {
-        const adapterStates = require('./states.json');
-        for (let i = 0; i < adapterStates.upsStates.length; i++) {
-            const stateInfo = adapterStates.upsStates[i];
-            const common = {
-                name: stateInfo.name,
-                type: stateInfo.type,
-                role: stateInfo.role,
-                read: true,
-                write: false
-            };
-            if (stateInfo.unit && stateInfo.unit != null) {
-                common.unit = stateInfo.unit;
-            }
-            await this.setObjectNotExistsAsync(stateInfo.id, {
-                type: 'state',
-                common: common,
-                native: {},
-            });
+        const adapterStates = require('./io-package.json');
+        for (let i = 0; i < adapterStates.native.upsStates.length; i++) {
+            const stateInfo = adapterStates.native.upsStates[i];
+            await this.createAdapterState(stateInfo);
         }
+    }
+
+    async createAdapterState(stateInfo) {
+        const common = {
+            name: stateInfo.name,
+            type: stateInfo.type,
+            role: stateInfo.role,
+            read: true,
+            write: false
+        };
+        if (stateInfo.unit && stateInfo.unit != null) {
+            common.unit = stateInfo.unit;
+        }
+        await this.setObjectNotExistsAsync(stateInfo.id, {
+            type: 'state',
+            common: common,
+            native: {},
+        });
     }
 
     normalizeUpsResult(state) {
