@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.14",
+        "version": "1.0.15",
         "news": {
             "1.0.7": {
                 "en": "Added validation on config screen",
@@ -25,7 +25,7 @@
                 "ru": "Добавлены 'END APC' и 'BATDATE' поля",
                 "ua": "Добавлені 'END APC' и 'BATDATE' поля"
             },
-            "1.0.14": {
+            "1.0.15": {
                 "en": "Changed approach how to states are creating",
                 "ru": "Изменен подход как генерируются состояния",
                 "ua": "Змінений підхід як генеруються стани"

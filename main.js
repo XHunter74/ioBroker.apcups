@@ -106,11 +106,19 @@ class ApcUpsAdapter extends utils.Adapter {
         const fields = Object.keys(state);
         for (const field of fields) {
             const value = state[field];
-            const stateId = adapterStates.native.upsStates.find(e => e.upsId == field);
-            if (stateId) {
-                const instanceState = await this.getStateAsync(stateId);
-                if (instanceState != null) {
-                    await this.setStateAsync(stateId, { val: value, ack: true });
+            try {
+                const upsState = adapterStates.native.upsStates.find(e => e.upsId == field);
+                if (upsState) {
+                    const instanceState = await this.getStateAsync(upsState.id);
+                    if (instanceState != null) {
+                        await this.setStateAsync(upsState.id, { val: value, ack: true });
+                    } else {
+                        const newState = adapterStates.native.defaultState;
+                        newState.upsId = field;
+                        newState.id = upsState.id;
+                        await this.createAdapterState(newState);
+                        await this.setStateAsync(upsState.id, { val: value, ack: true });
+                    }
                 } else {
                     const newState = adapterStates.native.defaultState;
                     newState.upsId = field;
@@ -118,12 +126,8 @@ class ApcUpsAdapter extends utils.Adapter {
                     await this.createAdapterState(newState);
                     await this.setStateAsync(field.toLowerCase(), { val: value, ack: true });
                 }
-            } else {
-                const newState = adapterStates.native.defaultState;
-                newState.upsId = field;
-                newState.id = field.toLowerCase();
-                await this.createAdapterState(newState);
-                await this.setStateAsync(field.toLowerCase(), { val: value, ack: true });
+            } catch (error) {
+                this.log.debug(`Can't update UPS state ${field}:${value}`);
             }
         }
     }
