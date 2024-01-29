@@ -22,7 +22,7 @@
         }
     ],
     "engines": {
-        "node": ">=14"
+        "node": ">=16.4.0"
     },
     "repository": {
         "type": "git",

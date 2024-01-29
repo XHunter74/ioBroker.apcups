@@ -31,9 +31,9 @@
                 "ua": "Змінений підхід як генеруються стани"
             },
             "1.0.16": {
-                "en": "Changed the minimal version of nodejs to 14",
-                "ru": "Изменил минимальную версию nodejs на 14",
-                "ua": "Змінив мінімальну версію nodejs на 14"
+                "en": "Changed the minimal version of nodejs to 16",
+                "ru": "Изменил минимальную версию nodejs на 16",
+                "ua": "Змінив мінімальну версію nodejs на 16"
             }
         },
         "title": "APC UPS connector",
