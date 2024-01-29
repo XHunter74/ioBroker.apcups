@@ -122,7 +122,8 @@ jobs:
 
       - name: Notify Sentry.io about the release
         run: |
-          npm config set unsafe-perm true
+          export NPM_CONFIG_UNSAFE_PERM=true
+          # npm config set unsafe-perm true
           npm i -g @sentry/cli
           export SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
           export SENTRY_ORG=private-person-ua
