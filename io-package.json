@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "1.0.17",
+        "version": "1.0.18",
         "news": {
             "1.0.7": {
                 "en": "Added validation on config screen",
@@ -30,10 +30,10 @@
                 "ru": "Изменен подход как генерируются состояния",
                 "ua": "Змінений підхід як генеруються стани"
             },
-            "1.0.17": {
-                "en": "Changed the minimal version of nodejs to 16",
-                "ru": "Изменил минимальную версию nodejs на 16",
-                "ua": "Змінив мінімальну версію nodejs на 16"
+            "1.0.18": {
+                "en": "BREAKING! Changed the minimal version of nodejs to 16",
+                "ru": "BREAKING! Изменил минимальную версию nodejs на 16",
+                "ua": "BREAKING! Змінив мінімальну версію nodejs на 16"
             }
         },
         "title": "APC UPS connector",
