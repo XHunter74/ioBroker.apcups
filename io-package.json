@@ -18,22 +18,22 @@
             "1.0.10": {
                 "en": "Added Ukrainian language",
                 "ru": "Добавлен украинский язык",
-                "ua": "Добавлена українська мова"
+                "uk": "Добавлена українська мова"
             },
             "1.0.13": {
                 "en": "Added 'END APC' and 'BATDATE' fields",
                 "ru": "Добавлены 'END APC' и 'BATDATE' поля",
-                "ua": "Добавлені 'END APC' и 'BATDATE' поля"
+                "uk": "Добавлені 'END APC' и 'BATDATE' поля"
             },
             "1.0.15": {
                 "en": "Changed approach how to states are creating",
                 "ru": "Изменен подход как генерируются состояния",
-                "ua": "Змінений підхід як генеруються стани"
+                "uk": "Змінений підхід як генеруються стани"
             },
             "1.0.18": {
                 "en": "BREAKING! Changed the minimal version of nodejs to 16",
                 "ru": "BREAKING! Изменил минимальную версию nodejs на 16",
-                "ua": "BREAKING! Змінив мінімальну версію nodejs на 16"
+                "uk": "BREAKING! Змінив мінімальну версію nodejs на 16"
             }
         },
         "title": "APC UPS connector",
@@ -41,7 +41,7 @@
             "en": "APC UPS connector",
             "de": "APC-USV-Anschluss",
             "ru": "APC UPS адаптер",
-            "ua": "APC UPS адаптер",
+            "uk": "APC UPS адаптер",
             "pt": "Conector UPS APC",
             "nl": "APC UPS-connector",
             "fr": "Connecteur APC ASI",
@@ -54,7 +54,7 @@
             "en": "Adapter to communicate with APC UPS via apcupsd",
             "de": "Adapter zur Kommunikation mit APC UPS über apcupsd",
             "ru": "Адаптер для работы с APC UPS с использованием apcupsd",
-            "ua": "Адаптер для роботи с APC UPS з використанням apcupsd",
+            "uk": "Адаптер для роботи с APC UPS з використанням apcupsd",
             "pt": "Adaptador para comunicação com APC UPS via appcupsd",
             "nl": "Adapter om te communiceren met APC UPS via apcupsd",
             "fr": "Adaptateur pour communiquer avec APC UPS via apcupsd",
@@ -94,7 +94,7 @@
         },
         "dependencies": [
             {
-                "js-controller": ">=2.0.0"
+                "js-controller": ">=3.0.0"
             }
         ]
     },
