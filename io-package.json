@@ -145,6 +145,10 @@
         "mode": "daemon",
         "type": "hardware",
         "compact": true,
+        "adminUI": {
+            "config": "json",
+            "tab": "materialize"
+        },
         "materialize": true,
         "connectionType": "local",
         "dataSource": "poll",
