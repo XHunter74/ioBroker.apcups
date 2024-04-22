@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "2.0.0",
+        "version": "3.0.0",
         "news": {
             "1.0.7": {
                 "en": "Added validation on config screen",
@@ -93,7 +93,20 @@
                 "pl": "Breaking! Zmieniła minimalną wersję nodejs do 16",
                 "uk": "УВАГА! Змінено мінімальну версію nodejs до 16",
                 "zh-cn": "刹车! 将节点的最小版本改为 16"
-            }
+            },
+            "3.0.0":{
+                "en": "BREAKING! Changed the minimal version of nodejs to 18, js-controller to 4.0.0",
+                "de": "BREAKING! Änderung der minimalen Version von nodejs auf 18, js-controller auf 4.0.0",
+                "ru": "Внимание! Изменение минимальной версии nodejs до 18, js-контроллер до 4.0.0",
+                "pt": "Estou a brincar! Mudou a versão mínima de nodejs para 18, js-controller para 4.0.0",
+                "nl": "Breaking! Veranderde de minimale versie van nodejs naar 18, js-controller naar 4.0.0",
+                "fr": "C'est vrai ! Modification de la version minimale de nodejs à 18, js-controller à 4.0.0",
+                "it": "Attenti! Modificata la versione minima di nodejs a 18, js-controller a 4.0.0",
+                "es": "¡Respira! cambió la versión mínima de nodejs a 18, js-controller a 4.0.0",
+                "pl": "Breaking! Zmienił minimalną wersję nodejs do 18, kontroler js- do 4.0.0",
+                "uk": "УВАГА! Змінено мінімальну версію nodejs до 18, js-controller до 4.0.0",
+                "zh-cn": "刹车! 将节点最小版本改为18,js控制器改为4.0.0"
+              }
         },
         "title": "APC UPS connector",
         "titleLang": {
@@ -159,7 +172,7 @@
         },
         "dependencies": [
             {
-                "js-controller": ">=3.0.0"
+                "js-controller": ">=4.0.0"
             }
         ]
     },
