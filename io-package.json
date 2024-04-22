@@ -5,35 +5,94 @@
         "news": {
             "1.0.7": {
                 "en": "Added validation on config screen",
-                "ru": "Добавлена проверка на странице конфигурации"
+                "de": "Validierung auf dem config-Bildschirm hinzugefügt",
+                "ru": "Добавлена валидация на экране настройки",
+                "pt": "Validação adicionada na tela de configuração",
+                "nl": "Toegevoegde validatie op configuratiescherm",
+                "fr": "Ajout de la validation à l'écran de configuration",
+                "it": "Aggiunto validazione sulla schermata di configurazione",
+                "es": "Validación agregada en la pantalla de configuración",
+                "pl": "Dodano walidację na ekranie konfiguracyjnym",
+                "uk": "Додано валідацію на екрані config",
+                "zh-cn": "在配置屏幕上添加验证"
             },
             "1.0.8": {
                 "en": "Added validation on config screen",
-                "ru": "Добавлена проверка на странице конфигурации"
+                "de": "Validierung auf dem config-Bildschirm hinzugefügt",
+                "ru": "Добавлена валидация на экране настройки",
+                "pt": "Validação adicionada na tela de configuração",
+                "nl": "Toegevoegde validatie op configuratiescherm",
+                "fr": "Ajout de la validation à l'écran de configuration",
+                "it": "Aggiunto validazione sulla schermata di configurazione",
+                "es": "Validación agregada en la pantalla de configuración",
+                "pl": "Dodano walidację na ekranie konfiguracyjnym",
+                "uk": "Додано валідацію на екрані config",
+                "zh-cn": "在配置屏幕上添加验证"
             },
             "1.0.9": {
                 "en": "Optimized reconnection flow",
-                "ru": "Оптимизировано переподключение к демону"
+                "de": "Optimierter Umschaltungsstrom",
+                "ru": "Оптимизировано переподключение к демону",
+                "pt": "Fluxo de reconexão otimizado",
+                "nl": "Geoptimaliseerde herverbindingsstroom",
+                "fr": "Débit de reconnection optimisé",
+                "it": "Flusso di riconnessione ottimizzato",
+                "es": "Flujo de reconexión optimizado",
+                "pl": "Zoptymalizowany przepływ ponownego połączenia",
+                "uk": "Оптимизована перепідключення до демону",
+                "zh-cn": "优化重联流量"
             },
             "1.0.10": {
                 "en": "Added Ukrainian language",
+                "de": "Ukrainische Sprache",
                 "ru": "Добавлен украинский язык",
-                "uk": "Добавлена українська мова"
+                "pt": "Adicionado idioma ucraniano",
+                "nl": "Toegevoegd Oekraïense taal",
+                "fr": "Ajout de la langue ukrainienne",
+                "it": "Aggiunto lingua ucraina",
+                "es": "Idioma ucraniano añadido",
+                "pl": "Dodano język ukraiński",
+                "uk": "Добавлена українська мова",
+                "zh-cn": "添加乌克兰语"
             },
             "1.0.13": {
                 "en": "Added 'END APC' and 'BATDATE' fields",
+                "de": "Felder 'END APC' und 'BATDATE' hinzugefügt",
                 "ru": "Добавлены 'END APC' и 'BATDATE' поля",
-                "uk": "Добавлені 'END APC' и 'BATDATE' поля"
+                "pt": "Adicionados campos 'END APC' e 'BATDATE'",
+                "nl": "Toegevoegd 'END APC' en 'BATDATE' velden",
+                "fr": "Ajout des champs 'END APC' et 'BATDATE'",
+                "it": "Aggiunto 'END APC' e 'BATDATE' campi",
+                "es": "Añadido 'END APC' y 'BATDATE' campos",
+                "pl": "Dodano pola 'END APC' i 'BATDATE'",
+                "uk": "Додано поля 'END APC' и 'BATDATE' поля",
+                "zh-cn": "添加 'END APC' 和 'BATDATE' 字段"
             },
             "1.0.15": {
                 "en": "Changed approach how to states are creating",
+                "de": "Geänderter Ansatz, wie Staaten entstehen",
                 "ru": "Изменен подход как генерируются состояния",
-                "uk": "Змінений підхід як генеруються стани"
+                "pt": "A abordagem alterada de como os estados estão criando",
+                "nl": "Veranderde aanpak van staten",
+                "fr": "L'approche modifiée de la création des États",
+                "it": "Cambiato approccio come gli stati stanno creando",
+                "es": "Cambio de enfoque cómo los estados están creando",
+                "pl": "Zmienione podejście do tworzenia państw",
+                "uk": "Змінений підхід як генеруються стани",
+                "zh-cn": "国家如何创建的改变方法"
             },
             "2.0.0": {
                 "en": "BREAKING! Changed the minimal version of nodejs to 16",
-                "ru": "BREAKING! Изменил минимальную версию nodejs на 16",
-                "uk": "BREAKING! Змінив мінімальну версію nodejs на 16"
+                "de": "BREAKING! Die minimale Version von nodejs auf 16 geändert",
+                "ru": "Внимание! Изменение минимальной версии nodejs до 16",
+                "pt": "Estou a brincar! Mudou a versão mínima de nodejs para 16",
+                "nl": "Breaking! Veranderde de minimale versie van nodejs naar 16",
+                "fr": "C'est vrai ! Changement de la version minimale de nodejs à 16",
+                "it": "Attenti! Modificata la versione minima di nodejs a 16",
+                "es": "¡Respira! Cambio de la versión mínima de nodejs a 16",
+                "pl": "Breaking! Zmieniła minimalną wersję nodejs do 16",
+                "uk": "УВАГА! Змінено мінімальну версію nodejs до 16",
+                "zh-cn": "刹车! 将节点的最小版本改为 16"
             }
         },
         "title": "APC UPS connector",
