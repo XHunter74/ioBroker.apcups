@@ -67,13 +67,14 @@
             "Serhiy Krasovskyy <xhunter74@gmail.com>"
         ],
         "keywords": [
-            "ioBroker",
-            "Smart Home",
             "home automation",
             "Reserve power",
             "UPS"
         ],
-        "license": "MIT",
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "ups.png",
@@ -81,6 +82,7 @@
         "extIcon": "https://raw.githubusercontent.com/XHunter74/ioBroker.apcups/master/admin/ups.png",
         "readme": "https://github.com/XHunter74/ioBroker.apcups/blob/master/README.md",
         "loglevel": "info",
+        "tier": 3,
         "mode": "daemon",
         "type": "hardware",
         "compact": true,

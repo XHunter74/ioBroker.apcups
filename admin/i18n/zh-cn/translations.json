@@ -1,0 +1,5 @@
+{
+    "upsip": "apcupsd 的主机地址",
+    "upsport": "apcupsd 端口",
+    "pollingInterval": "轮询间隔（以毫秒为单位）"
+  }

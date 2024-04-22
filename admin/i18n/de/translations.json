@@ -1,0 +1,5 @@
+{
+  "upsip": "Hostadresse von apcupsd",
+  "upsport": "Port von apcupsd",
+  "pollingInterval": "Abfrageintervall in Millisekunden"
+}

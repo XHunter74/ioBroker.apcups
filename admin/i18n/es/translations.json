@@ -1,0 +1,5 @@
+{
+  "upsip": "Dirección de host de apcupsd",
+  "upsport": "Puerto de acupsd",
+  "pollingInterval": "Intervalo de sondeo en milisegundos"
+}

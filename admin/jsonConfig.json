@@ -1,0 +1,21 @@
+{
+    "i18n": true,
+    "type": "panel",
+    "items": {
+        "upsip": {
+            "type": "text",
+            "label": "upsip",
+            "newLine": true
+        },
+        "upsport": {
+            "type": "number",
+            "label": "upsport",
+            "newLine": true
+        },
+        "pollingInterval": {
+            "type": "number",
+            "label": "pollingInterval",
+            "newLine": true
+        }
+    }
+}

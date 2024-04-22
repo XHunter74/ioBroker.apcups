@@ -1,0 +1,5 @@
+{
+  "upsip": "Адреса хосту apcupsd",
+  "upsport": "Порт apcupsd",
+  "pollingInterval": "Інтервал опитування в мілісекундах"
+}

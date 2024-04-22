@@ -1,0 +1,5 @@
+{
+  "upsip": "Hostadres van apcupsd",
+  "upsport": "Haven van apcupsd",
+  "pollingInterval": "Polling-interval in milliseconden"
+}
