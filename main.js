@@ -1,4 +1,5 @@
 'use strict';
+const ApcAccess = require('./lib/apcaccess');
 
 
 const utils = require('@iobroker/adapter-core');
@@ -33,8 +34,6 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async startPooling() {
-        const ApcAccess = require('./apcaccess');
-
         this.apcAccess = new ApcAccess();
         this.apcAccess.on('error', async (error) => {
             this.log.error(error);
@@ -126,7 +125,7 @@ class ApcUpsAdapter extends utils.Adapter {
                     await this.createAdapterState(newState);
                     await this.setStateAsync(field.toLowerCase(), { val: value, ack: true });
                 }
-            } catch (error) {
+            } catch {
                 this.log.debug(`Can't update UPS state ${field}:${value}`);
             }
         }
