@@ -3,10 +3,13 @@ const ApcAccess = require('./lib/apcaccess');
 
 
 const utils = require('@iobroker/adapter-core');
+const MinPollInterval = 1000;
+const MaxPollInterval = 60000;
 
 class ApcUpsAdapter extends utils.Adapter {
 
     intervalId;
+    timeoutId;
     apcAccess;
 
     /**
@@ -26,14 +29,50 @@ class ApcUpsAdapter extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        this.log.info(`Apcupcd location: ${this.config.upsip}:${this.config.upsport}`);
+        this.log.info('Ups list: ' + JSON.stringify(this.config.upsList));
         this.log.info('Polling interval: ' + this.config.pollingInterval);
-        this.setState('info.UPSHost', this.config.upsip, true);
-        this.setState('info.UPSPort', this.config.upsport, true);
-        await this.startPooling();
+
+        if (!this.config.upsList || this.config.upsList.length === 0 || !this.validateIPList(this.config.upsList)) {
+            this.log.error(`Invalid UPS list: ${JSON.stringify(this.config.upsList)}`);
+            this.stop();
+            return;
+        }
+
+        if (this.config.pollingInterval < MinPollInterval || isNaN(this.config.pollingInterval) || this.config.pollingInterval > MaxPollInterval) {
+            this.log.error('Invalid poll interval: ' + this.config.pollingInterval);
+            this.stop();
+            return;
+        }
+
+        this.initializeApcAccess();
+
+        this.startPooling();
     }
 
-    async startPooling() {
+    /**
+     * @param {string[]} ipList
+     */
+    validateIPList(ipList) {
+        try {
+            // Regular expression for IP address
+            const ipPattern = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+            // Validate each IP
+            for (const networkItem of ipList) {
+                if (!ipPattern.test(networkItem.upsIp)) {
+                    return false;
+                }
+            }
+
+            // If all IPs are valid
+            return true;
+        } catch (error) {
+            this.log.error(`Error in validateIPList: ${error}`);
+            return false;
+        }
+    }
+
+    initializeApcAccess() {
         this.apcAccess = new ApcAccess();
         this.apcAccess.on('error', async (error) => {
             this.log.error(error);
@@ -46,32 +85,45 @@ class ApcUpsAdapter extends utils.Adapter {
         this.apcAccess.on('disconnect', async () => {
             this.log.debug(`Disconnected from apcupsd '${this.config.upsip}:${this.config.upsport}'`);
         });
+    }
 
-        await this.processTask(this.apcAccess);
-        this.intervalId = this.setInterval(async () => {
-            //this.log.debug(`Connected: ${this.#apcAccess.isConnected}`);
+    startPooling() {
+        this.timeoutId = this.setTimeout(async () => {
             await this.processTask(this.apcAccess);
+            this.clearTimeout(this.timeoutId);
+            this.startPooling();
         }, this.config.pollingInterval);
     }
 
+
     async processTask(client) {
-        try {
-            await this.apcAccess.connect(this.config.upsip, this.config.upsport);
-            if (client.isConnected === true) {
-                try {
-                    let result = await client.getStatusJson();
-                    console.log(result);
-                    result = this.normalizeUpsResult(result);
-                    this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
-                    await this.createStatesObjects();
-                    await this.setUpsStates(result);
-                    await this.apcAccess.disconnect();
-                } catch (error) {
-                    this.sendError(error, `Failed to process apcupsd result`);
-                }
+        for (const ups of this.config.upsList) {
+            this.log.debug(`Processing UPS: ${ups.upsIp}:${ups.upsPort}`);
+            try {
+                await this.processUps(client, ups);
+
+            } catch { }// eslint-disable-line no-empty
+        }
+    }
+
+    async processUps(client, ups) {
+        await this.apcAccess.connect(ups.upsIp, ups.upsPort);
+        if (client.isConnected === true) {
+            try {
+                let result = await client.getStatusJson();
+                await this.apcAccess.disconnect();
+                console.log(result);
+                result = this.normalizeUpsResult(result);
+                const upsId = result['SERIALNO'];
+                this.log.debug(`UPS Id: '${upsId}'`);
+                this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
+                await this.createStatesObjects(upsId);
+                await this.setUpsStates(upsId, result);
+            } catch (error) {
+                this.log.error(`Failed to process apcupsd result: ${error} for UPS: ${ups.upsIp}:${ups.upsPort}`);
+                this.sendError(error, `Failed to process apcupsd result`);
             }
-            // eslint-disable-next-line no-empty
-        } catch { }
+        }
     }
 
     sendError(error, message) {
@@ -100,46 +152,55 @@ class ApcUpsAdapter extends utils.Adapter {
         }
     }
 
-    async setUpsStates(state) {
-        const adapterStates = require('./io-package.json');
+    async setUpsStates(upsId, state) {
+        const adapterStates = require('./lib/states-definition.json');
         const fields = Object.keys(state);
         for (const field of fields) {
             const value = state[field];
             try {
-                const upsState = adapterStates.native.upsStates.find(e => e.upsId == field);
+                const upsState = adapterStates.states.find(e => e.upsId == field);
                 if (upsState) {
-                    const instanceState = await this.getStateAsync(upsState.id);
+                    const upsStateId = `${upsId}.${upsState.id}`
+                    const instanceState = await this.getObjectAsync(upsStateId);
                     if (instanceState != null) {
-                        await this.setStateAsync(upsState.id, { val: value, ack: true });
+                        await this.setStateAsync(upsStateId, { val: value, ack: true });
                     } else {
-                        const newState = adapterStates.native.defaultState;
+                        const newState = adapterStates.defaultState;
                         newState.upsId = field;
-                        newState.id = upsState.id;
-                        await this.createAdapterState(newState);
-                        await this.setStateAsync(upsState.id, { val: value, ack: true });
+                        newState.id = field.toLowerCase();
+                        await this.createAdapterState(upsId, newState);
+                        await this.setStateAsync(upsStateId, { val: value, ack: true });
                     }
                 } else {
-                    const newState = adapterStates.native.defaultState;
+                    const newState = adapterStates.defaultState;
                     newState.upsId = field;
                     newState.id = field.toLowerCase();
-                    await this.createAdapterState(newState);
-                    await this.setStateAsync(field.toLowerCase(), { val: value, ack: true });
+                    await this.createAdapterState(upsId, newState);
+                    await this.setStateAsync(`${upsId}.${field.toLowerCase()}`, { val: value, ack: true });
                 }
-            } catch {
-                this.log.debug(`Can't update UPS state ${field}:${value}`);
+            } catch (error) {
+                this.log.debug(`Can't update UPS state ${field}:${value} because of ${error}`);
             }
         }
     }
 
-    async createStatesObjects() {
-        const adapterStates = require('./io-package.json');
-        for (let i = 0; i < adapterStates.native.upsStates.length; i++) {
-            const stateInfo = adapterStates.native.upsStates[i];
-            await this.createAdapterState(stateInfo);
+    async createStatesObjects(upsId) {
+        await this.setObjectNotExistsAsync(upsId, {
+            type: 'device',
+            common: {
+                name: upsId,
+            },
+            native: {},
+        });
+
+        const adapterStates = require('./lib/states-definition.json');
+        for (let i = 0; i < adapterStates.states.length; i++) {
+            const stateInfo = adapterStates.states[i];
+            await this.createAdapterState(upsId, stateInfo);
         }
     }
 
-    async createAdapterState(stateInfo) {
+    async createAdapterState(upsId, stateInfo) {
         const common = {
             name: stateInfo.name,
             type: stateInfo.type,
@@ -150,7 +211,8 @@ class ApcUpsAdapter extends utils.Adapter {
         if (stateInfo.unit && stateInfo.unit != null) {
             common.unit = stateInfo.unit;
         }
-        await this.setObjectNotExistsAsync(stateInfo.id, {
+        const stateId = `${upsId}.${stateInfo.id}`
+        await this.setObjectNotExistsAsync(stateId, {
             type: 'state',
             common: common,
             native: {},
