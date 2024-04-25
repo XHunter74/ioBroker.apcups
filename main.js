@@ -166,8 +166,8 @@ class ApcUpsAdapter extends utils.Adapter {
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     } else {
                         const newState = adapterStates.defaultState;
-                        newState.upsId = field;
-                        newState.id = field.toLowerCase();
+                        newState.upsId = upsState.upsId;
+                        newState.id = upsState.id;
                         await this.createAdapterState(upsId, newState);
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     }
