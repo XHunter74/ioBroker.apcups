@@ -4,10 +4,11 @@
 [![NPM version](https://img.shields.io/npm/v/iobroker.apcups.svg)](https://www.npmjs.com/package/iobroker.apcups)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.apcups.svg)](https://www.npmjs.com/package/iobroker.apcups)
 ![Number of Installations (latest)](https://iobroker.live/badges/apcups-installed.svg)
+![Current version in stable repository](https://iobroker.live/badges/apcups-stable.svg)
 
 [![NPM](https://nodei.co/npm/iobroker.apcups.png?downloads=true)](https://nodei.co/npm/iobroker.apcups/)
 
-**Tests:** [![Test and Release](https://github.com/xhunter74/ioBroker.apcups/actions/workflows/main.yml/badge.svg)](https://github.com/xhunter74/ioBroker.apcups/actions/workflows/main.yml)
+**Tests:** [![Test and Release](https://github.com/xhunter74/ioBroker.apcups/actions/workflows/test-and-release.yml/badge.svg)](https://github.com/xhunter74/ioBroker.apcups/actions/workflows/test-and-release.yml)
 
 ## Apc UPS adapter for ioBroker
 
