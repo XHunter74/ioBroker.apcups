@@ -179,6 +179,8 @@
     "native": {
         "upsip": "127.0.0.1",
         "upsport": "3551",
+        "upsList": [],
+        "defaultUpsPort": "3551",
         "pollingInterval": 10000,
         "upsStates": [
             {

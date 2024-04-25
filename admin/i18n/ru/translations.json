@@ -1,5 +1,8 @@
 {
-  "upsip": "Адрес хоста apcupsd",
-  "upsport": "Порт apcupsd",
-  "pollingInterval": "Интервал опроса в миллисекундах"
+  "pollingInterval": "Интервал опроса в миллисекундах",
+  "upsList": "Список ИБП для мониторинга",
+  "upsIp": "IP-адрес ИБП",
+  "enterUpsIp": "Введите IP-адрес ИБП",
+  "upsPort": "Порт ИБП",
+  "enterUpsPort": "Введите порт ИБП"
 }
