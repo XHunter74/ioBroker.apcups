@@ -1,21 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "3.0.0",
+        "version": "3.0.1",
         "news": {
-            "1.0.7": {
-                "en": "Added validation on config screen",
-                "de": "Validierung auf dem config-Bildschirm hinzugefügt",
-                "ru": "Добавлена валидация на экране настройки",
-                "pt": "Validação adicionada na tela de configuração",
-                "nl": "Toegevoegde validatie op configuratiescherm",
-                "fr": "Ajout de la validation à l'écran de configuration",
-                "it": "Aggiunto validazione sulla schermata di configurazione",
-                "es": "Validación agregada en la pantalla de configuración",
-                "pl": "Dodano walidację na ekranie konfiguracyjnym",
-                "uk": "Додано валідацію на екрані config",
-                "zh-cn": "在配置屏幕上添加验证"
-            },
             "1.0.8": {
                 "en": "Added validation on config screen",
                 "de": "Validierung auf dem config-Bildschirm hinzugefügt",
@@ -94,7 +81,7 @@
                 "uk": "УВАГА! Змінено мінімальну версію nodejs до 16",
                 "zh-cn": "刹车! 将节点的最小版本改为 16"
             },
-            "3.0.0":{
+            "3.0.0": {
                 "en": "BREAKING! Changed the minimal version of nodejs to 18, js-controller to 4.0.0",
                 "de": "BREAKING! Änderung der minimalen Version von nodejs auf 18, js-controller auf 4.0.0",
                 "ru": "Внимание! Изменение минимальной версии nodejs до 18, js-контроллер до 4.0.0",
@@ -106,7 +93,20 @@
                 "pl": "Breaking! Zmienił minimalną wersję nodejs do 18, kontroler js- do 4.0.0",
                 "uk": "УВАГА! Змінено мінімальну версію nodejs до 18, js-controller до 4.0.0",
                 "zh-cn": "刹车! 将节点最小版本改为18,js控制器改为4.0.0"
-              }
+            },
+            "3.0.1": {
+                "en": "Update dependencies",
+                "de": "Abhängigkeiten aktualisieren",
+                "ru": "Обновление зависимостей",
+                "pt": "Dependências de atualização",
+                "nl": "Afhankelijkheden bijwerken",
+                "fr": "Mise à jour des dépendances",
+                "it": "Dipendenze di aggiornamento",
+                "es": "Actualizar las dependencias",
+                "pl": "Aktualizuj zależności",
+                "uk": "Оновлення залежностей",
+                "zh-cn": "更新依赖关系"
+            }
         },
         "title": "APC UPS connector",
         "titleLang": {
