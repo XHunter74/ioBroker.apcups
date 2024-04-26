@@ -1,5 +1,8 @@
 {
-  "upsip": "Hostadres van apcupsd",
-  "upsport": "Haven van apcupsd",
-  "pollingInterval": "Polling-interval in milliseconden"
+  "pollingInterval": "Polling-interval in milliseconden",
+  "upsList": "Lijst met UPS'en die moeten worden gecontroleerd",
+  "upsIp": "IP-adres van UPS",
+  "enterUpsIp": "Voer het IP-adres van UPS in",
+  "upsPort": "Haven van UPS",
+  "enterUpsPort": "Voer de poort van UPS in"
 }

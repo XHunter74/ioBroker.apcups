@@ -1,5 +1,8 @@
 {
-  "upsip": "Adresse de l'hôte de apcupsd",
-  "upsport": "Port d'apcupsd",
-  "pollingInterval": "Intervalle d'interrogation en millisecondes"
+  "pollingInterval": "Intervalle d'interrogation en millisecondes",
+  "upsList": "Liste des UPS à surveiller",
+  "upsIp": "Adresse IP de l'onduleur",
+  "enterUpsIp": "Entrez l'adresse IP de l'UPS",
+  "upsPort": "Port d'UPS",
+  "enterUpsPort": "Entrez le port d'UPS"
 }

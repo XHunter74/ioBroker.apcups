@@ -1,5 +1,8 @@
 {
-  "upsip": "Endereço de host do apcupsd",
-  "upsport": "Porto de apcupsd",
-  "pollingInterval": "Intervalo de pesquisa em milissegundos"
+  "pollingInterval": "Intervalo de pesquisa em milissegundos",
+  "upsList": "Lista de UPSs para monitorar",
+  "upsIp": "Endereço IP do UPS",
+  "enterUpsIp": "Insira o endereço IP do UPS",
+  "upsPort": "Porto de UPS",
+  "enterUpsPort": "Entre na porta do UPS"
 }
