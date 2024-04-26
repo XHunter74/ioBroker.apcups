@@ -163,7 +163,7 @@ class ApcUpsAdapter extends utils.Adapter {
             try {
                 const upsState = adapterStates.states.find(e => e.upsId == field);
                 if (upsState) {
-                    const upsStateId = `${upsId}.${upsState.id}`
+                    const upsStateId = `${upsId}.${upsState.id}`;
                     const instanceState = await this.getObjectAsync(upsStateId);
                     if (instanceState != null) {
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
@@ -214,7 +214,7 @@ class ApcUpsAdapter extends utils.Adapter {
         if (stateInfo.unit && stateInfo.unit != null) {
             common.unit = stateInfo.unit;
         }
-        const stateId = `${upsId}.${stateInfo.id}`
+        const stateId = `${upsId}.${stateInfo.id}`;
         await this.setObjectNotExistsAsync(stateId, {
             type: 'state',
             common: common,

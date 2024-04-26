@@ -52,13 +52,16 @@ export default [
     files: ["**/*.js", "**/*.mjs"],
     languageOptions: {
       parser: babelParser,
-      sourceType: "script",
+      sourceType: "module",
+      ecmaVersion: 2020,
       parserOptions: {
         requireConfigFile: false,
+        ecmaVersion: 2020,
+        allowImportExportEverywhere: false,
         babelOptions: {
           babelrc: false,
           configFile: false,
-          // presets: ["@babel/preset-env"]
+          presets: ["@babel/preset-env"]
         }
       }
     }
