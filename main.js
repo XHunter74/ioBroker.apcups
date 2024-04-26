@@ -59,6 +59,7 @@ class ApcUpsAdapter extends utils.Adapter {
             const ipAddressStates = Object.keys(allStates)
                 .filter(state => state.endsWith('.info.ipAddress'));
             if (ipAddressStates.length > 0) {
+                let unavailableUps = 0;
                 for (const ipAddress of ipAddressStates) {
                     const upsId = ipAddress.split('.')[2];
                     const lastUpdate = (await this.getStateAsync(ipAddress)).ts;
@@ -69,7 +70,13 @@ class ApcUpsAdapter extends utils.Adapter {
                             this.log.warn(`UPS '${upsId}' is not available`);
                         }
                         this.setState(aliveStateName, false, true);
+                        unavailableUps++;
                     }
+                }
+                if (unavailableUps > 0) {
+                    this.setState('info.connection', false, true);
+                } else {
+                    this.setState('info.connection', true, true);
                 }
             }
             this.clearTimeout(this.availabilityTimeout);
@@ -104,11 +111,9 @@ class ApcUpsAdapter extends utils.Adapter {
         this.normalizer = new Normaliser();
         this.apcAccess = new ApcAccess();
         this.apcAccess.on('error', async (error) => {
-            this.log.error(error);
-            this.setState('info.connection', false, true);
+            this.log.debug(`Error from apcupsd: ${error}`);
         });
         this.apcAccess.on('connect', () => {
-            this.setState('info.connection', true, true);
             this.log.debug(`Connected to apcupsd '${this.config.upsip}:${this.config.upsport}' successfully`);
         });
         this.apcAccess.on('disconnect', async () => {
