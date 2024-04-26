@@ -71,7 +71,7 @@ class ApcUpsAdapter extends utils.Adapter {
             outdatedObjects.push('info.UPSPort');
 
             this.log.info(`Deleting ${outdatedObjects.length} outdated states`);
-            
+
             for (const object of outdatedObjects) {
                 this.log.info(`Deleting object: ${object}`);
                 await this.delObjectAsync(object);
