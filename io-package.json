@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "3.0.1",
+        "version": "3.9.99",
         "news": {
             "1.0.8": {
                 "en": "Added validation on config screen",
@@ -200,30 +200,6 @@
                 "read": true,
                 "write": false,
                 "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.UPSHost",
-            "type": "state",
-            "common": {
-                "role": "state",
-                "name": "UPS host",
-                "type": "string",
-                "read": true,
-                "write": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.UPSPort",
-            "type": "state",
-            "common": {
-                "role": "state",
-                "name": "UPS port",
-                "type": "number",
-                "read": true,
-                "write": false
             },
             "native": {}
         }
