@@ -300,9 +300,9 @@ class ApcUpsAdapter extends utils.Adapter {
             native: {}
         });
 
-        const aliveState = (await this.getStateAsync(`${upsId}.info.alive`)).val;
+        const aliveState = await this.getStateAsync(`${upsId}.info.alive`);
 
-        if (aliveState && aliveState === false) {
+        if (aliveState && aliveState.val === false) {
             this.log.warn(`UPS '${upsId}' is available again`);
         }
 
