@@ -106,6 +106,19 @@
                 "pl": "Aktualizuj zależności",
                 "uk": "Оновлення залежностей",
                 "zh-cn": "更新依赖关系"
+            },
+            "4.0.0": {
+                "en": "BREAKING! \n1. Added support of multiple UPS so states structure was changed. All existed states will be deleted. Please do backup before upgrade the adapter! Also existed configuration will be lost. Please re-configure the adapter and add one or more devices to it.\n2. Minimal js-controller version is 5.0.19\n3. Minimal admin version is 6.13.16",
+                "de": "BREAKING!\nANHANG Unterstützung von mehreren UPS hinzugefügt, so dass Zustände Struktur geändert wurde. Alle existierenden Staaten werden gelöscht. Bitte machen Sie Verstärkung vor dem Upgrade des Adapters! Auch existierte Konfiguration wird verloren gehen. Bitte konfigurieren Sie den Adapter neu und fügen Sie ihm ein oder mehrere Geräte hinzu.\n2. Minimale js-controller Version ist 5.0.19\n3. Minimal Admin Version ist 6.13.16",
+                "ru": "ВНИМАНИЕ!\n1. Добавлена поддержка нескольких ИБП, поэтому структура состояний была изменена. Все существующие состояния будут удалены. Пожалуйста, сделайте резервное копирование перед обновлением адаптера! Также будет потеряна конфигурация. Пожалуйста, перенастройте адаптер и добавьте к нему одно или несколько устройств.\n2. Minimal js-controller версия 5.0.19\n3. Минимальная версия admin 6.13.16",
+                "pt": "ESTOU A BRINCAR!\n1. Adicionado suporte de múltiplos UPS para que a estrutura dos estados foi alterada. Todos os estados existentes serão excluídos. Faça backup antes de atualizar o adaptador! Também a configuração existente será perdida. Por favor, reconfigure novamente o adaptador e adicione um ou mais dispositivos a ele.\n2. versão js-controller mínima é 5.0.19\n3. A versão administrativa mínima é 6.13.16",
+                "nl": "BREAKING!\n1. Toegevoegde ondersteuning van meerdere UPS zodat staat structuur werd gewijzigd. Alle bestaande staten zullen worden geschrapt. Doe back-up voordat u de adapter upgrade! Ook bestaande configuratie zal verloren gaan. Stel de adapter opnieuw in en voeg er een of meer apparaten aan toe.\n2. Minimale js-controller versie is 5.0.19\n3. Minimale admin versie is 6.13.16",
+                "fr": "C'EST VRAI !\n1. Ajout du support de plusieurs UPS pour modifier la structure des états. Tous les états existants seront supprimés. Faites une sauvegarde avant de mettre à niveau l'adaptateur! La configuration existante sera perdue. Veuillez reconfigurer l'adaptateur et y ajouter un ou plusieurs appareils.\n2. La version minimale de js-controller est 5.0.19\n3. La version administrative minimale est le 6.13.16",
+                "it": "ATTENTI!\n1. Aggiunto il supporto di più UPS così la struttura degli stati è stato cambiato. Tutti gli stati esistenti verranno eliminati. Si prega di eseguire il backup prima di aggiornare l'adattatore! Anche la configurazione esistente sarà persa. Si prega di riconfigurare l'adattatore e aggiungere uno o più dispositivi ad esso.\n2. Minimal js-controller versione è 5.0.19\n3. Versione minimal admin è 6.13.16",
+                "es": "¡RESPIRA!\n1. Se agregó soporte de múltiples UPS por lo que la estructura de estados se cambió. Todos los estados existentes serán eliminados. Por favor haga copias de seguridad antes de actualizar el adaptador! También se perderá la configuración existente. Por favor vuelva a configurar el adaptador y agregue uno o más dispositivos a él.\n2. Minimal js-controller versión es 5.0.19\n3. Versión de administración mínima es 6.13.16",
+                "pl": "BREAKING!\n1. Dodano wsparcie wielu UPS, więc struktura stanów została zmieniona. Wszystkie istniejące państwa zostaną usunięte. Proszę wykonać kopię zapasową przed uaktualnieniem adaptera! Również istniejąca konfiguracja zostanie utracona. Proszę ponownie skonfigurować adapter i dodać do niego jedno lub więcej urządzeń.\n2. Minimalna wersja sterownika js- to 5.0.19\n3. Minimalna wersja admin to 6.13.16",
+                "uk": "УВАГА!\n1 Додано підтримку кількох UPS, тому структура станів була змінена. Всі існуючі стани будуть видалені. Будь ласка, зробіть резервну копію перед оновленням адаптера! Також буде втрачено конфігурацію. Будь ласка, переналаштуйте адаптер і додайте один або кілька пристроїв.\n2. Мінімальна версія js-controller 5.0.19\n3. У Мінімальна версія адміністратора 6.13.16",
+                "zh-cn": "刹车!\n一、导 言 添加了对多个UPS的支持,从而更改了状态结构. 所有已存在的州将被删除。 请在升级适配器前进行备份! 已经存在的配置也将丢失。 请重新配置适配器并添加一个或多个设备.\n2. 最小js控制器版本为5.0.19\n3个 最小管理员版本为6.13.16"
             }
         },
         "title": "APC UPS connector",
@@ -158,6 +171,7 @@
         "mode": "daemon",
         "type": "hardware",
         "compact": true,
+        "messagebox": true,
         "adminUI": {
             "config": "json",
             "tab": "materialize"
@@ -172,7 +186,12 @@
         },
         "dependencies": [
             {
-                "js-controller": ">=4.0.0"
+                "js-controller": ">=5.0.19"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=6.13.16"
             }
         ]
     },
@@ -195,7 +214,7 @@
             "type": "state",
             "common": {
                 "role": "indicator.connected",
-                "name": "If APCUSB pooling is active",
+                "name": "If pooling is active",
                 "type": "boolean",
                 "read": true,
                 "write": false,
