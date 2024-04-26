@@ -6,11 +6,12 @@ const Normaliser = require('./lib/normalizer');
 const utils = require('@iobroker/adapter-core');
 const MinPollInterval = 1000;
 const MaxPollInterval = 60000;
+const CheckAvailabilityTimeout = 1000;
 
 class ApcUpsAdapter extends utils.Adapter {
 
-    intervalId;
     timeoutId;
+    availabilityTimeout;
     apcAccess;
     normalizer;
 
@@ -48,7 +49,32 @@ class ApcUpsAdapter extends utils.Adapter {
 
         this.initializeApcAccess();
 
-        this.startPooling();
+        await this.startPooling();
+        this.checkAvailability();
+    }
+
+    checkAvailability() {
+        this.availabilityTimeout = this.setTimeout(async () => {
+            const allStates = await this.getAdapterObjectsAsync();
+            const ipAddressStates = Object.keys(allStates)
+                .filter(state => state.endsWith('.info.ipAddress'));
+            if (ipAddressStates.length > 0) {
+                for (const ipAddress of ipAddressStates) {
+                    const upsId = ipAddress.split('.')[2];
+                    const lastUpdate = (await this.getStateAsync(ipAddress)).ts;
+                    if (new Date().getTime() - lastUpdate > this.config.pollingInterval * 2) {
+                        const aliveStateName = `${upsId}.info.alive`;
+                        const aliveState = (await this.getStateAsync(aliveStateName)).val;
+                        if (aliveState) {
+                            this.log.warn(`UPS '${upsId}' is not available`);
+                        }
+                        this.setState(aliveStateName, false, true);
+                    }
+                }
+            }
+            this.clearTimeout(this.availabilityTimeout);
+            this.checkAvailability();
+        }, CheckAvailabilityTimeout);
     }
 
     /**
@@ -90,11 +116,14 @@ class ApcUpsAdapter extends utils.Adapter {
         });
     }
 
-    startPooling() {
+    async startPooling(isFirstRun = true) {
+        if (isFirstRun) {
+            await this.processTask(this.apcAccess);
+        }
         this.timeoutId = this.setTimeout(async () => {
             await this.processTask(this.apcAccess);
             this.clearTimeout(this.timeoutId);
-            this.startPooling();
+            this.startPooling(false);
         }, this.config.pollingInterval);
     }
 
@@ -196,6 +225,60 @@ class ApcUpsAdapter extends utils.Adapter {
             native: {},
         });
 
+        await this.setObjectNotExistsAsync(`${upsId}.info`, {
+            'type': 'channel',
+            'common': {
+                'name': 'Information',
+            },
+            native: {}
+        });
+
+        await this.setObjectNotExistsAsync(`${upsId}.info.alive`, {
+            'type': 'state',
+            'common': {
+                'name': 'Is alive',
+                'type': 'boolean',
+                'read': true,
+                'write': false,
+                'role': 'indicator.state'
+            },
+            native: {}
+        });
+
+        await this.setObjectNotExistsAsync(`${upsId}.info.ipAddress`, {
+            'type': 'state',
+            'common': {
+                'name': 'UPS IP Address',
+                'type': 'string',
+                'read': true,
+                'write': false,
+                'role': 'state'
+            },
+            native: {}
+        });
+
+        await this.setObjectNotExistsAsync(`${upsId}.info.ipPort`, {
+            'type': 'state',
+            'common': {
+                'name': 'UPS IP Port',
+                'type': 'number',
+                'read': true,
+                'write': false,
+                'role': 'state'
+            },
+            native: {}
+        });
+
+        const aliveState = (await this.getStateAsync(`${upsId}.info.alive`)).val;
+
+        if (aliveState && aliveState === false) {
+            this.log.warn(`UPS '${upsId}' is available again`);
+        }
+
+        await this.setStateAsync(`${upsId}.info.alive`, { val: true, ack: true });
+        await this.setStateAsync(`${upsId}.info.ipAddress`, { val: ipAddress, ack: true });
+        await this.setStateAsync(`${upsId}.info.ipPort`, { val: ipPort, ack: true });
+
         const adapterStates = require('./lib/states-definition.json');
         for (let i = 0; i < adapterStates.states.length; i++) {
             const stateInfo = adapterStates.states[i];
@@ -228,7 +311,8 @@ class ApcUpsAdapter extends utils.Adapter {
      */
     async onUnload(callback) {
         try {
-            this.clearInterval(this.intervalId);
+            this.clearTimeout(this.timeoutId);
+            this.clearTimeout(this.availabilityTimeout);
 
             if (this.apcAccess != null && this.apcAccess.isConnected === true) {
                 await this.apcAccess.disconnect();
