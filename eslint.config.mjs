@@ -1,5 +1,7 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
+import js from "@eslint/js";
+import babelParser from "@babel/eslint-parser";
 // import tseslint from "typescript-eslint";
 
 
@@ -7,6 +9,7 @@ export default [
   { files: ["**/*.js"], languageOptions: { sourceType: "commonjs" } },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
+  js.configs.recommended,
   // ...tseslint.configs.recommended,
   {
     rules: {
@@ -44,5 +47,20 @@ export default [
   },
   {
     ignores: ["admin/words.js", "/**/node_modules/*", "node_modules/", "eslint.config.mjs", "**/test/", "main.test.js"],
+  },
+  {
+    files: ["**/*.js", "**/*.mjs"],
+    languageOptions: {
+      parser: babelParser,
+      sourceType: "script",
+      parserOptions: {
+        requireConfigFile: false,
+        babelOptions: {
+          babelrc: false,
+          configFile: false,
+          // presets: ["@babel/preset-env"]
+        }
+      }
+    }
   }
 ];
