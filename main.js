@@ -51,6 +51,32 @@ class ApcUpsAdapter extends utils.Adapter {
 
         await this.startPooling();
         this.checkAvailability();
+        this.cleanOutdatedStates();
+    }
+
+    async cleanOutdatedStates() {
+        const allObjects = await this.getAdapterObjectsAsync();
+        const outdatedObjects = Object.keys(allObjects).map((key) => {
+            const item = {
+                id: key,
+                value: allObjects[key]
+            };
+            return item;
+        }
+        )
+            .filter((item) => item.id.split('.').length === 3 && item.value.type === 'state')
+            .map((item) => item.id);
+        if (outdatedObjects && outdatedObjects.length > 0) {
+            outdatedObjects.push('info.UPSHost');
+            outdatedObjects.push('info.UPSPort');
+
+            this.log.info(`Deleting ${outdatedObjects.length} outdated states`);
+            
+            for (const object of outdatedObjects) {
+                this.log.info(`Deleting object: ${object}`);
+                await this.delObjectAsync(object);
+            }
+        }
     }
 
     checkAvailability() {
