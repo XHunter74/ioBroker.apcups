@@ -182,7 +182,7 @@ class ApcUpsAdapter extends utils.Adapter {
                 this.log.debug(`UPS Id: '${upsId}'`);
                 this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
                 await this.createUpsObjects(upsId, ups.upsIp, ups.upsPort);
-                await this.setUpsStates(upsId, result);
+                await this.setUpsStates(upsId, ups.upsIp, result);
             } catch (error) {
                 this.log.error(`Failed to process apcupsd result: ${error} for UPS: ${ups.upsIp}:${ups.upsPort}`);
                 this.sendError(error, `Failed to process apcupsd result`);
@@ -216,7 +216,7 @@ class ApcUpsAdapter extends utils.Adapter {
         }
     }
 
-    async setUpsStates(upsId, state) {
+    async setUpsStates(upsId, ipAddress, state) {
         const aliveState = await this.getStateAsync(`${upsId}.info.alive`);
 
         if (aliveState && aliveState.val === false) {
