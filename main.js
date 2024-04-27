@@ -14,6 +14,7 @@ class ApcUpsAdapter extends utils.Adapter {
     availabilityTimeout;
     apcAccess;
     normalizer;
+    initialized = {};
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -248,6 +249,9 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async createUpsObjects(upsId, ipAddress, ipPort) {
+        if (this.initialized[upsId]) {
+            return;
+        }
         await this.setObjectNotExistsAsync(upsId, {
             type: 'device',
             common: {
@@ -315,6 +319,7 @@ class ApcUpsAdapter extends utils.Adapter {
             const stateInfo = adapterStates.states[i];
             await this.createAdapterState(upsId, stateInfo);
         }
+        this.initialized[upsId] = true;
     }
 
     async createAdapterState(upsId, stateInfo) {
