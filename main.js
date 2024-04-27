@@ -217,6 +217,15 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async setUpsStates(upsId, state) {
+        const aliveState = await this.getStateAsync(`${upsId}.info.alive`);
+
+        if (aliveState && aliveState.val === false) {
+            this.log.warn(`UPS '${upsId}' is available again`);
+        }
+
+        await this.setStateAsync(`${upsId}.info.alive`, { val: true, ack: true });
+        await this.setStateAsync(`${upsId}.info.ipAddress`, { val: ipAddress, ack: true });
+
         const adapterStates = require('./lib/states-definition.json');
         const fields = Object.keys(state);
         for (const field of fields) {
@@ -304,13 +313,6 @@ class ApcUpsAdapter extends utils.Adapter {
             native: {}
         });
 
-        const aliveState = await this.getStateAsync(`${upsId}.info.alive`);
-
-        if (aliveState && aliveState.val === false) {
-            this.log.warn(`UPS '${upsId}' is available again`);
-        }
-
-        await this.setStateAsync(`${upsId}.info.alive`, { val: true, ack: true });
         await this.setStateAsync(`${upsId}.info.ipAddress`, { val: ipAddress, ack: true });
         await this.setStateAsync(`${upsId}.info.ipPort`, { val: ipPort, ack: true });
 
