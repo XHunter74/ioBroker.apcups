@@ -33,7 +33,6 @@
         },
         "pollingInterval": {
             "type": "number",
-            "width": "200px",
             "label": "pollingInterval",
             "newLine": true,
             "min": 1000,
