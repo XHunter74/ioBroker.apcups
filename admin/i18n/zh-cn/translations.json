@@ -1,5 +1,8 @@
 {
-    "upsip": "apcupsd 的主机地址",
-    "upsport": "apcupsd 端口",
-    "pollingInterval": "轮询间隔（以毫秒为单位）"
-  }
+  "pollingInterval": "轮询间隔（以毫秒为单位）",
+  "upsList": "要监控的 UPS 列表",
+  "upsIp": "UPS 的 IP 地址",
+  "enterUpsIp": "输入 UPS 的 IP 地址",
+  "upsPort": "UPS 港口",
+  "enterUpsPort": "输入 UPS 端口"
+}

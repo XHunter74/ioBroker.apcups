@@ -2,20 +2,41 @@
     "i18n": true,
     "type": "panel",
     "items": {
-        "upsip": {
-            "type": "text",
-            "label": "upsip",
-            "newLine": true
-        },
-        "upsport": {
-            "type": "number",
-            "label": "upsport",
-            "newLine": true
+        "upsList": {
+            "type": "table",
+            "label": "upsList",
+            "newLine": true,
+            "items": [
+                {
+                    "type": "text",
+                    "attr": "upsIp",
+                    "width": "200px",
+                    "title": "upsIp",
+                    "tooltip": "enterUpsIp",
+                    "filter": false,
+                    "sort": false,
+                    "default": ""
+                },
+                {
+                    "type": "number",
+                    "attr": "upsPort",
+                    "width": "100px ",
+                    "title": "upsPort",
+                    "tooltip": "enterUpsPort",
+                    "filter": false,
+                    "sort": false,
+                    "min": 1054,
+                    "step": 1,
+                    "default": 3551
+                }
+            ]
         },
         "pollingInterval": {
             "type": "number",
             "label": "pollingInterval",
-            "newLine": true
+            "newLine": true,
+            "min": 1000,
+            "max": 60000
         }
     }
 }
