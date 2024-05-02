@@ -10,9 +10,21 @@ const CheckAvailabilityTimeout = 1000;
 
 class ApcUpsAdapter extends utils.Adapter {
 
+    /**
+     * @type {ioBroker.Timeout | undefined}
+     */
     timeoutId;
+    /**
+     * @type {ioBroker.Timeout | undefined}
+     */
     availabilityTimeout;
+    /**
+     * @type {ApcAccess | undefined}
+     */
     apcAccess;
+    /**
+     * @type {Normaliser | undefined}
+     */
     normalizer;
     initialized = {};
 
