@@ -192,7 +192,10 @@ class ApcUpsAdapter extends utils.Adapter {
                 this.log.debug(result);
                 result = this.normalizer.normalizeUpsResult(result);
                 const upsId = result['SERIALNO'];
-                const status = result['STATUS'].toLowerCase().trim();
+                let status = result['STATUS'];
+                if (status) {
+                    status = status.toLowerCase().trim();
+                }
                 if (upsId === undefined || status === CommunicationLost) {
                     return;
                 }
