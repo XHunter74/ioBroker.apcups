@@ -184,9 +184,9 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async processUps(client, ups) {
-        await this.apcAccess.connect(ups.upsIp, ups.upsPort);
-        if (client.isConnected === true) {
-            try {
+        try {
+            await this.apcAccess.connect(ups.upsIp, ups.upsPort);
+            if (client.isConnected === true) {
                 let result = await client.getStatusJson();
                 await this.apcAccess.disconnect();
                 this.log.debug(result);
@@ -200,10 +200,9 @@ class ApcUpsAdapter extends utils.Adapter {
                 this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
                 await this.createUpsObjects(upsId, ups.upsIp, ups.upsPort);
                 await this.setUpsStates(upsId, ups.upsIp, result);
-            } catch (error) {
-                this.log.error(`Failed to process apcupsd result: ${error} for UPS: ${ups.upsIp}:${ups.upsPort}`);
-                this.sendError(error, `Failed to process apcupsd result`);
             }
+        } catch (error) {
+            this.log.error(`Failed to process apcupsd result: ${error} for UPS: ${ups.upsIp}:${ups.upsPort}`);
         }
     }
 
