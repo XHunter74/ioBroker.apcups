@@ -7,6 +7,7 @@ const utils = require('@iobroker/adapter-core');
 const MinPollInterval = 1000;
 const MaxPollInterval = 60000;
 const CheckAvailabilityTimeout = 1000;
+const CommunicationLost = 'commlost';
 
 class ApcUpsAdapter extends utils.Adapter {
 
@@ -188,9 +189,13 @@ class ApcUpsAdapter extends utils.Adapter {
             try {
                 let result = await client.getStatusJson();
                 await this.apcAccess.disconnect();
-                console.log(result);
+                this.log.debug(result);
                 result = this.normalizer.normalizeUpsResult(result);
                 const upsId = result['SERIALNO'];
+                const status = result['STATUS'].toLowerCase().trim();
+                if (upsId === undefined || status === CommunicationLost) {
+                    return;
+                }
                 this.log.debug(`UPS Id: '${upsId}'`);
                 this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
                 await this.createUpsObjects(upsId, ups.upsIp, ups.upsPort);
