@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "3.9.99",
+        "version": "3.9.00",
         "news": {
             "1.0.8": {
                 "en": "Added validation on config screen",
