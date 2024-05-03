@@ -163,31 +163,31 @@ class ApcUpsAdapter extends utils.Adapter {
 
     async startPooling(isFirstRun = true) {
         if (isFirstRun) {
-            await this.processTask(this.apcAccess);
+            await this.processTask();
         }
         this.timeoutId = this.setTimeout(async () => {
-            await this.processTask(this.apcAccess);
+            await this.processTask();
             this.clearTimeout(this.timeoutId);
             this.startPooling(false);
         }, this.config.pollingInterval);
     }
 
 
-    async processTask(client) {
+    async processTask() {
         for (const ups of this.config.upsList) {
             this.log.debug(`Processing UPS: ${ups.upsIp}:${ups.upsPort}`);
             try {
-                await this.processUps(client, ups);
+                await this.processUps(ups);
 
             } catch { }// eslint-disable-line no-empty
         }
     }
 
-    async processUps(client, ups) {
+    async processUps(ups) {
         try {
             await this.apcAccess.connect(ups.upsIp, ups.upsPort);
-            if (client.isConnected === true) {
-                let result = await client.getStatusJson();
+            if (this.apcAccess.isConnected === true) {
+                let result = await this.apcAccess.getStatusJson();
                 await this.apcAccess.disconnect();
                 this.log.debug(result);
                 result = this.normalizer.normalizeUpsResult(result);
