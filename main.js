@@ -46,8 +46,8 @@ class ApcUpsAdapter extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        this.log.info('Ups list: ' + JSON.stringify(this.config.upsList));
-        this.log.info('Polling interval: ' + this.config.pollingInterval);
+        this.log.info(`Ups list:  ${JSON.stringify(this.config.upsList)}`);
+        this.log.info(`Polling interval: ${this.config.pollingInterval} ms`);
 
         if (!this.config.upsList || this.config.upsList.length === 0 || !this.validateIPList(this.config.upsList)) {
             this.log.error(`Invalid UPS list: ${JSON.stringify(this.config.upsList)}`);
