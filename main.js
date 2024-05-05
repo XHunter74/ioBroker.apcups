@@ -192,7 +192,7 @@ class ApcUpsAdapter extends utils.Adapter {
             if (this.apcAccess.isConnected === true) {
                 let result = await this.apcAccess.getStatusJson();
                 await this.apcAccess.disconnect();
-                this.log.debug(result);
+                this.log.debug(`UPS result: ${JSON.stringify(result)}`);
                 result = this.normalizer.normalizeUpsResult(result);
                 const upsId = result['SERIALNO'];
                 let status = result['STATUS'];
