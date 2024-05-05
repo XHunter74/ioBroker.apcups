@@ -1,7 +1,7 @@
 'use strict';
 
 const ApcAccess = require('./lib/apcaccess');
-const Normaliser = require('./lib/normalizer');
+const Normalizer = require('./lib/normalizer');
 
 
 const utils = require('@iobroker/adapter-core');
@@ -151,7 +151,7 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     initializeApcAccess() {
-        this.normalizer = new Normaliser();
+        this.normalizer = new Normalizer();
         this.apcAccess = new ApcAccess();
         this.apcAccess.on('error', async (error) => {
             this.log.debug(`Error from apcupsd: ${error}`);
