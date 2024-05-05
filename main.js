@@ -1,4 +1,5 @@
 'use strict';
+
 const ApcAccess = require('./lib/apcaccess');
 const Normaliser = require('./lib/normalizer');
 
@@ -20,7 +21,7 @@ class ApcUpsAdapter extends utils.Adapter {
      */
     availabilityTimeout;
     /**
-     * @type {ApcAccess | undefined}
+     * @type {ApcAccessNew | undefined}
      */
     apcAccess;
     /**
