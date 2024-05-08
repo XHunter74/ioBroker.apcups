@@ -33,6 +33,7 @@ class ApcUpsAdapter extends utils.Adapter {
      * @type {string[]}
      */
     ipAddressStates = [];
+    adapterStates = require('./lib/states-definition.json');
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -271,33 +272,32 @@ class ApcUpsAdapter extends utils.Adapter {
         await this.setStateAsync(`${upsId}.info.ipAddress`, { val: ipAddress, ack: true });
         await this.setStateAsync(`${upsId}.info.ipPort`, { val: ipPort, ack: true });
 
-        const adapterStates = require('./lib/states-definition.json');
         const fields = Object.keys(state);
         for (const field of fields) {
             const value = state[field];
             try {
-                const upsState = adapterStates.states.find(e => e.upsId == field);
+                const upsState = this.adapterStates.states.find(e => e.upsId == field);
                 if (upsState) {
                     const upsStateId = `${upsId}.${upsState.id}`;
                     const instanceState = await this.getObjectAsync(upsStateId);
                     if (instanceState != null) {
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     } else {
-                        const newState = adapterStates.defaultState;
+                        const newState = this.adapterStates.defaultState;
                         newState.upsId = upsState.upsId;
                         newState.id = upsState.id;
                         await this.createAdapterState(upsId, newState);
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     }
                 } else {
-                    const newState = adapterStates.defaultState;
+                    const newState = this.adapterStates.defaultState;
                     newState.upsId = field;
                     newState.id = field.toLowerCase();
                     await this.createAdapterState(upsId, newState);
                     await this.setStateAsync(`${upsId}.${field.toLowerCase()}`, { val: value, ack: true });
                 }
             } catch (error) {
-                this.log.debug(`Can't update UPS state ${field}:${value} because of ${error}`);
+                this.log.error(`Can't update UPS state ${field}:${value} because of ${error}`);
             }
         }
     }
@@ -355,9 +355,8 @@ class ApcUpsAdapter extends utils.Adapter {
             native: {}
         });
 
-        const adapterStates = require('./lib/states-definition.json');
-        for (let i = 0; i < adapterStates.states.length; i++) {
-            const stateInfo = adapterStates.states[i];
+        for (let i = 0; i < this.adapterStates.states.length; i++) {
+            const stateInfo = this.adapterStates.states[i];
             await this.createAdapterState(upsId, stateInfo);
         }
         this.initialized[upsId] = true;
