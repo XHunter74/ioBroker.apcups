@@ -21,13 +21,13 @@ class ApcUpsAdapter extends utils.Adapter {
      */
     availabilityTimeout;
     /**
-     * @type {ApcAccessNew | undefined}
+     * @type {ApcAccess}
      */
-    apcAccess;
+    apcAccess = new ApcAccess();
     /**
-     * @type {Normaliser | undefined}
+     * @type {Normalizer}
      */
-    normalizer;
+    normalizer = new Normalizer;
     initialized = {};
     /**
      * @type {string[]}
@@ -166,8 +166,6 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     initializeApcAccess() {
-        this.normalizer = new Normalizer();
-        this.apcAccess = new ApcAccess();
         this.apcAccess.on('error', async (error) => {
             this.log.debug(`Error from apcupsd: ${error}`);
         });
@@ -392,7 +390,6 @@ class ApcUpsAdapter extends utils.Adapter {
             await this.setAliveStatesToFalse();
             if (this.apcAccess != null && this.apcAccess.isConnected === true) {
                 await this.apcAccess.disconnect();
-                this.apcAccess = null;
                 this.log.info('ApcAccess client is disconnected');
             }
             callback();
