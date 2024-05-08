@@ -99,36 +99,40 @@ class ApcUpsAdapter extends utils.Adapter {
     checkAvailability() {
         this.availabilityTimeout = this.setTimeout(async () => {
             try {
-                const allStates = await this.getAdapterObjectsAsync();
-                const ipAddressStates = Object.keys(allStates)
-                    .filter(state => state.endsWith('.info.ipAddress'));
-                if (ipAddressStates.length > 0) {
-                    let unavailableUps = 0;
-                    for (const ipAddress of ipAddressStates) {
-                        const upsId = ipAddress.split('.')[2];
-                        const lastUpdate = (await this.getStateAsync(ipAddress)).ts;
-                        if (new Date().getTime() - lastUpdate > this.config.pollingInterval * 2) {
-                            const aliveStateName = `${upsId}.info.alive`;
-                            const aliveState = (await this.getStateAsync(aliveStateName)).val;
-                            if (aliveState) {
-                                this.log.warn(`UPS '${upsId}' is not available`);
-                            }
-                            this.setState(aliveStateName, false, true);
-                            unavailableUps++;
-                        }
-                    }
-                    if (unavailableUps > 0) {
-                        this.setState('info.connection', false, true);
-                    } else {
-                        this.setState('info.connection', true, true);
-                    }
-                }
+                await this.checkAvailabilityTask();
             } catch (error) {
                 this.log.error(`Error in checkAvailability: ${error}`);
             }
             this.clearTimeout(this.availabilityTimeout);
             this.checkAvailability();
         }, CheckAvailabilityTimeout);
+    }
+
+    async checkAvailabilityTask() {
+        const allStates = await this.getAdapterObjectsAsync();
+        const ipAddressStates = Object.keys(allStates)
+            .filter(state => state.endsWith('.info.ipAddress'));
+        if (ipAddressStates.length > 0) {
+            let unavailableUps = 0;
+            for (const ipAddress of ipAddressStates) {
+                const upsId = ipAddress.split('.')[2];
+                const lastUpdate = (await this.getStateAsync(ipAddress)).ts;
+                if (new Date().getTime() - lastUpdate > this.config.pollingInterval * 2) {
+                    const aliveStateName = `${upsId}.info.alive`;
+                    const aliveState = (await this.getStateAsync(aliveStateName)).val;
+                    if (aliveState) {
+                        this.log.warn(`UPS '${upsId}' is not available`);
+                    }
+                    this.setState(aliveStateName, false, true);
+                    unavailableUps++;
+                }
+            }
+            if (unavailableUps > 0) {
+                this.setState('info.connection', false, true);
+            } else {
+                this.setState('info.connection', true, true);
+            }
+        }
     }
 
     /**
