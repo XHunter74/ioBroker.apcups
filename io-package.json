@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "3.9.8",
+        "version": "3.9.9",
         "news": {
             "1.0.8": {
                 "en": "Added validation on config screen",
@@ -107,7 +107,7 @@
                 "uk": "Оновлення залежностей",
                 "zh-cn": "更新依赖关系"
             },
-            "3.9.8": {
+            "3.9.9": {
                 "en": "BREAKING! \n1. Added support of multiple UPS so states structure was changed. All existed states will be deleted. Please do backup before upgrade the adapter! Also existed configuration will be lost. Please re-configure the adapter and add one or more devices to it.\n2. Minimal js-controller version is 5.0.19\n3. Minimal admin version is 6.13.16",
                 "de": "BREAKING!\nANHANG Unterstützung von mehreren UPS hinzugefügt, so dass Zustände Struktur geändert wurde. Alle existierenden Staaten werden gelöscht. Bitte machen Sie Verstärkung vor dem Upgrade des Adapters! Auch existierte Konfiguration wird verloren gehen. Bitte konfigurieren Sie den Adapter neu und fügen Sie ihm ein oder mehrere Geräte hinzu.\n2. Minimale js-controller Version ist 5.0.19\n3. Minimal Admin Version ist 6.13.16",
                 "ru": "ВНИМАНИЕ!\n1. Добавлена поддержка нескольких ИБП, поэтому структура состояний была изменена. Все существующие состояния будут удалены. Пожалуйста, сделайте резервное копирование перед обновлением адаптера! Также будет потеряна конфигурация. Пожалуйста, перенастройте адаптер и добавьте к нему одно или несколько устройств.\n2. Minimal js-controller версия 5.0.19\n3. Минимальная версия admin 6.13.16",
