@@ -390,15 +390,31 @@ class ApcUpsAdapter extends utils.Adapter {
         try {
             this.clearTimeout(this.timeoutId);
             this.clearTimeout(this.availabilityTimeout);
-
+            await this.setAliveStatesToFalse();
             if (this.apcAccess != null && this.apcAccess.isConnected === true) {
                 await this.apcAccess.disconnect();
+                this.apcAccess = null;
                 this.log.info('ApcAccess client is disconnected');
             }
             callback();
         } catch (error) {
             this.log.error(error);
             callback();
+        }
+    }
+
+    async setAliveStatesToFalse() {
+        try {
+            if (this.ipAddressStates.length > 0) {
+                for (const ipAddress of this.ipAddressStates) {
+                    const upsId = ipAddress.split('.')[2];
+                    const aliveStateName = `${upsId}.info.alive`;
+                    this.setState(aliveStateName, false, true);
+                }
+            }
+            this.setState('info.connection', false, true);
+        } catch (error) {
+            this.log.error(`Error in setAliveStatesToFalse: ${error}`);
         }
     }
 }
