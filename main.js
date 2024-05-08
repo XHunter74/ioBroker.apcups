@@ -29,6 +29,10 @@ class ApcUpsAdapter extends utils.Adapter {
      */
     normalizer;
     initialized = {};
+    /**
+     * @type {string[]}
+     */
+    ipAddressStates = [];
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -109,12 +113,14 @@ class ApcUpsAdapter extends utils.Adapter {
     }
 
     async checkAvailabilityTask() {
-        const allStates = await this.getAdapterObjectsAsync();
-        const ipAddressStates = Object.keys(allStates)
-            .filter(state => state.endsWith('.info.ipAddress'));
-        if (ipAddressStates.length > 0) {
+        if (this.ipAddressStates.length === 0) {
+            const allStates = await this.getAdapterObjectsAsync();
+            this.ipAddressStates = Object.keys(allStates)
+                .filter(state => state.endsWith('.info.ipAddress'));
+        }
+        if (this.ipAddressStates.length > 0) {
             let unavailableUps = 0;
-            for (const ipAddress of ipAddressStates) {
+            for (const ipAddress of this.ipAddressStates) {
                 const upsId = ipAddress.split('.')[2];
                 const lastUpdate = (await this.getStateAsync(ipAddress)).ts;
                 if (new Date().getTime() - lastUpdate > this.config.pollingInterval * 2) {
@@ -218,8 +224,10 @@ class ApcUpsAdapter extends utils.Adapter {
                 }
                 this.log.debug(`UPS Id: '${upsId}'`);
                 this.log.debug(`UPS state: '${JSON.stringify(result)}'`);
-                await this.createUpsObjects(upsId, ups.upsIp, ups.upsPort);
-                await this.setUpsStates(upsId, ups.upsIp, result);
+                if (!this.initialized[upsId]) {
+                    await this.createUpsObjects(upsId);
+                }
+                await this.setUpsStates(upsId, ups.upsIp, ups.upsPort, result);
             }
         } catch (error) {
             this.log.error(`Failed to process apcupsd result: ${error} for UPS: ${ups.upsIp}:${ups.upsPort}`);
@@ -252,7 +260,7 @@ class ApcUpsAdapter extends utils.Adapter {
         }
     }
 
-    async setUpsStates(upsId, ipAddress, state) {
+    async setUpsStates(upsId, ipAddress, ipPort, state) {
         const aliveState = await this.getStateAsync(`${upsId}.info.alive`);
 
         if (aliveState && aliveState.val === false) {
@@ -261,6 +269,7 @@ class ApcUpsAdapter extends utils.Adapter {
 
         await this.setStateAsync(`${upsId}.info.alive`, { val: true, ack: true });
         await this.setStateAsync(`${upsId}.info.ipAddress`, { val: ipAddress, ack: true });
+        await this.setStateAsync(`${upsId}.info.ipPort`, { val: ipPort, ack: true });
 
         const adapterStates = require('./lib/states-definition.json');
         const fields = Object.keys(state);
@@ -293,10 +302,7 @@ class ApcUpsAdapter extends utils.Adapter {
         }
     }
 
-    async createUpsObjects(upsId, ipAddress, ipPort) {
-        if (this.initialized[upsId]) {
-            return;
-        }
+    async createUpsObjects(upsId) {
         await this.setObjectNotExistsAsync(upsId, {
             type: 'device',
             common: {
@@ -348,9 +354,6 @@ class ApcUpsAdapter extends utils.Adapter {
             },
             native: {}
         });
-
-        await this.setStateAsync(`${upsId}.info.ipAddress`, { val: ipAddress, ack: true });
-        await this.setStateAsync(`${upsId}.info.ipPort`, { val: ipPort, ack: true });
 
         const adapterStates = require('./lib/states-definition.json');
         for (let i = 0; i < adapterStates.states.length; i++) {
