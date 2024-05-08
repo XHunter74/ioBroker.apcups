@@ -98,29 +98,33 @@ class ApcUpsAdapter extends utils.Adapter {
 
     checkAvailability() {
         this.availabilityTimeout = this.setTimeout(async () => {
-            const allStates = await this.getAdapterObjectsAsync();
-            const ipAddressStates = Object.keys(allStates)
-                .filter(state => state.endsWith('.info.ipAddress'));
-            if (ipAddressStates.length > 0) {
-                let unavailableUps = 0;
-                for (const ipAddress of ipAddressStates) {
-                    const upsId = ipAddress.split('.')[2];
-                    const lastUpdate = (await this.getStateAsync(ipAddress)).ts;
-                    if (new Date().getTime() - lastUpdate > this.config.pollingInterval * 2) {
-                        const aliveStateName = `${upsId}.info.alive`;
-                        const aliveState = (await this.getStateAsync(aliveStateName)).val;
-                        if (aliveState) {
-                            this.log.warn(`UPS '${upsId}' is not available`);
+            try {
+                const allStates = await this.getAdapterObjectsAsync();
+                const ipAddressStates = Object.keys(allStates)
+                    .filter(state => state.endsWith('.info.ipAddress'));
+                if (ipAddressStates.length > 0) {
+                    let unavailableUps = 0;
+                    for (const ipAddress of ipAddressStates) {
+                        const upsId = ipAddress.split('.')[2];
+                        const lastUpdate = (await this.getStateAsync(ipAddress)).ts;
+                        if (new Date().getTime() - lastUpdate > this.config.pollingInterval * 2) {
+                            const aliveStateName = `${upsId}.info.alive`;
+                            const aliveState = (await this.getStateAsync(aliveStateName)).val;
+                            if (aliveState) {
+                                this.log.warn(`UPS '${upsId}' is not available`);
+                            }
+                            this.setState(aliveStateName, false, true);
+                            unavailableUps++;
                         }
-                        this.setState(aliveStateName, false, true);
-                        unavailableUps++;
+                    }
+                    if (unavailableUps > 0) {
+                        this.setState('info.connection', false, true);
+                    } else {
+                        this.setState('info.connection', true, true);
                     }
                 }
-                if (unavailableUps > 0) {
-                    this.setState('info.connection', false, true);
-                } else {
-                    this.setState('info.connection', true, true);
-                }
+            } catch (error) {
+                this.log.error(`Error in checkAvailability: ${error}`);
             }
             this.clearTimeout(this.availabilityTimeout);
             this.checkAvailability();
@@ -166,10 +170,19 @@ class ApcUpsAdapter extends utils.Adapter {
 
     async startPooling(isFirstRun = true) {
         if (isFirstRun) {
-            await this.processTask();
+            try {
+                await this.processTask();
+            } catch (error) {
+                this.log.error(`Error in startPooling: ${error}`);
+            }
         }
         this.timeoutId = this.setTimeout(async () => {
-            await this.processTask();
+            try {
+                await this.processTask();
+            }
+            catch (error) {
+                this.log.error(`Error in startPooling: ${error}`);
+            }
             this.clearTimeout(this.timeoutId);
             this.startPooling(false);
         }, this.config.pollingInterval);
@@ -179,10 +192,7 @@ class ApcUpsAdapter extends utils.Adapter {
     async processTask() {
         for (const ups of this.config.upsList) {
             this.log.debug(`Processing UPS: ${ups.upsIp}:${ups.upsPort}`);
-            try {
-                await this.processUps(ups);
-
-            } catch { }// eslint-disable-line no-empty
+            await this.processUps(ups);
         }
     }
 
