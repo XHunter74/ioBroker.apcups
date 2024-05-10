@@ -26,7 +26,7 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 ## Changelog
-### 3.9.10 (2024-04-26)
+### 4.0.0 (2024-05-10)
  - BREAKING! 
 1. Added support of multiple UPS so states structure was changed. All existed states will be deleted. Please do backup before upgrade the adapter! Also existed configuration will be lost. Please re-configure the adapter and add one or more devices to it.
 2. Minimal js-controller version is 5.0.19
