@@ -161,7 +161,6 @@
             "license": "MIT"
         },
         "platform": "Javascript/Node.js",
-        "main": "main.js",
         "icon": "ups.png",
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/XHunter74/ioBroker.apcups/master/admin/ups.png",
