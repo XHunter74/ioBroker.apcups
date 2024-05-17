@@ -121,7 +121,6 @@
                 "zh-cn": "刹车!\n一、导 言 添加了对多个UPS的支持,从而更改了状态结构. 所有已存在的州将被删除。 请在升级适配器前进行备份! 已经存在的配置也将丢失。 请重新配置适配器并添加一个或多个设备.\n2. 最小js控制器版本为5.0.19\n3个 最小管理员版本为6.13.16"
             }
         },
-        "title": "APC UPS connector",
         "titleLang": {
             "en": "APC UPS connector",
             "de": "APC-USV-Anschluss",
