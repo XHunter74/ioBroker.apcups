@@ -175,7 +175,6 @@
             "config": "json",
             "tab": "materialize"
         },
-        "materialize": true,
         "connectionType": "local",
         "dataSource": "poll",
         "plugins": {
