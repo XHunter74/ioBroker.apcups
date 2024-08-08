@@ -3,32 +3,6 @@
         "name": "apcups",
         "version": "4.0.0",
         "news": {
-            "1.0.8": {
-                "en": "Added validation on config screen",
-                "de": "Validierung auf dem config-Bildschirm hinzugefügt",
-                "ru": "Добавлена валидация на экране настройки",
-                "pt": "Validação adicionada na tela de configuração",
-                "nl": "Toegevoegde validatie op configuratiescherm",
-                "fr": "Ajout de la validation à l'écran de configuration",
-                "it": "Aggiunto validazione sulla schermata di configurazione",
-                "es": "Validación agregada en la pantalla de configuración",
-                "pl": "Dodano walidację na ekranie konfiguracyjnym",
-                "uk": "Додано валідацію на екрані config",
-                "zh-cn": "在配置屏幕上添加验证"
-            },
-            "1.0.9": {
-                "en": "Optimized reconnection flow",
-                "de": "Optimierter Umschaltungsstrom",
-                "ru": "Оптимизировано переподключение к демону",
-                "pt": "Fluxo de reconexão otimizado",
-                "nl": "Geoptimaliseerde herverbindingsstroom",
-                "fr": "Débit de reconnection optimisé",
-                "it": "Flusso di riconnessione ottimizzato",
-                "es": "Flujo de reconexión optimizado",
-                "pl": "Zoptymalizowany przepływ ponownego połączenia",
-                "uk": "Оптимизована перепідключення до демону",
-                "zh-cn": "优化重联流量"
-            },
             "1.0.10": {
                 "en": "Added Ukrainian language",
                 "de": "Ukrainische Sprache",
