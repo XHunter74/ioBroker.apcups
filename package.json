@@ -54,7 +54,7 @@
         "@types/sinon-chai": "^3.2.12",
         "chai": "^5.1.1",
         "chai-as-promised": "^8.0.0",
-        "eslint": "^9.6.0",
+        "eslint": "^9.11.1",
         "globals": "^15.9.0",
         "mocha": "^10.7.0",
         "sinon": "^17.0.1",
