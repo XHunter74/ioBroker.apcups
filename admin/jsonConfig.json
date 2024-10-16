@@ -17,6 +17,7 @@
                     "sm": 12,
                     "md": 12,
                     "lg": 6,
+                    "xl": 6,
                     "items": [
                         {
                             "type": "text",
@@ -48,6 +49,7 @@
                     "sm": 6,
                     "md": 4,
                     "lg": 3,
+                    "xl": 3,
                     "label": "pollingInterval",
                     "newLine": true,
                     "min": 1000,
