@@ -1,6 +1,6 @@
 {
     "name": "iobroker.apcups",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "description": "Adapter to communicate with APC UPS via apcupsd",
     "author": {
         "name": "Serhiy Krasovskyy",
