@@ -4,5 +4,6 @@
   "upsIp": "Endereço IP do UPS",
   "enterUpsIp": "Insira o endereço IP do UPS",
   "upsPort": "Porto de UPS",
-  "enterUpsPort": "Entre na porta do UPS"
+  "enterUpsPort": "Entre na porta do UPS",
+  "Main settings": "Configurações principais"
 }

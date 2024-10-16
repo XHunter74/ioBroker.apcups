@@ -4,5 +4,6 @@
   "upsIp": "IP-адреса UPS",
   "enterUpsIp": "Введіть IP-адресу UPS",
   "upsPort": "Порт UPS",
-  "enterUpsPort": "Введіть порт UPS"
+  "enterUpsPort": "Введіть порт UPS",
+  "Main settings": "Основні налаштування"
 }

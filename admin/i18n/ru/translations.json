@@ -4,5 +4,6 @@
   "upsIp": "IP-адрес ИБП",
   "enterUpsIp": "Введите IP-адрес ИБП",
   "upsPort": "Порт ИБП",
-  "enterUpsPort": "Введите порт ИБП"
+  "enterUpsPort": "Введите порт ИБП",
+  "Main settings": "Основные настройки"
 }

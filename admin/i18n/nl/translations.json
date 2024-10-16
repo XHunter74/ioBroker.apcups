@@ -4,5 +4,6 @@
   "upsIp": "IP-adres van UPS",
   "enterUpsIp": "Voer het IP-adres van UPS in",
   "upsPort": "Haven van UPS",
-  "enterUpsPort": "Voer de poort van UPS in"
+  "enterUpsPort": "Voer de poort van UPS in",
+  "Main settings": "Belangrijkste instellingen"
 }

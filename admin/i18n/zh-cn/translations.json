@@ -4,5 +4,6 @@
   "upsIp": "UPS 的 IP 地址",
   "enterUpsIp": "输入 UPS 的 IP 地址",
   "upsPort": "UPS 港口",
-  "enterUpsPort": "输入 UPS 端口"
+  "enterUpsPort": "输入 UPS 端口",
+  "Main settings": "主要设置"
 }

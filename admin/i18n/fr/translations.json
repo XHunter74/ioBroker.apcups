@@ -4,5 +4,6 @@
   "upsIp": "Adresse IP de l'onduleur",
   "enterUpsIp": "Entrez l'adresse IP de l'UPS",
   "upsPort": "Port d'UPS",
-  "enterUpsPort": "Entrez le port d'UPS"
+  "enterUpsPort": "Entrez le port d'UPS",
+  "Main settings": "Paramètres principaux"
 }

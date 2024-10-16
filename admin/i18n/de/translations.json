@@ -4,5 +4,6 @@
   "upsIp": "IP-Adresse der USV",
   "enterUpsIp": "Geben Sie die IP-Adresse der USV ein",
   "upsPort": "Hafen von UPS",
-  "enterUpsPort": "Geben Sie den USV-Port ein"
+  "enterUpsPort": "Geben Sie den USV-Port ein",
+  "Main settings": "Haupteinstellungen"
 }

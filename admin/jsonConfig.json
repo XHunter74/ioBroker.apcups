@@ -1,42 +1,59 @@
 {
     "i18n": true,
-    "type": "panel",
+    "type": "tabs",
+    "tabsStyle": {
+        "width": "calc(100% - 100px)"
+    },
     "items": {
-        "upsList": {
-            "type": "table",
-            "label": "upsList",
-            "newLine": true,
-            "items": [
-                {
-                    "type": "text",
-                    "attr": "upsIp",
-                    "width": "200px",
-                    "title": "upsIp",
-                    "tooltip": "enterUpsIp",
-                    "filter": false,
-                    "sort": false,
-                    "default": ""
+        "_options": {
+            "type": "panel",
+            "label": "Main settings",
+            "items": {
+                "upsList": {
+                    "type": "table",
+                    "label": "upsList",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "items": [
+                        {
+                            "type": "text",
+                            "attr": "upsIp",
+                            "width": "30%",
+                            "title": "upsIp",
+                            "tooltip": "enterUpsIp",
+                            "filter": false,
+                            "sort": false,
+                            "default": ""
+                        },
+                        {
+                            "type": "number",
+                            "attr": "upsPort",
+                            "width": "15%",
+                            "title": "upsPort",
+                            "tooltip": "enterUpsPort",
+                            "filter": false,
+                            "sort": false,
+                            "min": 1054,
+                            "step": 1,
+                            "default": 3551
+                        }
+                    ]
                 },
-                {
+                "pollingInterval": {
                     "type": "number",
-                    "attr": "upsPort",
-                    "width": "100px ",
-                    "title": "upsPort",
-                    "tooltip": "enterUpsPort",
-                    "filter": false,
-                    "sort": false,
-                    "min": 1054,
-                    "step": 1,
-                    "default": 3551
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 4,
+                    "lg": 3,
+                    "label": "pollingInterval",
+                    "newLine": true,
+                    "min": 1000,
+                    "max": 60000
                 }
-            ]
-        },
-        "pollingInterval": {
-            "type": "number",
-            "label": "pollingInterval",
-            "newLine": true,
-            "min": 1000,
-            "max": 60000
+            }
         }
     }
 }
