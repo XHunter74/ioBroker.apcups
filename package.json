@@ -57,7 +57,7 @@
         "eslint": "^9.11.1",
         "globals": "^15.9.0",
         "mocha": "^10.7.0",
-        "sinon": "^17.0.1",
+        "sinon": "^19.0.2",
         "sinon-chai": "^4.0.0",
         "typescript": "^5.5.4"
     },
