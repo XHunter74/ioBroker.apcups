@@ -59,7 +59,7 @@
         "mocha": "^10.7.0",
         "sinon": "^19.0.2",
         "sinon-chai": "^4.0.0",
-        "typescript": "^5.5.4"
+        "typescript": "^5.7.2"
     },
     "main": "main.js",
     "files": [
