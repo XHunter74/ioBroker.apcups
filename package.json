@@ -80,8 +80,5 @@
         "lint": "eslint",
         "release": "release-script"
     },
-    "standard": {
-        "parser": "@babel/eslint-parser"
-    },
     "readmeFilename": "README.md"
 }
