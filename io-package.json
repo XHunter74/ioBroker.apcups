@@ -1,21 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "4.0.2",
+        "version": "4.0.3",
         "news": {
-            "1.0.13": {
-                "en": "Added 'END APC' and 'BATDATE' fields",
-                "de": "Felder 'END APC' und 'BATDATE' hinzugefügt",
-                "ru": "Добавлены 'END APC' и 'BATDATE' поля",
-                "pt": "Adicionados campos 'END APC' e 'BATDATE'",
-                "nl": "Toegevoegd 'END APC' en 'BATDATE' velden",
-                "fr": "Ajout des champs 'END APC' et 'BATDATE'",
-                "it": "Aggiunto 'END APC' e 'BATDATE' campi",
-                "es": "Añadido 'END APC' y 'BATDATE' campos",
-                "pl": "Dodano pola 'END APC' i 'BATDATE'",
-                "uk": "Додано поля 'END APC' и 'BATDATE' поля",
-                "zh-cn": "添加 'END APC' 和 'BATDATE' 字段"
-            },
             "1.0.15": {
                 "en": "Changed approach how to states are creating",
                 "de": "Geänderter Ansatz, wie Staaten entstehen",
@@ -93,6 +80,19 @@
                 "pl": "Zaktualizowane zależności. Dostosowano układ administratora.",
                 "uk": "Оновлені залежності. Відкоригована панель налаштуваннь.",
                 "zh-cn": "更新的依赖项。 调整了管理员布局。"
+            },
+            "4.0.3": {
+                "en": "Updated dependencies.",
+                "de": "Abhängigkeiten aktualisiert.",
+                "ru": "Обновлены зависимости.",
+                "pt": "Dependências atualizadas.",
+                "nl": "Bijgewerkte afhankelijkheden.",
+                "fr": "Dépendances mises à jour.",
+                "it": "Dipendenze aggiornate.",
+                "es": "Dependencias actualizadas.",
+                "pl": "Zaktualizowane zależności.",
+                "uk": "Оновлені залежності.",
+                "zh-cn": "更新的依赖项。"
             }
         },
         "titleLang": {
