@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "4.0.3",
+        "version": "4.0.4",
         "news": {
             "1.0.15": {
                 "en": "Changed approach how to states are creating",
@@ -81,7 +81,7 @@
                 "uk": "Оновлені залежності. Відкоригована панель налаштуваннь.",
                 "zh-cn": "更新的依赖项。 调整了管理员布局。"
             },
-            "4.0.3": {
+            "4.0.4": {
                 "en": "Updated dependencies.",
                 "de": "Abhängigkeiten aktualisiert.",
                 "ru": "Обновлены зависимости.",
