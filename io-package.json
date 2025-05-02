@@ -1,21 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "4.0.5",
+        "version": "5.0.0",
         "news": {
-            "1.0.15": {
-                "en": "Changed approach how to states are creating",
-                "de": "Geänderter Ansatz, wie Staaten entstehen",
-                "ru": "Изменен подход как генерируются состояния",
-                "pt": "A abordagem alterada de como os estados estão criando",
-                "nl": "Veranderde aanpak van staten",
-                "fr": "L'approche modifiée de la création des États",
-                "it": "Cambiato approccio come gli stati stanno creando",
-                "es": "Cambio de enfoque cómo los estados están creando",
-                "pl": "Zmienione podejście do tworzenia państw",
-                "uk": "Змінений підхід як генеруються стани",
-                "zh-cn": "国家如何创建的改变方法"
-            },
             "2.0.0": {
                 "en": "BREAKING! Changed the minimal version of nodejs to 16",
                 "de": "BREAKING! Die minimale Version von nodejs auf 16 geändert",
@@ -93,6 +80,19 @@
                 "pl": "Zaktualizowane zależności.",
                 "uk": "Оновлені залежності.",
                 "zh-cn": "更新的依赖项。"
+            },
+            "5.0.0": {
+                "en": "BREAKING! Changed the minimal version of nodejs to 20. Updated dependencies.",
+                "de": "BREAKING! Minimale Version von nodejs auf 20 geändert. Abhängigkeiten aktualisiert.",
+                "ru": "BREAKING! Изменена минимальная версия nodejs на 20. Обновлены зависимости.",
+                "pt": "BREAKING! Alterada a versão mínima do nodejs para 20. Dependências atualizadas.",
+                "nl": "BREAKING! Minimaal versie van nodejs gewijzigd in 20. Bijgewerkte afhankelijkheden.",
+                "fr": "BREAKING! Version minimale de nodejs changée en 20. Dépendances mises à jour.",
+                "it": "BREAKING! Versione minima di nodejs cambiata in 20. Dipendenze aggiornate.",
+                "es": "BREAKING! Cambió la versión mínima de nodejs a 20. Dependencias actualizadas.",
+                "pl": "BREAKING! Zmieniona minimalna wersja nodejs na 20. Zaktualizowane zależności.",
+                "uk": "BREAKING! Змінено мінімальну версію nodejs на 20. Оновлені залежності.",
+                "zh-cn": "重大更新！将 nodejs 的最低版本更改为 20。更新了依赖项。"
             }
         },
         "titleLang": {
