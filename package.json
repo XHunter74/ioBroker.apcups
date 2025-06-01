@@ -39,7 +39,7 @@
         "@alcalzone/release-script-plugin-iobroker": "^3.7.2",
         "@alcalzone/release-script-plugin-license": "^3.7.0",
         "@alcalzone/release-script-plugin-manual-review": "^3.7.0",
-        "@babel/core": "^7.27.1",
+        "@babel/core": "^7.27.4",
         "@babel/eslint-parser": "^7.26.8",
         "@babel/preset-env": "^7.26.9",
         "@iobroker/adapter-dev": "^1.4.0",
