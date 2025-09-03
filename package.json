@@ -41,7 +41,7 @@
         "@alcalzone/release-script-plugin-manual-review": "^3.7.0",
         "@babel/core": "^7.28.0",
         "@babel/eslint-parser": "^7.28.0",
-        "@babel/preset-env": "^7.27.2",
+        "@babel/preset-env": "^7.28.3",
         "@iobroker/adapter-dev": "^1.4.0",
         "@iobroker/testing": "^5.0.4",
         "@tsconfig/node18": "^18.2.4",
