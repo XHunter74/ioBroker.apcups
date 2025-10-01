@@ -1,21 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "5.0.0",
+        "version": "5.0.1",
         "news": {
-            "2.0.0": {
-                "en": "BREAKING! Changed the minimal version of nodejs to 16",
-                "de": "BREAKING! Die minimale Version von nodejs auf 16 geändert",
-                "ru": "Внимание! Изменение минимальной версии nodejs до 16",
-                "pt": "Estou a brincar! Mudou a versão mínima de nodejs para 16",
-                "nl": "Breaking! Veranderde de minimale versie van nodejs naar 16",
-                "fr": "C'est vrai ! Changement de la version minimale de nodejs à 16",
-                "it": "Attenti! Modificata la versione minima di nodejs a 16",
-                "es": "¡Respira! Cambio de la versión mínima de nodejs a 16",
-                "pl": "Breaking! Zmieniła minimalną wersję nodejs do 16",
-                "uk": "УВАГА! Змінено мінімальну версію nodejs до 16",
-                "zh-cn": "刹车! 将节点的最小版本改为 16"
-            },
             "3.0.0": {
                 "en": "BREAKING! Changed the minimal version of nodejs to 18, js-controller to 4.0.0",
                 "de": "BREAKING! Änderung der minimalen Version von nodejs auf 18, js-controller auf 4.0.0",
@@ -93,6 +80,19 @@
                 "pl": "BREAKING! Zmieniona minimalna wersja nodejs na 20. Zaktualizowane zależności.",
                 "uk": "BREAKING! Змінено мінімальну версію nodejs на 20. Оновлені залежності.",
                 "zh-cn": "重大更新！将 nodejs 的最低版本更改为 20。更新了依赖项。"
+            },
+            "5.0.1": {
+                "en": "Updated dependencies.",
+                "de": "Abhängigkeiten aktualisiert.",
+                "ru": "Обновлены зависимости.",
+                "pt": "Dependências atualizadas.",
+                "nl": "Bijgewerkte afhankelijkheden.",
+                "fr": "Dépendances mises à jour.",
+                "it": "Dipendenze aggiornate.",
+                "es": "Dependencias actualizadas.",
+                "pl": "Zaktualizowane zależności.",
+                "uk": "Оновлені залежності.",
+                "zh-cn": "更新的依赖项。"
             }
         },
         "titleLang": {
