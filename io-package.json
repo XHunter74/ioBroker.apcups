@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "5.0.1",
+        "version": "5.0.2",
         "news": {
             "3.0.0": {
                 "en": "BREAKING! Changed the minimal version of nodejs to 18, js-controller to 4.0.0",
@@ -81,7 +81,7 @@
                 "uk": "BREAKING! Змінено мінімальну версію nodejs на 20. Оновлені залежності.",
                 "zh-cn": "重大更新！将 nodejs 的最低版本更改为 20。更新了依赖项。"
             },
-            "5.0.1": {
+            "5.0.2": {
                 "en": "Updated dependencies.",
                 "de": "Abhängigkeiten aktualisiert.",
                 "ru": "Обновлены зависимости.",
