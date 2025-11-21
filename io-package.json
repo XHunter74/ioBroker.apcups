@@ -1,21 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "5.0.3",
+        "version": "5.0.4",
         "news": {
-            "3.0.1": {
-                "en": "Update dependencies",
-                "de": "Abhängigkeiten aktualisieren",
-                "ru": "Обновление зависимостей",
-                "pt": "Dependências de atualização",
-                "nl": "Afhankelijkheden bijwerken",
-                "fr": "Mise à jour des dépendances",
-                "it": "Dipendenze di aggiornamento",
-                "es": "Actualizar las dependencias",
-                "pl": "Aktualizuj zależności",
-                "uk": "Оновлення залежностей",
-                "zh-cn": "更新依赖关系"
-            },
             "4.0.0": {
                 "en": "BREAKING! \n1. Added support of multiple UPS so states structure was changed. All existed states will be deleted. Please do backup before upgrade the adapter! Also existed configuration will be lost. Please re-configure the adapter and add one or more devices to it.\n2. Minimal js-controller version is 5.0.19\n3. Minimal admin version is 6.13.16",
                 "de": "BREAKING!\nANHANG Unterstützung von mehreren UPS hinzugefügt, so dass Zustände Struktur geändert wurde. Alle existierenden Staaten werden gelöscht. Bitte machen Sie Verstärkung vor dem Upgrade des Adapters! Auch existierte Konfiguration wird verloren gehen. Bitte konfigurieren Sie den Adapter neu und fügen Sie ihm ein oder mehrere Geräte hinzu.\n2. Minimale js-controller Version ist 5.0.19\n3. Minimal Admin Version ist 6.13.16",
@@ -93,6 +80,19 @@
                 "pl": "Migracja do Trusted Publishing",
                 "uk": "Міграція в Trusted Publishing",
                 "zh-cn": "迁移到受信任的发布"
+            },
+            "5.0.4": {
+                "en": "Fixed admin layout. Updated dependencies.",
+                "de": "Admin-Layout behoben. Abhängigkeiten aktualisiert.",
+                "ru": "Исправлена панель настроек. Обновлены зависимости.",
+                "pt": "Layout do administrador corrigido. Dependências atualizadas.",
+                "nl": "Beheerderslay-out gerepareerd. Bijgewerkte afhankelijkheden.",
+                "fr": "Mise en page de l'administrateur corrigée. Dépendances mises à jour.",
+                "it": "Layout amministrativo corretto. Dipendenze aggiornate.",
+                "es": "Diseño de administrador corregido. Dependencias actualizadas.",
+                "pl": "Naprawiono układ administratora. Zaktualizowane zależności.",
+                "uk": "Виправлена панель налаштуваннь. Оновлені залежності.",
+                "zh-cn": "修复了管理员布局。 更新的依赖项。"
             }
         },
         "titleLang": {

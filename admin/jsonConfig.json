@@ -16,13 +16,13 @@
                     "xs": 12,
                     "sm": 12,
                     "md": 12,
-                    "lg": 6,
-                    "xl": 4,
+                    "lg": 12,
+                    "xl": 12,
                     "items": [
                         {
                             "type": "text",
                             "attr": "upsIp",
-                            "width": "30%",
+                            "width": "40%",
                             "title": "upsIp",
                             "tooltip": "enterUpsIp",
                             "filter": false,
@@ -32,7 +32,7 @@
                         {
                             "type": "number",
                             "attr": "upsPort",
-                            "width": "15%",
+                            "width": "20%",
                             "title": "upsPort",
                             "tooltip": "enterUpsPort",
                             "filter": false,
