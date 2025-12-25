@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "5.0.4",
+        "version": "5.0.5",
         "news": {
             "4.0.0": {
                 "en": "BREAKING! \n1. Added support of multiple UPS so states structure was changed. All existed states will be deleted. Please do backup before upgrade the adapter! Also existed configuration will be lost. Please re-configure the adapter and add one or more devices to it.\n2. Minimal js-controller version is 5.0.19\n3. Minimal admin version is 6.13.16",
@@ -81,7 +81,7 @@
                 "uk": "Міграція в Trusted Publishing",
                 "zh-cn": "迁移到受信任的发布"
             },
-            "5.0.4": {
+            "5.0.5": {
                 "en": "Fixed admin layout. Updated dependencies.",
                 "de": "Admin-Layout behoben. Abhängigkeiten aktualisiert.",
                 "ru": "Исправлена панель настроек. Обновлены зависимости.",
