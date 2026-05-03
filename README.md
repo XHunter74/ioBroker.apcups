@@ -49,6 +49,8 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 2. Minimal js-controller version is 5.0.19
 3. Minimal admin version is 6.13.16
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 
