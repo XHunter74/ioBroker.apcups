@@ -26,8 +26,15 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 ## Changelog
-### **WORK IN PROGRESS**
-- (copilot) Adapter requires node.js >= 22 now
+### 5.0.6 (2026-05-21)
+- Fixed float regex to correctly match whole-number values (e.g. BCHARGE at 100%)
+- Fixed integer fields incorrectly stored as floats (parseFloat → parseInt)
+- Fixed state object mutation that could corrupt subsequent state definitions
+- Fixed null dereference crash in availability check on first run
+- Fixed connection log messages showing `undefined:undefined`
+- Added 5-second TCP connection timeout to prevent polling hangs on unreachable hosts
+- Updated CI workflow to use ioBroker testing actions
+- Updated dependencies
 
 ### 5.0.5 (2025-12-25)
   - Fixed admin layout
