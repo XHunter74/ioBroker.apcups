@@ -123,11 +123,12 @@ class ApcUpsAdapter extends utils.Adapter {
             let unavailableUps = 0;
             for (const ipAddress of this.ipAddressStates) {
                 const upsId = ipAddress.split('.')[2];
-                const lastUpdate = (await this.getStateAsync(ipAddress)).ts;
+                const ipState = await this.getStateAsync(ipAddress);
+                const lastUpdate = ipState ? ipState.ts : 0;
                 if (new Date().getTime() - lastUpdate > this.config.pollingInterval * 2) {
                     const aliveStateName = `${upsId}.info.alive`;
-                    const aliveState = (await this.getStateAsync(aliveStateName)).val;
-                    if (aliveState) {
+                    const aliveStateObj = await this.getStateAsync(aliveStateName);
+                    if (aliveStateObj && aliveStateObj.val) {
                         this.log.warn(`UPS '${upsId}' is not available`);
                     }
                     this.setState(aliveStateName, false, true);
@@ -170,10 +171,10 @@ class ApcUpsAdapter extends utils.Adapter {
             this.log.debug(`Error from apcupsd: ${error}`);
         });
         this.apcAccess.on('connect', () => {
-            this.log.debug(`Connected to apcupsd '${this.config.upsip}:${this.config.upsport}' successfully`);
+            this.log.debug(`Connected to apcupsd '${this.apcAccess.lastHost}:${this.apcAccess.lastPort}' successfully`);
         });
-        this.apcAccess.on('disconnect', async () => {
-            this.log.debug(`Disconnected from apcupsd '${this.config.upsip}:${this.config.upsport}'`);
+        this.apcAccess.on('disconnect', () => {
+            this.log.debug(`Disconnected from apcupsd '${this.apcAccess.lastHost}:${this.apcAccess.lastPort}'`);
         });
     }
 
@@ -230,6 +231,7 @@ class ApcUpsAdapter extends utils.Adapter {
             }
         } catch (error) {
             this.log.error(`Failed to process apcupsd result: ${error} for UPS: ${ups.upsIp}:${ups.upsPort}`);
+            this.sendError(error, `Failed to process UPS ${ups.upsIp}:${ups.upsPort}`);
         }
     }
 
@@ -281,14 +283,14 @@ class ApcUpsAdapter extends utils.Adapter {
                     if (instanceState != null) {
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     } else {
-                        const newState = this.adapterStates.defaultState;
+                        const newState = { ...this.adapterStates.defaultState };
                         newState.upsId = upsState.upsId;
                         newState.id = upsState.id;
                         await this.createAdapterState(upsId, newState);
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     }
                 } else {
-                    const newState = this.adapterStates.defaultState;
+                    const newState = { ...this.adapterStates.defaultState };
                     newState.upsId = field;
                     newState.id = field.toLowerCase();
                     await this.createAdapterState(upsId, newState);
