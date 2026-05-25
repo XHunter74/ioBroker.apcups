@@ -62,17 +62,35 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # Write permissions are required to create Github releases
     permissions:
       contents: write
       id-token: write
 
     steps:
-      - uses: ioBroker/testing-action-deploy@v1
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: '24.x'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          sentry: true
-          sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          sentry-project: "iobroker-apcups"
-          sentry-version-prefix: "iobroker.apcups"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract version from tag
+        id: extract_version
+        run: |
+          VERSION="${GITHUB_REF##*/v}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Publish release to Sentry
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: private-person-ua
+          SENTRY_PROJECT: iobroker-apcups
+        run: |
+          npm install -g @sentry/cli
+          sentry-cli releases new iobroker.apcups@${{ steps.extract_version.outputs.version }}
+          sentry-cli releases finalize iobroker.apcups@${{ steps.extract_version.outputs.version }}
+
+      - name: Publish package to npm
+        run: npm publish
