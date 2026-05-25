@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "apcups",
-        "version": "5.0.7",
+        "version": "5.0.8",
         "news": {
             "4.0.5": {
                 "en": "Updated dependencies.",
@@ -68,7 +68,7 @@
                 "uk": "Виправлена панель налаштуваннь. Оновлені залежності.",
                 "zh-cn": "修复了管理员布局。 更新的依赖项。"
             },
-           "5.0.7": {
+           "5.0.8": {
                 "en": "Fixed several bugs: float regex now matches whole numbers, integer fields use parseInt, state object mutation fixed, null dereference in availability check fixed, connection log fixed. Added 5-second connection timeout. Updated CI workflow and dependencies.",
                 "de": "Mehrere Fehler behoben: Float-Regex erkennt jetzt ganze Zahlen, Integer-Felder verwenden parseInt, State-Objekt-Mutation behoben, Null-Dereferenzierung in der Verfügbarkeitsprüfung behoben, Verbindungsprotokoll korrigiert. 5-Sekunden-Verbindungstimeout hinzugefügt. CI-Workflow und Abhängigkeiten aktualisiert.",
                 "ru": "Исправлено несколько ошибок: регулярное выражение для float теперь распознаёт целые числа, целочисленные поля используют parseInt, исправлена мутация объекта состояния, исправлено разыменование null в проверке доступности, исправлен журнал подключений. Добавлен таймаут подключения 5 секунд. Обновлены CI-воркфлоу и зависимости.",
