@@ -11,32 +11,17 @@ const CheckAvailabilityTimeout = 1000;
 const CommunicationLost = 'commlost';
 
 class ApcUpsAdapter extends utils.Adapter {
-
-    /**
-     * @type {ioBroker.Timeout | undefined}
-     */
-    timeoutId;
-    /**
-     * @type {ioBroker.Timeout | undefined}
-     */
-    availabilityTimeout;
-    /**
-     * @type {ApcAccess}
-     */
-    apcAccess = new ApcAccess();
-    /**
-     * @type {Normalizer}
-     */
+
+    timeoutId;
+    availabilityTimeout;
+    apcAccess = new ApcAccess();
     normalizer = new Normalizer;
-    initialized = {};
-    /**
-     * @type {string[]}
-     */
+    initialized = {};
     ipAddressStates = [];
     adapterStates = require('./lib/states-definition.json');
 
     /**
-     * @param {Partial<utils.AdapterOptions>} [options={}]
+     * @param {Partial<utils.AdapterOptions>} [options]
      */
     constructor(options) {
         super({
@@ -59,7 +44,7 @@ class ApcUpsAdapter extends utils.Adapter {
         }
 
         if (this.config.pollingInterval < MinPollInterval || isNaN(this.config.pollingInterval) || this.config.pollingInterval > MaxPollInterval) {
-            this.log.error('Invalid poll interval: ' + this.config.pollingInterval);
+            this.log.error(`Invalid poll interval: ${  this.config.pollingInterval}`);
             this.stop();
             return;
         }
@@ -189,8 +174,7 @@ class ApcUpsAdapter extends utils.Adapter {
         this.timeoutId = this.setTimeout(async () => {
             try {
                 await this.processTask();
-            }
-            catch (error) {
+            } catch (error) {
                 this.log.error(`Error in startPooling: ${error}`);
             }
             this.clearTimeout(this.timeoutId);
@@ -312,45 +296,45 @@ class ApcUpsAdapter extends utils.Adapter {
         });
 
         await this.setObjectNotExistsAsync(`${upsId}.info`, {
-            'type': 'channel',
-            'common': {
-                'name': 'Information',
+            type: 'channel',
+            common: {
+                name: 'Information',
             },
             native: {}
         });
 
         await this.setObjectNotExistsAsync(`${upsId}.info.alive`, {
-            'type': 'state',
-            'common': {
-                'name': 'Is alive',
-                'type': 'boolean',
-                'read': true,
-                'write': false,
-                'role': 'indicator.state'
+            type: 'state',
+            common: {
+                name: 'Is alive',
+                type: 'boolean',
+                read: true,
+                write: false,
+                role: 'indicator.state'
             },
             native: {}
         });
 
         await this.setObjectNotExistsAsync(`${upsId}.info.ipAddress`, {
-            'type': 'state',
-            'common': {
-                'name': 'UPS IP Address',
-                'type': 'string',
-                'read': true,
-                'write': false,
-                'role': 'state'
+            type: 'state',
+            common: {
+                name: 'UPS IP Address',
+                type: 'string',
+                read: true,
+                write: false,
+                role: 'state'
             },
             native: {}
         });
 
         await this.setObjectNotExistsAsync(`${upsId}.info.ipPort`, {
-            'type': 'state',
-            'common': {
-                'name': 'UPS IP Port',
-                'type': 'number',
-                'read': true,
-                'write': false,
-                'role': 'state'
+            type: 'state',
+            common: {
+                name: 'UPS IP Port',
+                type: 'number',
+                read: true,
+                write: false,
+                role: 'state'
             },
             native: {}
         });
@@ -383,6 +367,7 @@ class ApcUpsAdapter extends utils.Adapter {
 
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
+     *
      * @param {() => void} callback
      */
     async onUnload(callback) {
@@ -420,7 +405,7 @@ class ApcUpsAdapter extends utils.Adapter {
 if (require.main !== module) {
     // Export the constructor in compact mode
     /**
-     * @param {Partial<utils.AdapterOptions>} [options={}]
+     * @param {Partial<utils.AdapterOptions>} [options]
      */
     module.exports = (options) => new ApcUpsAdapter(options);
 } else {

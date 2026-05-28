@@ -67,15 +67,6 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24.x'
-
-      - name: Install dependencies
-        run: npm ci
-
       - name: Extract version from tag
         id: extract_version
         run: |
@@ -92,5 +83,8 @@ jobs:
           sentry-cli releases new iobroker.apcups@${{ steps.extract_version.outputs.version }}
           sentry-cli releases finalize iobroker.apcups@${{ steps.extract_version.outputs.version }}
 
-      - name: Publish package to npm
-        run: npm publish
+      - uses: ioBroker/testing-action-deploy@v1
+        with:
+          node-version: '24.x'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sentry: false

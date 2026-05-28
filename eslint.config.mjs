@@ -1,45 +1,23 @@
-import globals from "globals";
-import js from "@eslint/js";
+import ioBroker from '@iobroker/eslint-config';
 
 export default [
-  { files: ["**/*.js"], languageOptions: { sourceType: "commonjs" } },
-  { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
-  js.configs.recommended,
-  {
-    rules: {
-      "indent": [
-        "error",
-        4,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "no-console": "off",
-      "no-unused-vars": [
-        "error",
-        {
-          "ignoreRestSiblings": true,
-          "argsIgnorePattern": "^_"
-        }
-      ],
-      "no-var": "error",
-      "no-trailing-spaces": "error",
-      "prefer-const": "error",
-      "quotes": [
-        "error",
-        "single",
-        {
-          "avoidEscape": true,
-          "allowTemplateLiterals": true
-        }
-      ],
-      "semi": [
-        "error",
-        "always"
-      ]
-    }
-  },
-  {
-    ignores: ["admin/words.js", "/**/node_modules/*", "node_modules/", "eslint.config.mjs", "**/test/", "main.test.js"],
-  }
+    ...ioBroker,
+    {
+        ignores: [
+            'admin/words.js',
+            'node_modules/',
+            '**/test/',
+            'main.test.js',
+            'lib/adapter-config.d.ts',
+        ],
+    },
+    {
+        rules: {
+            // Disable Prettier enforcement — code uses 4-space indent and single quotes
+            'prettier/prettier': 'off',
+            // JSDoc not used in this codebase
+            'jsdoc/require-jsdoc': 'off',
+            'jsdoc/require-param-description': 'off',
+        },
+    },
 ];
