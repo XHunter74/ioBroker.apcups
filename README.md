@@ -26,6 +26,13 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 ## Changelog
+### 5.0.9 (2026-05-28)
+- Migrated i18n to short format (`{lang}.json`)
+- Migrated ESLint config to `@iobroker/eslint-config`
+- Deploy workflow now publishes to Sentry before npm
+- Updated `@alcalzone/release-script` to 5.2.0
+- Updated dependencies
+
 ### 5.0.8 (2026-05-25)
 - Fixed float regex to correctly match whole-number values (e.g. BCHARGE at 100%)
 - Fixed integer fields incorrectly stored as floats (parseFloat → parseInt)
@@ -45,16 +52,6 @@ More useful information about apcupsd config for Ubuntu you can find on https://
  - Updated dependencies
 ### 5.0.0 (2025-05-01)
  - BREAKING! Changed the minimal version of nodejs to 20. Updated dependencies.
-### 4.0.5 (2025-03-01) 
- - Updated dependencies
-### 4.0.2 (2024-10-16) 
- - Updated dependencies
- - Adjusted admin layout
-### 4.0.0 (2024-05-10)
- - BREAKING! 
-1. Added support of multiple UPS so states structure was changed. All existed states will be deleted. Please do backup before upgrade the adapter! Also existed configuration will be lost. Please re-configure the adapter and add one or more devices to it.
-2. Minimal js-controller version is 5.0.19
-3. Minimal admin version is 6.13.16
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
