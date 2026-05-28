@@ -44,6 +44,10 @@
         "@iobroker/adapter-dev": "^1.5.0",
         "@iobroker/eslint-config": "^2.3.4",
         "@iobroker/testing": "^5.2.2",
+        "@iobroker/types": ">=6.0.11",
+        "chai": "^5.0.0",
+        "chai-as-promised": "^8.0.2",
+        "sinon-chai": "^4.0.1",
         "@tsconfig/node18": "^18.2.6",
         "@types/node": "^22.0.0",
         "@types/proxyquire": "^1.3.31",
@@ -59,26 +63,29 @@
         "eslint-plugin-unicorn": "^64.0.0",
         "globals": "^17.6.0",
         "prettier": "^3.8.3",
+        "rimraf": "^6.0.1",
         "typescript": "^6.0.3",
         "typescript-eslint": "^8.60.0"
     },
-    "main": "main.js",
+    "main": "build/main.js",
     "files": [
         "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).{json,json5}",
         "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js,eot,ttf,woff,woff2}",
-        "lib/",
+        "build/",
         "io-package.json",
-        "LICENSE",
-        "main.js"
+        "LICENSE"
     ],
     "scripts": {
-        "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
+        "prebuild": "rimraf ./build",
+        "build": "build-adapter ts",
+        "watch": "build-adapter ts --watch",
+        "test:js": "mocha --config test/mocharc.custom.json \"build/**/*.test.js\"",
         "test:package": "mocha test/package --exit",
         "test:unit": "mocha test/unit --exit",
         "test:integration": "mocha test/integration --exit",
-        "test": "npm run test:js && npm run test:package",
-        "check": "tsc --noEmit -p tsconfig.check.json",
-        "lint": "eslint",
+        "test": "npm run test:package",
+        "check": "tsc --noEmit",
+        "lint": "eslint src",
         "release": "release-script"
     },
     "readmeFilename": "README.md"

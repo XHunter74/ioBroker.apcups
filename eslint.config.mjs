@@ -6,9 +6,9 @@ export default [
         ignores: [
             'admin/words.js',
             'node_modules/',
+            'build/',
             '**/test/',
-            'main.test.js',
-            'lib/adapter-config.d.ts',
+            'src/lib/adapter-config.d.ts',
         ],
     },
     {

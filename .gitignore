@@ -11,6 +11,9 @@ iobroker.*.tgz
 # ioBroker dev-server
 .dev-server/
 
+# TypeScript build output
+build/
+
 Thumbs.db
 
 # i18n intermediate files
