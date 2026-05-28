@@ -26,6 +26,12 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 ## Changelog
+### 6.0.0 (2026-05-28)
+- Migrated adapter source code to TypeScript
+- Added TypeScript build pipeline
+- CI now tests on all branches
+- Updated dependencies
+
 ### 5.0.9 (2026-05-28)
 - Migrated i18n to short format (`{lang}.json`)
 - Migrated ESLint config to `@iobroker/eslint-config`
@@ -50,9 +56,6 @@ More useful information about apcupsd config for Ubuntu you can find on https://
   - Migration to Trusted Publishing
 ### 5.0.2 (2025-10-10) 
  - Updated dependencies
-### 5.0.0 (2025-05-01)
- - BREAKING! Changed the minimal version of nodejs to 20. Updated dependencies.
-
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
 ## License

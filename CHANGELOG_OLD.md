@@ -1,5 +1,8 @@
 # Older changes
 
+### 5.0.0 (2025-05-01)
+- BREAKING! Changed the minimal version of nodejs to 20. Updated dependencies.
+
 ### 4.0.5 (2025-03-01) 
  - Updated dependencies
 ### 4.0.2 (2024-10-16) 
