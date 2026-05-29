@@ -37,7 +37,6 @@ class ApcUpsAdapter extends utils.Adapter {
     private async onReady(): Promise<void> {
         if (!this.config.upsList || this.config.upsList.length === 0 || !this.validateIPList(this.config.upsList)) {
             this.log.error(`Invalid UPS list: ${JSON.stringify(this.config.upsList)}`);
-            void this.stop?.();
             return;
         }
 
@@ -47,7 +46,6 @@ class ApcUpsAdapter extends utils.Adapter {
             this.config.pollingInterval > MaxPollInterval
         ) {
             this.log.error(`Invalid poll interval: ${this.config.pollingInterval}`);
-            void this.stop?.();
             return;
         }
 
