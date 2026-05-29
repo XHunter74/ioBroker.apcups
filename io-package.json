@@ -1,21 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "6.0.0",
+        "version": "6.0.1",
         "news": {
-            "5.0.2": {
-                "en": "Updated dependencies.",
-                "de": "Abhängigkeiten aktualisiert.",
-                "ru": "Обновлены зависимости.",
-                "pt": "Dependências atualizadas.",
-                "nl": "Bijgewerkte afhankelijkheden.",
-                "fr": "Dépendances mises à jour.",
-                "it": "Dipendenze aggiornate.",
-                "es": "Dependencias actualizadas.",
-                "pl": "Zaktualizowane zależności.",
-                "uk": "Оновлені залежності.",
-                "zh-cn": "更新的依赖项。"
-            },
             "5.0.3": {
                 "en": "Migration to Trusted Publishing",
                 "de": "Migration zu Trusted Publishing",
@@ -80,6 +67,19 @@
                 "pl": "Kod źródłowy adaptera zmigrowany do TypeScript. Dodano pipeline budowania TypeScript. CI teraz testuje wszystkie gałęzie. Zaktualizowano zależności.",
                 "uk": "Вихідний код адаптера перенесено на TypeScript. Додано конвеєр збірки TypeScript. CI тепер тестує всі гілки. Оновлено залежності.",
                 "zh-cn": "将适配器源代码迁移到 TypeScript。添加了 TypeScript 构建管道。CI 现在测试所有分支。更新了依赖项。"
+            },
+            "6.0.1": {
+                "en": "Fixed adapter startup on invalid configuration. Fixed CI workflow for TypeScript build. Updated dependencies.",
+                "de": "Adapterstart bei ungültiger Konfiguration behoben. CI-Workflow für TypeScript-Build korrigiert. Abhängigkeiten aktualisiert.",
+                "ru": "Исправлен запуск адаптера при неверной конфигурации. Исправлен CI-воркфлоу для сборки TypeScript. Обновлены зависимости.",
+                "pt": "Corrigida a inicialização do adaptador com configuração inválida. Corrigido o fluxo CI para build TypeScript. Dependências atualizadas.",
+                "nl": "Opstart van adapter bij ongeldige configuratie opgelost. CI-workflow voor TypeScript-build gecorrigeerd. Afhankelijkheden bijgewerkt.",
+                "fr": "Correction du démarrage de l'adaptateur avec une configuration invalide. Correction du workflow CI pour la compilation TypeScript. Dépendances mises à jour.",
+                "it": "Corretto l'avvio dell'adattatore con configurazione non valida. Corretto il workflow CI per la build TypeScript. Dipendenze aggiornate.",
+                "es": "Corregido el inicio del adaptador con configuración no válida. Corregido el flujo CI para la compilación TypeScript. Dependencias actualizadas.",
+                "pl": "Naprawiono uruchamianie adaptera przy nieprawidłowej konfiguracji. Naprawiono przepływ CI dla kompilacji TypeScript. Zaktualizowano zależności.",
+                "uk": "Виправлено запуск адаптера при невірній конфігурації. Виправлено CI-воркфлоу для збірки TypeScript. Оновлено залежності.",
+                "zh-cn": "修复了无效配置时适配器的启动问题。修复了 TypeScript 构建的 CI 工作流。更新了依赖项。"
             }
         },
         "titleLang": {
