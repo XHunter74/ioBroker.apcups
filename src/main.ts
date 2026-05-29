@@ -41,7 +41,11 @@ class ApcUpsAdapter extends utils.Adapter {
             return;
         }
 
-        if (this.config.pollingInterval < MinPollInterval || isNaN(this.config.pollingInterval) || this.config.pollingInterval > MaxPollInterval) {
+        if (
+            this.config.pollingInterval < MinPollInterval ||
+            isNaN(this.config.pollingInterval) ||
+            this.config.pollingInterval > MaxPollInterval
+        ) {
             this.log.error(`Invalid poll interval: ${this.config.pollingInterval}`);
             void this.stop?.();
             return;
@@ -121,7 +125,8 @@ class ApcUpsAdapter extends utils.Adapter {
 
     private validateIPList(ipList: UpsListItem[]): boolean {
         try {
-            const ipPattern = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            const ipPattern =
+                /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
             for (const networkItem of ipList) {
                 if (!ipPattern.test(networkItem.upsIp)) {
                     return false;
@@ -205,7 +210,13 @@ class ApcUpsAdapter extends utils.Adapter {
         if (this.supportsFeature && this.supportsFeature('PLUGINS')) {
             const sentryInstance = this.getPluginInstance('sentry') as { getSentryObject?(): unknown } | null;
             if (sentryInstance) {
-                const Sentry = sentryInstance.getSentryObject?.() as { configureScope?: (fn: (scope: unknown) => void) => void; captureException?: (err: unknown) => void; Severity?: Record<string, unknown> } | undefined;
+                const Sentry = sentryInstance.getSentryObject?.() as
+                    | {
+                          configureScope?: (fn: (scope: unknown) => void) => void;
+                          captureException?: (err: unknown) => void;
+                          Severity?: Record<string, unknown>;
+                      }
+                    | undefined;
                 if (Sentry) {
                     if (message) {
                         Sentry.configureScope?.((scope: unknown) => {
@@ -227,7 +238,12 @@ class ApcUpsAdapter extends utils.Adapter {
         }
     }
 
-    private async setUpsStates(upsId: string, ipAddress: string, ipPort: number, state: Record<string, string | number>): Promise<void> {
+    private async setUpsStates(
+        upsId: string,
+        ipAddress: string,
+        ipPort: number,
+        state: Record<string, string | number>,
+    ): Promise<void> {
         const aliveState = await this.getStateAsync(`${upsId}.info.alive`);
 
         if (aliveState && aliveState.val === false) {
@@ -249,12 +265,20 @@ class ApcUpsAdapter extends utils.Adapter {
                     if (instanceState != null) {
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     } else {
-                        const newState: StateInfo = { ...statesDefinition.defaultState, upsId: upsState.upsId, id: upsState.id };
+                        const newState: StateInfo = {
+                            ...statesDefinition.defaultState,
+                            upsId: upsState.upsId,
+                            id: upsState.id,
+                        };
                         await this.createAdapterState(upsId, newState);
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     }
                 } else {
-                    const newState: StateInfo = { ...statesDefinition.defaultState, upsId: field, id: field.toLowerCase() };
+                    const newState: StateInfo = {
+                        ...statesDefinition.defaultState,
+                        upsId: field,
+                        id: field.toLowerCase(),
+                    };
                     await this.createAdapterState(upsId, newState);
                     await this.setStateAsync(`${upsId}.${field.toLowerCase()}`, { val: value, ack: true });
                 }

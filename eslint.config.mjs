@@ -1,23 +1,23 @@
-import ioBroker from '@iobroker/eslint-config';
+import ioBrokerConfig from '@iobroker/eslint-config';
 
 export default [
-    ...ioBroker,
+    ...ioBrokerConfig,
+    {
+        rules: {
+            // JSDoc not used in this codebase
+            'jsdoc/require-jsdoc': 'off',
+            'jsdoc/require-param-description': 'off',
+            // Template expressions with unknown/error types are common in adapter logging
+            '@typescript-eslint/restrict-template-expressions': 'off',
+        },
+    },
     {
         ignores: [
             'admin/words.js',
             'node_modules/',
             'build/',
-            '**/test/',
+            'test/',
             'src/lib/adapter-config.d.ts',
         ],
-    },
-    {
-        rules: {
-            // Disable Prettier enforcement — code uses 4-space indent and single quotes
-            'prettier/prettier': 'off',
-            // JSDoc not used in this codebase
-            'jsdoc/require-jsdoc': 'off',
-            'jsdoc/require-param-description': 'off',
-        },
     },
 ];

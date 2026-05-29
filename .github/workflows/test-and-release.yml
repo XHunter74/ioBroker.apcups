@@ -70,11 +70,36 @@ jobs:
       - name: Run integration tests
         run: npm run test:integration
 
-  # Deploys the final package to NPM
-  deploy:
+  # Publishes Sentry release first — npm deploy is blocked until this succeeds
+  deploy-sentry:
     needs: [adapter-tests]
 
-    # Trigger this step only when a commit on any branch is tagged with a version number
+    if: |
+      contains(github.event.head_commit.message, '[skip ci]') == false &&
+      github.event_name == 'push' &&
+      startsWith(github.ref, 'refs/tags/v')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: private-person-ua
+          SENTRY_PROJECT: iobroker-apcups
+        with:
+          environment: production
+          version: iobroker.apcups@${{ github.ref_name }}
+
+  # Deploys the final package to NPM — only runs after Sentry release succeeds
+  deploy-npm:
+    needs: [deploy-sentry]
+
     if: |
       contains(github.event.head_commit.message, '[skip ci]') == false &&
       github.event_name == 'push' &&
@@ -87,24 +112,21 @@ jobs:
       id-token: write
 
     steps:
-      - name: Extract version from tag
-        id: extract_version
-        run: |
-          VERSION="${GITHUB_REF##*/v}"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Publish release to Sentry
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: private-person-ua
-          SENTRY_PROJECT: iobroker-apcups
-        run: |
-          npm install -g @sentry/cli
-          sentry-cli releases new iobroker.apcups@${{ steps.extract_version.outputs.version }}
-          sentry-cli releases finalize iobroker.apcups@${{ steps.extract_version.outputs.version }}
-
-      - uses: ioBroker/testing-action-deploy@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '24.x'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          sentry: false
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build TypeScript
+        run: npm run build
+      - name: Publish to NPM
+        run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
