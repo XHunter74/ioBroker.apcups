@@ -2,6 +2,7 @@
 // using the actual properties present in io-package.json
 // in order to provide typings for adapter.config properties
 
+import '@iobroker/types';
 import { native } from '../../io-package.json';
 
 interface UpsListItem {

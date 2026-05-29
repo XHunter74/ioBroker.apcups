@@ -1,17 +1,9 @@
 {
+    "extends": "@tsconfig/node22/tsconfig.json",
     "compilerOptions": {
-        "target": "ES2022",
-        "lib": ["ES2022"],
-        "module": "CommonJS",
-        "moduleResolution": "node",
-        "ignoreDeprecations": "6.0",
         "noEmit": true,
-        "strict": true,
-        "noImplicitAny": true,
-        "useUnknownInCatchVariables": false,
-        "esModuleInterop": true,
         "resolveJsonModule": true,
-        "skipLibCheck": true,
+        "useUnknownInCatchVariables": false,
         "sourceMap": true,
         "types": ["node"]
     },

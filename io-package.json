@@ -120,6 +120,7 @@
             "type": "free",
             "license": "MIT"
         },
+        "noGit": true,
         "platform": "Javascript/Node.js",
         "icon": "ups.png",
         "enabled": true,
