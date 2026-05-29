@@ -51,13 +51,13 @@ class ApcUpsAdapter extends utils.Adapter {
     private async onReady(): Promise<void> {
         if (!this.config.upsList || this.config.upsList.length === 0 || !this.validateIPList(this.config.upsList)) {
             this.log.error(`Invalid UPS list: ${JSON.stringify(this.config.upsList)}`);
-            this.terminate('Invalid UPS list configuration', 11);
+            void this.setState('info.connection', false, true);
             return;
         }
 
         if (this.config.pollingInterval < MinPollInterval || isNaN(this.config.pollingInterval) || this.config.pollingInterval > MaxPollInterval) {
             this.log.error(`Invalid poll interval: ${this.config.pollingInterval}`);
-            this.terminate('Invalid polling interval configuration', 11);
+            void this.setState('info.connection', false, true);
             return;
         }
 
