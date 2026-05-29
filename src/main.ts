@@ -3,7 +3,8 @@
 import * as utils from '@iobroker/adapter-core';
 import ApcAccess from './lib/apcaccess';
 import Normalizer from './lib/normalizer';
-import statesDefinition from './lib/states-definition.json';
+import * as statesDefinition from './lib/states-definition';
+import type { StateInfo } from './lib/types';
 
 const MinPollInterval = 1000;
 const MaxPollInterval = 60000;
@@ -15,20 +16,6 @@ interface UpsListItem {
     upsPort: number;
 }
 
-interface StateInfo {
-    id: string;
-    upsId: string;
-    name: string;
-    type: ioBroker.CommonType;
-    role: string;
-    unit?: string;
-}
-
-interface AdapterStatesDefinition {
-    defaultState: Omit<StateInfo, 'id' | 'upsId'>;
-    states: StateInfo[];
-}
-
 class ApcUpsAdapter extends utils.Adapter {
     private timeoutId: ioBroker.Timeout | undefined;
     private availabilityTimeout: ioBroker.Timeout | undefined;
@@ -36,7 +23,6 @@ class ApcUpsAdapter extends utils.Adapter {
     private readonly normalizer = new Normalizer();
     private initialized: Record<string, boolean> = {};
     private ipAddressStates: string[] = [];
-    private readonly adapterStates: AdapterStatesDefinition = statesDefinition as unknown as AdapterStatesDefinition;
 
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
@@ -256,19 +242,19 @@ class ApcUpsAdapter extends utils.Adapter {
         for (const field of fields) {
             const value = state[field];
             try {
-                const upsState = this.adapterStates.states.find(e => e.upsId == field);
+                const upsState = statesDefinition.states.find(e => e.upsId == field);
                 if (upsState) {
                     const upsStateId = `${upsId}.${upsState.id}`;
                     const instanceState = await this.getObjectAsync(upsStateId);
                     if (instanceState != null) {
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     } else {
-                        const newState: StateInfo = { ...this.adapterStates.defaultState, upsId: upsState.upsId, id: upsState.id };
+                        const newState: StateInfo = { ...statesDefinition.defaultState, upsId: upsState.upsId, id: upsState.id };
                         await this.createAdapterState(upsId, newState);
                         await this.setStateAsync(upsStateId, { val: value, ack: true });
                     }
                 } else {
-                    const newState: StateInfo = { ...this.adapterStates.defaultState, upsId: field, id: field.toLowerCase() };
+                    const newState: StateInfo = { ...statesDefinition.defaultState, upsId: field, id: field.toLowerCase() };
                     await this.createAdapterState(upsId, newState);
                     await this.setStateAsync(`${upsId}.${field.toLowerCase()}`, { val: value, ack: true });
                 }
@@ -331,7 +317,7 @@ class ApcUpsAdapter extends utils.Adapter {
             native: {},
         });
 
-        for (const stateInfo of this.adapterStates.states) {
+        for (const stateInfo of statesDefinition.states) {
             await this.createAdapterState(upsId, stateInfo);
         }
         this.initialized[upsId] = true;
