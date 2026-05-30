@@ -1,21 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "6.0.1",
+        "version": "6.0.2",
         "news": {
-            "5.0.3": {
-                "en": "Migration to Trusted Publishing",
-                "de": "Migration zu Trusted Publishing",
-                "ru": "Миграция в Trusted Publishing",
-                "pt": "Migração para Publicação Confiável",
-                "nl": "Migratie naar Trusted Publishing",
-                "fr": "Migration vers Trusted Publishing",
-                "it": "Migrazione a Trusted Publishing",
-                "es": "Migración a Publicación Confiable",
-                "pl": "Migracja do Trusted Publishing",
-                "uk": "Міграція в Trusted Publishing",
-                "zh-cn": "迁移到受信任的发布"
-            },
             "5.0.5": {
                 "en": "Fixed admin layout. Updated dependencies.",
                 "de": "Admin-Layout behoben. Abhängigkeiten aktualisiert.",
@@ -80,6 +67,19 @@
                 "pl": "Naprawiono uruchamianie adaptera przy nieprawidłowej konfiguracji. Naprawiono przepływ CI dla kompilacji TypeScript. Zaktualizowano zależności.",
                 "uk": "Виправлено запуск адаптера при невірній конфігурації. Виправлено CI-воркфлоу для збірки TypeScript. Оновлено залежності.",
                 "zh-cn": "修复了无效配置时适配器的启动问题。修复了 TypeScript 构建的 CI 工作流。更新了依赖项。"
+            },
+            "6.0.2": {
+                "en": "Fixed CI/CD deploy workflow to use Trusted Publishing. Fixed setTimeout usage in connection handler. Updated dependencies.",
+                "de": "CI/CD-Deploy-Workflow für Trusted Publishing korrigiert. setTimeout-Verwendung im Verbindungshandler behoben. Abhängigkeiten aktualisiert.",
+                "ru": "Исправлен CI/CD-воркфлоу деплоя для Trusted Publishing. Исправлено использование setTimeout в обработчике соединений. Обновлены зависимости.",
+                "pt": "Corrigido o fluxo CI/CD para usar Trusted Publishing. Corrigido uso de setTimeout no handler de conexão. Dependências atualizadas.",
+                "nl": "CI/CD-deploy-workflow gecorrigeerd voor Trusted Publishing. setTimeout-gebruik in verbindingshandler opgelost. Afhankelijkheden bijgewerkt.",
+                "fr": "Correction du workflow CI/CD pour utiliser Trusted Publishing. Correction de l'utilisation de setTimeout dans le handler de connexion. Dépendances mises à jour.",
+                "it": "Corretto il workflow CI/CD per usare Trusted Publishing. Corretto l'uso di setTimeout nel handler di connessione. Dipendenze aggiornate.",
+                "es": "Corregido el flujo CI/CD para usar Trusted Publishing. Corregido el uso de setTimeout en el manejador de conexión. Dependencias actualizadas.",
+                "pl": "Naprawiono przepływ CI/CD dla Trusted Publishing. Naprawiono użycie setTimeout w obsłudze połączeń. Zaktualizowano zależności.",
+                "uk": "Виправлено CI/CD-воркфлоу деплою для Trusted Publishing. Виправлено використання setTimeout в обробнику з'єднань. Оновлено залежності.",
+                "zh-cn": "修复了使用可信发布的 CI/CD 部署工作流。修复了连接处理程序中 setTimeout 的使用。更新了依赖项。"
             }
         },
         "titleLang": {

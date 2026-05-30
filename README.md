@@ -26,6 +26,11 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 ## Changelog
+### 6.0.2 (2026-05-30)
+- Fixed CI/CD deploy workflow to use Trusted Publishing
+- Fixed setTimeout usage in connection handler
+- Updated dependencies
+
 ### 6.0.1 (2026-05-29)
 - Fixed adapter startup on invalid configuration
 - Fixed CI workflow for TypeScript build
@@ -57,9 +62,6 @@ More useful information about apcupsd config for Ubuntu you can find on https://
 ### 5.0.5 (2025-12-25)
   - Fixed admin layout
   - Updated dependencies
-### 5.0.3 (2025-10-16)
-  - Migration to Trusted Publishing
-
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
 ## License

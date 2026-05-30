@@ -1,5 +1,8 @@
 # Older changes
 
+### 5.0.3 (2025-10-16)
+- Migration to Trusted Publishing
+
 ### 5.0.2 (2025-10-10)
 - Updated dependencies
 
