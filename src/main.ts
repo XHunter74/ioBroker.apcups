@@ -19,7 +19,10 @@ interface UpsListItem {
 class ApcUpsAdapter extends utils.Adapter {
     private timeoutId: ioBroker.Timeout | undefined;
     private availabilityTimeout: ioBroker.Timeout | undefined;
-    private readonly apcAccess = new ApcAccess();
+    private readonly apcAccess = new ApcAccess(
+        (cb, ms) => this.setTimeout(cb, ms),
+        handle => this.clearTimeout(handle as ioBroker.Timeout),
+    );
     private readonly normalizer = new Normalizer();
     private initialized: Record<string, boolean> = {};
     private ipAddressStates: string[] = [];

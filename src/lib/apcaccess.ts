@@ -3,6 +3,11 @@ import { Socket } from 'node:net';
 
 const CONNECT_TIMEOUT_MS = 5000;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SetTimeoutFn = (callback: () => void, ms: number) => any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ClearTimeoutFn = (handle: any) => void;
+
 interface ApcRequest {
     fulfill: (res: string) => void;
     reject: (error: Error) => void;
@@ -18,9 +23,13 @@ class ApcAccess extends EventEmitter {
     #receiveBuffer = Buffer.allocUnsafe(0);
     #lastHost = '';
     #lastPort = 0;
+    readonly #setTimeout: SetTimeoutFn;
+    readonly #clearTimeout: ClearTimeoutFn;
 
-    public constructor() {
+    public constructor(setTimeoutFn: SetTimeoutFn = setTimeout, clearTimeoutFn: ClearTimeoutFn = clearTimeout) {
         super();
+        this.#setTimeout = setTimeoutFn;
+        this.#clearTimeout = clearTimeoutFn;
         this.#socket = new Socket();
         this.#socket.on('data', this.#onDataReceived.bind(this));
         this.#socket.on('close', this.#onSocketClose.bind(this));
@@ -78,17 +87,18 @@ class ApcAccess extends EventEmitter {
 
     async connect(host = 'localhost', port = 3551): Promise<void> {
         return new Promise((fulfill, reject) => {
-            let timeoutHandle: ReturnType<typeof setTimeout>;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            let timeoutHandle: any;
 
             const handlers = {
                 onConnect: (): void => {
-                    clearTimeout(timeoutHandle);
+                    this.#clearTimeout(timeoutHandle);
                     this.#socket.removeListener('connect', handlers.onConnect);
                     this.#socket.removeListener('error', handlers.onError);
                     fulfill();
                 },
                 onError: (error: Error): void => {
-                    clearTimeout(timeoutHandle);
+                    this.#clearTimeout(timeoutHandle);
                     this.#socket.removeListener('connect', handlers.onConnect);
                     this.#socket.removeListener('error', handlers.onError);
                     reject(error);
@@ -101,7 +111,7 @@ class ApcAccess extends EventEmitter {
                 this.#socket.connect(port, host);
                 this.#socket.on('connect', handlers.onConnect);
                 this.#socket.on('error', handlers.onError);
-                timeoutHandle = setTimeout(() => {
+                timeoutHandle = this.#setTimeout(() => {
                     this.#socket.removeListener('connect', handlers.onConnect);
                     this.#socket.removeListener('error', handlers.onError);
                     this.#socket.destroy();
