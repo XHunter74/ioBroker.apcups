@@ -78,27 +78,18 @@ class ApcAccess extends EventEmitter {
 
     async connect(host = 'localhost', port = 3551): Promise<void> {
         return new Promise((fulfill, reject) => {
-            const cleanup = (): void => {
-                this.#socket.setTimeout(0);
-                this.#socket.removeListener('connect', handlers.onConnect);
-                this.#socket.removeListener('error', handlers.onError);
-                this.#socket.removeListener('timeout', handlers.onTimeout);
+            const listeners: Array<[string, (...args: any[]) => void]> = [];
+
+            const addListener = (event: string, fn: (...args: any[]) => void): void => {
+                listeners.push([event, fn]);
+                this.#socket.on(event, fn);
             };
 
-            const handlers = {
-                onConnect: (): void => {
-                    cleanup();
-                    fulfill();
-                },
-                onError: (error: Error): void => {
-                    cleanup();
-                    reject(error);
-                },
-                onTimeout: (): void => {
-                    cleanup();
-                    this.#socket.destroy();
-                    reject(new Error(`Connection to ${host}:${port} timed out`));
-                },
+            const cleanup = (): void => {
+                this.#socket.setTimeout(0);
+                for (const [event, fn] of listeners) {
+                    this.#socket.removeListener(event, fn);
+                }
             };
 
             if (!this.#isConnected && !this.#socket.connecting) {
@@ -106,9 +97,19 @@ class ApcAccess extends EventEmitter {
                 this.#lastPort = port;
                 this.#socket.setTimeout(CONNECT_TIMEOUT_MS);
                 this.#socket.connect(port, host);
-                this.#socket.on('connect', handlers.onConnect);
-                this.#socket.on('error', handlers.onError);
-                this.#socket.on('timeout', handlers.onTimeout);
+                addListener('connect', () => {
+                    cleanup();
+                    fulfill();
+                });
+                addListener('error', (error: Error) => {
+                    cleanup();
+                    reject(error);
+                });
+                addListener('timeout', () => {
+                    cleanup();
+                    this.#socket.destroy();
+                    reject(new Error(`Connection to ${host}:${port} timed out`));
+                });
             } else if (this.#isConnected) {
                 reject(new Error(`Already connected to ${this.#socket.remoteAddress}:${this.#socket.remotePort}`));
             } else {
