@@ -1,5 +1,9 @@
 # Older changes
 
+### 5.0.5 (2025-12-25)
+- Fixed admin layout
+- Updated dependencies
+
 ### 5.0.3 (2025-10-16)
 - Migration to Trusted Publishing
 

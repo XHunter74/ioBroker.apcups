@@ -1,21 +1,8 @@
 {
     "common": {
         "name": "apcups",
-        "version": "6.0.2",
+        "version": "6.0.3",
         "news": {
-            "5.0.5": {
-                "en": "Fixed admin layout. Updated dependencies.",
-                "de": "Admin-Layout behoben. Abhängigkeiten aktualisiert.",
-                "ru": "Исправлена панель настроек. Обновлены зависимости.",
-                "pt": "Layout do administrador corrigido. Dependências atualizadas.",
-                "nl": "Beheerderslay-out gerepareerd. Bijgewerkte afhankelijkheden.",
-                "fr": "Mise en page de l'administrateur corrigée. Dépendances mises à jour.",
-                "it": "Layout amministrativo corretto. Dipendenze aggiornate.",
-                "es": "Diseño de administrador corregido. Dependencias actualizadas.",
-                "pl": "Naprawiono układ administratora. Zaktualizowane zależności.",
-                "uk": "Виправлена панель налаштуваннь. Оновлені залежності.",
-                "zh-cn": "修复了管理员布局。 更新的依赖项。"
-            },
             "5.0.8": {
                 "en": "Fixed several bugs: float regex now matches whole numbers, integer fields use parseInt, state object mutation fixed, null dereference in availability check fixed, connection log fixed. Added 5-second connection timeout. Updated CI workflow and dependencies.",
                 "de": "Mehrere Fehler behoben: Float-Regex erkennt jetzt ganze Zahlen, Integer-Felder verwenden parseInt, State-Objekt-Mutation behoben, Null-Dereferenzierung in der Verfügbarkeitsprüfung behoben, Verbindungsprotokoll korrigiert. 5-Sekunden-Verbindungstimeout hinzugefügt. CI-Workflow und Abhängigkeiten aktualisiert.",
@@ -80,6 +67,19 @@
                 "pl": "Naprawiono przepływ CI/CD dla Trusted Publishing. Naprawiono użycie setTimeout w obsłudze połączeń. Zaktualizowano zależności.",
                 "uk": "Виправлено CI/CD-воркфлоу деплою для Trusted Publishing. Виправлено використання setTimeout в обробнику з'єднань. Оновлено залежності.",
                 "zh-cn": "修复了使用可信发布的 CI/CD 部署工作流。修复了连接处理程序中 setTimeout 的使用。更新了依赖项。"
+            },
+            "6.0.3": {
+                "en": "Fixed ESLint configuration. Removed obsolete devDependencies. Refactored connection timeout to use native socket timeout. Updated npm configuration.",
+                "de": "ESLint-Konfiguration korrigiert. Veraltete devDependencies entfernt. Verbindungstimeout auf natives Socket-Timeout umgestellt. npm-Konfiguration aktualisiert.",
+                "ru": "Исправлена конфигурация ESLint. Удалены устаревшие devDependencies. Таймаут подключения переработан с использованием нативного таймаута сокета. Обновлена конфигурация npm.",
+                "pt": "Configuração ESLint corrigida. DevDependencies obsoletas removidas. Timeout de conexão refatorado para usar timeout nativo do socket. Configuração npm atualizada.",
+                "nl": "ESLint-configuratie gecorrigeerd. Verouderde devDependencies verwijderd. Verbindingstimeout herschreven met native socket-timeout. npm-configuratie bijgewerkt.",
+                "fr": "Configuration ESLint corrigée. DevDependencies obsolètes supprimées. Timeout de connexion refactorisé pour utiliser le timeout natif du socket. Configuration npm mise à jour.",
+                "it": "Configurazione ESLint corretta. DevDependencies obsolete rimosse. Timeout di connessione refactorizzato per usare il timeout nativo del socket. Configurazione npm aggiornata.",
+                "es": "Configuración ESLint corregida. DevDependencies obsoletas eliminadas. Timeout de conexión refactorizado para usar el timeout nativo del socket. Configuración npm actualizada.",
+                "pl": "Naprawiono konfigurację ESLint. Usunięto przestarzałe devDependencies. Przebudowano timeout połączenia z użyciem natywnego timeoutu gniazda. Zaktualizowano konfigurację npm.",
+                "uk": "Виправлено конфігурацію ESLint. Видалено застарілі devDependencies. Рефакторинг таймауту підключення з використанням нативного таймауту сокета. Оновлено конфігурацію npm.",
+                "zh-cn": "修复了 ESLint 配置。移除了过时的 devDependencies。重构连接超时以使用原生套接字超时。更新了 npm 配置。"
             }
         },
         "titleLang": {
