@@ -137,6 +137,7 @@
         },
         "connectionType": "local",
         "dataSource": "poll",
+        "nogit": true,
         "plugins": {
             "sentry": {
                 "dsn": "https://6e76ce9a7c7b47f3ab000042eeb15abb@o1146681.ingest.sentry.io/6215699"

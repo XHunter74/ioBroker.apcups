@@ -1,7 +1,7 @@
-import ioBrokerConfig from '@iobroker/eslint-config';
+import config from '@iobroker/eslint-config';
 
 export default [
-    ...ioBrokerConfig,
+    ...config,
     {
         rules: {
             // JSDoc not used in this codebase
