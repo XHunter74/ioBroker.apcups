@@ -44,7 +44,7 @@
         "@iobroker/testing": "^6.3.1",
         "@iobroker/types": ">=7.2.3",
         "@tsconfig/node22": "^22.0.6",
-        "@types/node": "^22.20.4",
+        "@types/node": "^22.20.5",
         "globals": "^17.13.0",
         "rimraf": "^6.0.1",
         "typescript": "^6.0.3"
